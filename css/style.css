@@ -10,6 +10,7 @@
   --line:      #e3dacd;   /* 구분선 */
   --accent:    #a8927a;   /* 포인트 색 (모카/베이지) */
   --serif:     "Cormorant Garamond", "Noto Sans KR", serif;
+  --display:   "Playfair Display", "Cormorant Garamond", serif;  /* 로고풍 메인 제목 폰트 */
   --sans:      "Noto Sans KR", -apple-system, BlinkMacSystemFont, sans-serif;
   --max:       1180px;
 }
@@ -87,7 +88,7 @@ a { color: inherit; text-decoration: none; }
 .hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(40,35,30,.35), rgba(40,35,30,.5)); }
 .hero-content { position: relative; color: #fff; padding: 0 24px; }
 .hero-eyebrow { font-size: 13px; letter-spacing: 4px; margin-bottom: 22px; font-weight: 300; opacity: .9; }
-.hero-title { font-family: var(--serif); font-size: clamp(48px, 11vw, 110px); font-weight: 500; letter-spacing: 6px; line-height: 1; }
+.hero-title { font-family: var(--display); font-size: clamp(48px, 11vw, 110px); font-weight: 600; letter-spacing: 2px; line-height: 1; }
 .hero-sub { margin-top: 22px; font-size: clamp(15px, 2.5vw, 19px); font-weight: 300; letter-spacing: 1px; }
 .hero-btn {
   display: inline-block; margin-top: 42px; padding: 14px 38px;
