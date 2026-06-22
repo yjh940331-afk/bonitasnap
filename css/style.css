@@ -1,0 +1,196 @@
+/* ============================================================
+   BONITA SNAP · 스타일
+   색상/폰트만 바꾸려면 아래 :root 변수만 수정하세요.
+   ============================================================ */
+:root {
+  --bg:        #faf7f2;   /* 전체 배경 (따뜻한 아이보리) */
+  --bg-alt:    #f1ebe2;   /* 섹션 교차 배경 */
+  --ink:       #2e2a26;   /* 기본 글자색 */
+  --muted:     #8c8279;   /* 보조 글자색 */
+  --line:      #e3dacd;   /* 구분선 */
+  --accent:    #a8927a;   /* 포인트 색 (모카/베이지) */
+  --serif:     "Cormorant Garamond", "Noto Sans KR", serif;
+  --sans:      "Noto Sans KR", -apple-system, BlinkMacSystemFont, sans-serif;
+  --max:       1180px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--bg);
+  font-weight: 300;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+.section { padding: 110px 24px; }
+.section-head { margin-bottom: 56px; }
+.section-head.center { text-align: center; }
+.section-label {
+  font-size: 12px; letter-spacing: 4px; color: var(--accent);
+  font-weight: 500; margin-bottom: 14px; text-transform: uppercase;
+}
+.section-title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(30px, 5vw, 46px); line-height: 1.2; letter-spacing: .5px;
+}
+
+/* ============ 헤더 ============ */
+.site-header {
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+  transition: background .4s, box-shadow .4s, padding .4s;
+  padding: 22px 0;
+}
+.site-header.scrolled {
+  background: rgba(250, 247, 242, .92);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 1px 0 var(--line);
+  padding: 14px 0;
+}
+.header-inner {
+  max-width: var(--max); margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo {
+  font-family: var(--serif); font-size: 22px; font-weight: 600;
+  letter-spacing: 3px; color: #fff; transition: color .4s;
+}
+.scrolled .logo { color: var(--ink); }
+.nav { display: flex; gap: 38px; }
+.nav a {
+  font-size: 13px; letter-spacing: 1.5px; color: #fff;
+  font-weight: 400; position: relative; transition: color .4s;
+}
+.scrolled .nav a { color: var(--ink); }
+.nav a::after {
+  content: ""; position: absolute; left: 0; bottom: -6px;
+  width: 0; height: 1px; background: var(--accent); transition: width .3s;
+}
+.nav a:hover::after { width: 100%; }
+
+.nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; }
+.nav-toggle span { width: 24px; height: 2px; background: #fff; transition: .3s; }
+.scrolled .nav-toggle span { background: var(--ink); }
+
+/* ============ 히어로 ============ */
+.hero { position: relative; height: 100vh; min-height: 600px; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+.hero-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  transform: scale(1.05); animation: heroZoom 14s ease-out forwards;
+}
+@keyframes heroZoom { to { transform: scale(1); } }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(40,35,30,.35), rgba(40,35,30,.5)); }
+.hero-content { position: relative; color: #fff; padding: 0 24px; }
+.hero-eyebrow { font-size: 13px; letter-spacing: 4px; margin-bottom: 22px; font-weight: 300; opacity: .9; }
+.hero-title { font-family: var(--serif); font-size: clamp(48px, 11vw, 110px); font-weight: 500; letter-spacing: 6px; line-height: 1; }
+.hero-sub { margin-top: 22px; font-size: clamp(15px, 2.5vw, 19px); font-weight: 300; letter-spacing: 1px; }
+.hero-btn {
+  display: inline-block; margin-top: 42px; padding: 14px 38px;
+  border: 1px solid rgba(255,255,255,.7); color: #fff;
+  font-size: 12px; letter-spacing: 3px; transition: .35s;
+}
+.hero-btn:hover { background: #fff; color: var(--ink); }
+.scroll-hint { position: absolute; bottom: 34px; left: 50%; transform: translateX(-50%); }
+.scroll-hint span { display: block; width: 1px; height: 50px; background: rgba(255,255,255,.6); animation: scrollPulse 2s ease-in-out infinite; }
+@keyframes scrollPulse { 0%,100%{ opacity:.2; transform:scaleY(.4); transform-origin:top;} 50%{ opacity:1; transform:scaleY(1);} }
+
+/* ============ 소개 ============ */
+.about { background: var(--bg-alt); }
+.about-grid { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+.about-img img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
+.about-text .section-title { margin-bottom: 26px; }
+.about-body p { color: var(--muted); margin-bottom: 12px; font-size: 16px; }
+
+/* ============ 포트폴리오 ============ */
+.portfolio { max-width: var(--max); margin: 0 auto; }
+.filters { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 46px; }
+.filter {
+  background: none; border: 1px solid var(--line); color: var(--muted);
+  padding: 9px 24px; font-size: 13px; letter-spacing: 1px; cursor: pointer;
+  border-radius: 40px; font-family: var(--sans); transition: .3s;
+}
+.filter:hover { border-color: var(--accent); color: var(--accent); }
+.filter.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+.gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.gallery-item { position: relative; overflow: hidden; cursor: pointer; aspect-ratio: 3/4; background: var(--bg-alt); }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s ease; }
+.gallery-item:hover img { transform: scale(1.06); }
+.gallery-item .cap {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 14px; letter-spacing: 2px;
+  background: rgba(46,42,38,.35); opacity: 0; transition: opacity .35s;
+}
+.gallery-item:hover .cap { opacity: 1; }
+
+/* ============ 가격 ============ */
+.price { background: var(--bg-alt); }
+.price-grid { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.price-card {
+  background: var(--bg); border: 1px solid var(--line); padding: 46px 34px; text-align: center;
+  transition: transform .35s, box-shadow .35s;
+}
+.price-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(80,68,55,.12); }
+.price-card h3 { font-family: var(--serif); font-size: 26px; font-weight: 600; letter-spacing: 1px; }
+.price-card .pc-desc { color: var(--muted); font-size: 14px; margin: 8px 0 22px; }
+.price-card .pc-price { font-size: 24px; font-weight: 500; color: var(--accent); margin-bottom: 24px; }
+.price-card ul { list-style: none; border-top: 1px solid var(--line); padding-top: 22px; }
+.price-card li { font-size: 14px; color: var(--muted); padding: 7px 0; }
+.price-note { text-align: center; color: var(--muted); font-size: 13px; margin-top: 34px; }
+
+/* ============ 문의 ============ */
+.contact { text-align: center; }
+.contact-lead { color: var(--muted); font-size: 16px; margin-bottom: 38px; }
+.contact-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+.contact-links a {
+  display: inline-flex; align-items: center; gap: 9px;
+  border: 1px solid var(--line); padding: 14px 30px; border-radius: 40px;
+  font-size: 14px; letter-spacing: .5px; transition: .3s;
+}
+.contact-links a:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ============ 푸터 ============ */
+.site-footer { text-align: center; padding: 56px 24px; border-top: 1px solid var(--line); }
+.footer-brand { font-family: var(--serif); font-size: 20px; letter-spacing: 3px; font-weight: 600; }
+.footer-copy { color: var(--muted); font-size: 12px; margin-top: 10px; }
+
+/* ============ 라이트박스 ============ */
+.lightbox { position: fixed; inset: 0; z-index: 200; background: rgba(28,24,21,.94); display: none; align-items: center; justify-content: center; }
+.lightbox.open { display: flex; }
+.lb-img { max-width: 88vw; max-height: 86vh; object-fit: contain; box-shadow: 0 10px 60px rgba(0,0,0,.5); }
+.lb-close { position: absolute; top: 24px; right: 30px; background: none; border: none; color: #fff; font-size: 40px; cursor: pointer; line-height: 1; }
+.lb-nav { position: absolute; top: 50%; transform: translateY(-50%); background: none; border: none; color: #fff; font-size: 60px; cursor: pointer; padding: 0 20px; opacity: .7; transition: opacity .2s; }
+.lb-nav:hover { opacity: 1; }
+.lb-prev { left: 10px; } .lb-next { right: 10px; }
+
+/* ============ 스크롤 등장 애니메이션 ============ */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity .8s ease, transform .8s ease; }
+.reveal.in { opacity: 1; transform: none; }
+
+/* ============ 반응형 ============ */
+@media (max-width: 860px) {
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .gallery { grid-template-columns: repeat(2, 1fr); }
+  .price-grid { grid-template-columns: 1fr; max-width: 440px; }
+}
+@media (max-width: 640px) {
+  .section { padding: 80px 20px; }
+  .nav {
+    position: fixed; top: 0; right: 0; height: 100vh; width: 72%; max-width: 300px;
+    background: var(--bg); flex-direction: column; justify-content: center; gap: 30px;
+    padding: 40px; transform: translateX(100%); transition: transform .4s; box-shadow: -10px 0 40px rgba(0,0,0,.1);
+  }
+  .nav.open { transform: none; }
+  .nav a { color: var(--ink); font-size: 18px; }
+  .nav-toggle { display: flex; z-index: 110; }
+  .nav-toggle.open span { background: var(--ink); }
+  .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .gallery { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+}

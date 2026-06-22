@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BONITA SNAP · 결혼식 아이폰 스냅</title>
+  <meta name="description" content="보니타스냅 - 아이폰으로 담는 가장 자연스러운 결혼식 스냅. 본식, 돌, 행사 스냅 전문." />
+
+  <!-- 폰트 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ============ 헤더 ============ -->
+  <header class="site-header" id="header">
+    <div class="header-inner">
+      <a href="#hero" class="logo" data-brand>BONITA SNAP</a>
+
+      <nav class="nav" id="nav">
+        <a href="#about">About</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#price">Price</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <button class="nav-toggle" id="navToggle" aria-label="메뉴 열기">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============ 히어로 ============ -->
+  <section class="hero" id="hero">
+    <div class="hero-bg" data-hero-bg></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow" data-tagline>아이폰으로 담는 가장 자연스러운 순간</p>
+      <h1 class="hero-title" data-hero-title>BONITA SNAP</h1>
+      <p class="hero-sub" data-hero-sub>결혼식, 그 하루를 가장 당신답게</p>
+      <a href="#portfolio" class="hero-btn">VIEW PORTFOLIO</a>
+    </div>
+    <div class="scroll-hint"><span></span></div>
+  </section>
+
+  <!-- ============ 소개 ============ -->
+  <section class="about section" id="about">
+    <div class="about-grid">
+      <div class="about-img">
+        <img data-about-img alt="보니타스냅 소개" />
+      </div>
+      <div class="about-text">
+        <p class="section-label">ABOUT</p>
+        <h2 class="section-title" data-about-title>Natural &amp; Timeless</h2>
+        <div class="about-body" data-about-body></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 포트폴리오 ============ -->
+  <section class="portfolio section" id="portfolio">
+    <div class="section-head center">
+      <p class="section-label">PORTFOLIO</p>
+      <h2 class="section-title">담아낸 순간들</h2>
+    </div>
+
+    <div class="filters" id="filters">
+      <button class="filter active" data-filter="all">전체</button>
+      <button class="filter" data-filter="wedding">본식</button>
+      <button class="filter" data-filter="family">돌·가족</button>
+      <button class="filter" data-filter="event">행사</button>
+    </div>
+
+    <div class="gallery" id="gallery"><!-- JS로 자동 생성 --></div>
+  </section>
+
+  <!-- ============ 가격 ============ -->
+  <section class="price section" id="price">
+    <div class="section-head center">
+      <p class="section-label">PRICE</p>
+      <h2 class="section-title">촬영 상품</h2>
+    </div>
+    <div class="price-grid" id="priceGrid"><!-- JS로 자동 생성 --></div>
+    <p class="price-note">* 모든 상품의 자세한 안내와 일정은 문의를 통해 확인해 주세요.</p>
+  </section>
+
+  <!-- ============ 문의 ============ -->
+  <section class="contact section" id="contact">
+    <div class="section-head center">
+      <p class="section-label">CONTACT</p>
+      <h2 class="section-title">예약 &amp; 문의</h2>
+    </div>
+    <p class="contact-lead">결혼식, 돌, 행사 스냅 예약을 도와드립니다.<br />아래 채널로 편하게 연락 주세요.</p>
+    <div class="contact-links" id="contactLinks"><!-- JS로 자동 생성 --></div>
+  </section>
+
+  <!-- ============ 푸터 ============ -->
+  <footer class="site-footer">
+    <p class="footer-brand" data-brand>BONITA SNAP</p>
+    <p class="footer-copy">© <span id="year"></span> BONITA SNAP. All rights reserved.</p>
+  </footer>
+
+  <!-- ============ 라이트박스 ============ -->
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" id="lbClose" aria-label="닫기">&times;</button>
+    <button class="lb-nav lb-prev" id="lbPrev" aria-label="이전">&#8249;</button>
+    <img class="lb-img" id="lbImg" alt="" />
+    <button class="lb-nav lb-next" id="lbNext" aria-label="다음">&#8250;</button>
+  </div>
+
+  <script src="js/site-config.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
