@@ -9,6 +9,44 @@
   var $ = function (s) { return document.querySelector(s); };
   var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
 
+  /* ============================================================
+     로그인 잠금
+     - 비밀번호는 SHA-256 해시로만 비교(평문 저장 안 함)
+     - 기본 비밀번호: bonita2026  → 발행설정 탭에서 꼭 변경하세요
+     - 변경한 비밀번호는 site-config.js(adminPassHash)에 저장돼 모든 기기 적용
+     ※ 정적 사이트 특성상 완벽한 보안은 아니며, 실제 사이트 변경은
+       GitHub 토큰이 있어야만 가능합니다(토큰은 이 브라우저에만 저장).
+     ============================================================ */
+  var DEFAULT_PASS_HASH = "5f8037ad1f8e442338c5cfb1178a5a20afc6524caacaf66c4b521e67f8620f77"; // "bonita2026"
+  function sha256(text) {
+    var data = new TextEncoder().encode(text);
+    return crypto.subtle.digest("SHA-256", data).then(function (buf) {
+      return Array.prototype.map.call(new Uint8Array(buf), function (b) {
+        return ("0" + b.toString(16)).slice(-2);
+      }).join("");
+    });
+  }
+  function effectiveHash() {
+    return (window.SITE_CONFIG && window.SITE_CONFIG.adminPassHash) || DEFAULT_PASS_HASH;
+  }
+  (function gate() {
+    var lock = $("#lock"), form = $("#lockForm"), pass = $("#lockPass"), msg = $("#lockMsg");
+    if (sessionStorage.getItem("bonita_admin_ok") === "1") { lock.remove(); return; }
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      sha256(pass.value).then(function (h) {
+        if (h === effectiveHash()) {
+          sessionStorage.setItem("bonita_admin_ok", "1");
+          lock.remove();
+        } else {
+          msg.textContent = "비밀번호가 올바르지 않습니다.";
+          pass.value = ""; pass.focus();
+        }
+      });
+    });
+    pass.focus();
+  })();
+
   /* ---------- 데이터 준비 (현재 설정 복제) ---------- */
   var DEFAULT = {
     brand: "BONITA SNAP", tagline: "", phone: "", email: "", instagram: "", kakao: "",
@@ -267,6 +305,19 @@
     a.href = URL.createObjectURL(blob); a.download = "site-config.js";
     document.body.appendChild(a); a.click(); a.remove();
     toast("내려받기 완료! 이 파일을 GitHub의 js 폴더에 올리면 반영돼요.", "ok");
+  });
+
+  /* ---------- 비밀번호 변경 ---------- */
+  $("#btnSetPw").addEventListener("click", function () {
+    var a = $("#pw-new").value, b = $("#pw-new2").value;
+    if (!a || a.length < 4) { toast("비밀번호는 4자 이상으로 정하세요.", "err"); return; }
+    if (a !== b) { toast("두 비밀번호가 일치하지 않습니다.", "err"); return; }
+    sha256(a).then(function (h) {
+      D.adminPassHash = h;
+      $("#pw-new").value = ""; $("#pw-new2").value = "";
+      toast("비밀번호 적용됨! 발행 또는 내려받기를 눌러 저장하세요.", "ok");
+      updateSize();
+    });
   });
 
   /* ---------- GitHub 설정 저장/불러오기 ---------- */
