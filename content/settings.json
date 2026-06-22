@@ -107,6 +107,71 @@
       "caption": "본식 스냅"
     }
   ],
+  "portfolioAlbums": [
+    {
+      "title": "본식 스냅",
+      "category": "wedding",
+      "cover": "/images/uploads/photo-2.jpg",
+      "description": "대표 웨딩 스냅 모음",
+      "images": [
+        {
+          "image": "/images/uploads/photo-1.jpg",
+          "youtube": "",
+          "caption": "본식 스냅"
+        },
+        {
+          "image": "/images/uploads/photo-2.jpg",
+          "youtube": "",
+          "caption": "본식 스냅"
+        },
+        {
+          "image": "/images/uploads/photo-3.jpg",
+          "youtube": "",
+          "caption": "본식 스냅"
+        },
+        {
+          "image": "/images/uploads/photo-4.jpg",
+          "youtube": "",
+          "caption": "본식 스냅"
+        },
+        {
+          "image": "/images/uploads/photo-5.jpg",
+          "youtube": "",
+          "caption": "본식 스냅"
+        },
+        {
+          "image": "/images/uploads/photo-6.jpg",
+          "youtube": "",
+          "caption": "본식 스냅"
+        },
+        {
+          "image": "/images/uploads/photo-7.jpg",
+          "youtube": "",
+          "caption": "본식 스냅"
+        },
+        {
+          "image": "/images/uploads/photo-8.jpg",
+          "youtube": "",
+          "caption": "본식 스냅"
+        },
+        {
+          "image": "/images/uploads/photo-9.jpg",
+          "youtube": "",
+          "caption": "본식 스냅"
+        },
+        {
+          "image": "/images/uploads/photo-10.jpg",
+          "youtube": "",
+          "caption": "본식 스냅"
+        },
+        {
+          "image": "/images/uploads/photo-11.jpg",
+          "youtube": "",
+          "caption": "본식 스냅"
+        }
+      ]
+    }
+  ],
   "about": {
     "image": "/images/uploads/photo-1.jpg",
     "title": "𝐵𝑜𝑛𝑖𝑡𝑎 𝑆𝑛𝑎𝑝",
@@ -189,93 +254,6 @@
     "title": "BONITA SNAP",
     "subtitle": "가장 아름답게 기억되고 싶은, 가장 예쁘게 기록하고 싶은 나의 웨딩 데이"
   },
-  "reviews": [
-    {
-      "name": "양O은 신부님",
-      "venue": "그랜드 웨딩홀",
-      "date": "2026.04",
-      "text": "정말 자연스럽게 찍어주셔서 사진 받고 둘 다 울었어요. 부담스럽지 않게 다가와 주셔서 표정이 편하게 나왔어요!",
-      "image": ""
-    },
-    {
-      "name": "이O지 신부님",
-      "venue": "더채플 청담",
-      "date": "2026.03",
-      "text": "원본도 빨리 주시고 보정 톤이 너무 예뻐요. 하객분들도 어디서 찍었냐고 많이 물어봤어요.",
-      "image": ""
-    },
-    {
-      "name": "박O수 신랑님",
-      "venue": "롯데호텔",
-      "date": "2026.02",
-      "text": "아이폰 스냅이라 걱정했는데 결과물 보고 깜짝 놀랐습니다. 감성적인 컷이 정말 많아요. 강력 추천!",
-      "image": ""
-    }
-  ],
-  "email": "",
-  "portfolioAlbums": [
-    {
-      "title": "본식 스냅",
-      "category": "wedding",
-      "cover": "/images/uploads/photo-2.jpg",
-      "description": "대표 웨딩 스냅 모음",
-      "images": [
-        {
-          "image": "/images/uploads/photo-1.jpg",
-          "youtube": "",
-          "caption": "본식 스냅"
-        },
-        {
-          "image": "/images/uploads/photo-2.jpg",
-          "youtube": "",
-          "caption": "본식 스냅"
-        },
-        {
-          "image": "/images/uploads/photo-3.jpg",
-          "youtube": "",
-          "caption": "본식 스냅"
-        },
-        {
-          "image": "/images/uploads/photo-4.jpg",
-          "youtube": "",
-          "caption": "본식 스냅"
-        },
-        {
-          "image": "/images/uploads/photo-5.jpg",
-          "youtube": "",
-          "caption": "본식 스냅"
-        },
-        {
-          "image": "/images/uploads/photo-6.jpg",
-          "youtube": "",
-          "caption": "본식 스냅"
-        },
-        {
-          "image": "/images/uploads/photo-7.jpg",
-          "youtube": "",
-          "caption": "본식 스냅"
-        },
-        {
-          "image": "/images/uploads/photo-8.jpg",
-          "youtube": "",
-          "caption": "본식 스냅"
-        },
-        {
-          "image": "/images/uploads/photo-9.jpg",
-          "youtube": "",
-          "caption": "본식 스냅"
-        },
-        {
-          "image": "/images/uploads/photo-10.jpg",
-          "youtube": "",
-          "caption": "본식 스냅"
-        },
-        {
-          "image": "/images/uploads/photo-11.jpg",
-          "youtube": "",
-          "caption": "본식 스냅"
-        }
-      ]
-    }
-  ]
+  "reviews": [],
+  "email": ""
 }
