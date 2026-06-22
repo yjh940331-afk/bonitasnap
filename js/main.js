@@ -124,6 +124,83 @@
     });
   }
 
+  /* ---------- 후기 ---------- */
+  var reviewGrid = $("#reviewGrid");
+  if (reviewGrid && C.reviews) {
+    reviewGrid.innerHTML = C.reviews.map(function (r, i) {
+      var photo = r.image ? '<img class="r-photo" src="' + r.image + '" alt="후기 사진" loading="lazy" />' : "";
+      var sub = [r.venue, r.date].filter(Boolean).join(" · ");
+      return '<div class="review-card reveal" style="transition-delay:' + (Math.min(i, 5) * 0.07) + 's">' +
+        photo +
+        '<div class="stars">★★★★★</div>' +
+        '<p class="r-text">' + (r.text || "") + "</p>" +
+        '<div class="r-meta"><div class="r-name">' + (r.name || "") + "</div>" +
+        (sub ? '<div class="r-sub">' + sub + "</div>" : "") + "</div></div>";
+    }).join("");
+  }
+
+  /* ---------- 예약 절차 ---------- */
+  var processList = $("#processList");
+  if (processList && C.process) {
+    processList.innerHTML = C.process.map(function (s, i) {
+      return '<div class="process-step reveal" style="transition-delay:' + (i * 0.08) + 's">' +
+        '<div class="num">' + (i + 1) + "</div>" +
+        '<div><div class="p-title">' + (s.title || "") + "</div>" +
+        '<div class="p-desc">' + (s.desc || "") + "</div></div></div>";
+    }).join("");
+  }
+
+  /* ---------- 예약 문의 폼 ---------- */
+  var bForm = $("#bookingForm");
+  if (bForm) {
+    if (C.booking && C.booking.note) {
+      var bn = $("#bookingNote");
+      if (bn) bn.innerHTML = C.booking.note;
+    }
+    bForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var status = $("#bookingStatus");
+      var fd = new FormData(bForm);
+      var d = {
+        name: (fd.get("name") || "").trim(),
+        phone: (fd.get("phone") || "").trim(),
+        date: (fd.get("date") || "").trim(),
+        venue: (fd.get("venue") || "").trim(),
+        message: (fd.get("message") || "").trim(),
+      };
+      if (!d.name || !d.phone) { status.className = "bf-status err"; status.textContent = "이름과 연락처를 입력해 주세요."; return; }
+
+      var endpoint = C.booking && C.booking.endpoint;
+      if (endpoint) {
+        // Formspree 등으로 전송
+        var btn = bForm.querySelector(".bf-submit");
+        btn.disabled = true; status.className = "bf-status"; status.textContent = "보내는 중...";
+        fetch(endpoint, {
+          method: "POST", headers: { "Accept": "application/json" }, body: fd,
+        }).then(function (r) {
+          if (r.ok) {
+            bForm.reset(); status.className = "bf-status ok";
+            status.textContent = "예약 문의가 접수되었어요! 빠르게 연락드릴게요.";
+          } else { throw new Error("fail"); }
+        }).catch(function () {
+          status.className = "bf-status err";
+          status.textContent = "전송에 실패했어요. 카카오톡/인스타그램으로 연락 부탁드려요.";
+        }).then(function () { btn.disabled = false; });
+      } else {
+        // 설정된 이메일로 메일 앱 열기
+        var to = C.email || "";
+        var subject = "[예약문의] " + d.name + "님";
+        var body =
+          "이름: " + d.name + "\n연락처: " + d.phone +
+          "\n예식일: " + (d.date || "-") + "\n예식장: " + (d.venue || "-") +
+          "\n\n문의내용:\n" + (d.message || "-");
+        window.location.href = "mailto:" + to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+        status.className = "bf-status ok";
+        status.textContent = "메일 앱이 열렸어요. 전송을 완료해 주세요. (또는 아래 채널로 연락 주세요)";
+      }
+    });
+  }
+
   /* ---------- 라이트박스 (사진 + 영상) ---------- */
   var lb = $("#lightbox"), lbStage = $("#lbStage");
   var visible = [];          // 현재 보이는 항목 인덱스 목록

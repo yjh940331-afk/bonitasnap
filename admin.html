@@ -110,6 +110,8 @@
       <button class="tab active" data-pane="photos">📷 사진 · 영상</button>
       <button class="tab" data-pane="basic">🏠 기본 정보 · 소개</button>
       <button class="tab" data-pane="price">💰 가격</button>
+      <button class="tab" data-pane="review">💬 후기</button>
+      <button class="tab" data-pane="process">🧭 예약 · 절차</button>
       <button class="tab" data-pane="faq">❓ Q&amp;A</button>
       <button class="tab" data-pane="publish">⚙️ 발행 설정</button>
     </div>
@@ -199,6 +201,41 @@
         <p class="hint">상품을 추가/수정/삭제하세요. (특징은 한 줄에 하나씩)</p>
         <div id="priceList"></div>
         <button class="btn btn-ghost btn-sm" id="btnAddPrice">+ 상품 추가</button>
+      </div>
+    </div>
+
+    <!-- ===== 후기 ===== -->
+    <div class="pane" id="pane-review">
+      <div class="card">
+        <h2>신랑신부 후기</h2>
+        <p class="hint">후기를 추가/수정/삭제하세요. 사진은 선택사항입니다.</p>
+        <div id="reviewList"></div>
+        <button class="btn btn-ghost btn-sm" id="btnAddReview">+ 후기 추가</button>
+      </div>
+    </div>
+
+    <!-- ===== 예약 절차 + 폼 설정 ===== -->
+    <div class="pane" id="pane-process">
+      <div class="card">
+        <h2>예약 절차 단계</h2>
+        <p class="hint">예약 진행 단계를 추가/수정/삭제하세요. 번호는 순서대로 자동 매겨집니다.</p>
+        <div id="processList2"></div>
+        <button class="btn btn-ghost btn-sm" id="btnAddProcess">+ 단계 추가</button>
+      </div>
+      <div class="card">
+        <h2>예약 문의 폼 설정</h2>
+        <p class="hint">방문자가 폼을 보내면 어디로 받을지 설정합니다.</p>
+        <label>폼 위 안내 문구</label>
+        <input type="text" id="f-bookingNote" placeholder="예: 예식일과 예식장을 함께 남겨주시면 더 빠르게 안내해 드려요." />
+        <label>Formspree 주소 (선택)</label>
+        <input type="url" id="f-bookingEndpoint" placeholder="https://formspree.io/f/xxxxxxxx" />
+        <details>
+          <summary>이게 뭔가요? (받는 방법 안내)</summary>
+          <p class="muted" style="margin-top:8px">
+            <b>비워두면</b>: 방문자가 '보내기'를 누를 때 메일 앱이 열려 기본 정보 탭의 <b>이메일</b>로 문의가 전송됩니다. (별도 가입 불필요)<br>
+            <b>Formspree를 쓰면</b>: <a href="https://formspree.io" target="_blank">formspree.io</a>(무료) 가입 → New form 생성 → 받는 이메일 등록 → 생성된 주소(<code>https://formspree.io/f/xxxx</code>)를 위에 붙여넣으면, 방문자가 폼을 보낼 때 사장님 이메일로 <b>자동 접수</b>됩니다. (메일 앱이 안 열려서 더 편리)
+          </p>
+        </details>
       </div>
     </div>
 

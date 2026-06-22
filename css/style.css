@@ -205,6 +205,58 @@ video.lb-media, iframe.lb-media { width: min(92vw, 1100px); aspect-ratio: 16/9; 
 .faq-a { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
 .faq-a-inner { padding: 0 8px 28px 54px; color: var(--muted); font-size: 15px; line-height: 1.8; }
 
+/* ============ 후기 ============ */
+.reviews { background: var(--bg-alt); }
+.review-grid { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.review-card {
+  background: var(--bg); border: 1px solid var(--line); border-radius: 4px; padding: 32px 28px;
+  display: flex; flex-direction: column; transition: transform .35s, box-shadow .35s;
+}
+.review-card:hover { transform: translateY(-5px); box-shadow: 0 16px 36px rgba(80,68,55,.1); }
+.review-card .stars { color: var(--accent); letter-spacing: 2px; font-size: 14px; margin-bottom: 14px; }
+.review-card .r-photo { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 4px; margin-bottom: 16px; }
+.review-card .r-text { font-size: 15px; color: var(--ink); line-height: 1.8; flex: 1; }
+.review-card .r-text::before { content: "\201C"; font-family: var(--serif); font-size: 40px; color: var(--line); line-height: 0; vertical-align: -18px; margin-right: 4px; }
+.review-card .r-meta { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
+.review-card .r-name { font-weight: 500; font-size: 14px; }
+.review-card .r-sub { font-size: 12.5px; color: var(--muted); margin-top: 3px; }
+
+/* ============ 예약 절차 ============ */
+.process-list { max-width: 980px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; position: relative; }
+.process-step { text-align: center; padding: 0 14px; position: relative; }
+.process-step:not(:last-child)::after {
+  content: ""; position: absolute; top: 26px; left: 50%; width: 100%; height: 1px;
+  background: var(--line); z-index: 0;
+}
+.process-step .num {
+  position: relative; z-index: 1; width: 54px; height: 54px; margin: 0 auto 18px;
+  border-radius: 50%; background: var(--bg); border: 1px solid var(--accent); color: var(--accent);
+  display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 22px; font-weight: 600;
+}
+.process-step .p-title { font-size: 15px; font-weight: 500; margin-bottom: 8px; }
+.process-step .p-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+/* ============ 예약 문의 폼 ============ */
+.booking-form { max-width: 620px; margin: 0 auto 40px; text-align: left; }
+.bf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.booking-form label { display: block; font-size: 13px; color: var(--muted); margin: 14px 0 5px; letter-spacing: .5px; }
+.booking-form input, .booking-form textarea {
+  width: 100%; border: 1px solid var(--line); border-radius: 6px; padding: 12px 14px;
+  font-family: var(--sans); font-size: 15px; background: var(--bg); color: var(--ink); transition: border-color .2s;
+}
+.booking-form input:focus, .booking-form textarea:focus { outline: none; border-color: var(--accent); }
+.booking-form textarea { resize: vertical; line-height: 1.6; }
+.bf-submit {
+  width: 100%; margin-top: 22px; padding: 15px; border: none; border-radius: 40px;
+  background: var(--accent); color: #fff; font-size: 15px; letter-spacing: 1px; cursor: pointer;
+  font-family: var(--sans); transition: background .3s;
+}
+.bf-submit:hover { background: var(--accent-dark, #8c765e); }
+.bf-submit:disabled { opacity: .6; cursor: default; }
+.bf-status { text-align: center; font-size: 14px; margin-top: 14px; min-height: 20px; }
+.bf-status.ok { color: #4c8a6a; } .bf-status.err { color: #c0675e; }
+.contact-or { color: var(--muted); font-size: 13px; margin: 6px 0 22px; letter-spacing: 1px; }
+
 /* ============ 스크롤 등장 애니메이션 ============ */
 .reveal { opacity: 0; transform: translateY(34px); transition: opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1); will-change: opacity, transform; }
 .reveal.reveal-left  { transform: translateX(-40px); }
@@ -232,6 +284,11 @@ video.lb-media, iframe.lb-media { width: min(92vw, 1100px); aspect-ratio: 16/9; 
   .about-grid { grid-template-columns: 1fr; gap: 40px; }
   .gallery { grid-template-columns: repeat(2, 1fr); }
   .price-grid { grid-template-columns: 1fr; max-width: 440px; }
+  .review-grid { grid-template-columns: 1fr; max-width: 460px; }
+  .process-list { grid-template-columns: 1fr; max-width: 360px; gap: 26px; }
+  .process-step:not(:last-child)::after { display: none; }
+  .process-step { display: grid; grid-template-columns: 54px 1fr; gap: 16px; text-align: left; align-items: center; }
+  .process-step .num { margin: 0; }
 }
 @media (max-width: 640px) {
   .section { padding: 80px 20px; }
@@ -248,4 +305,5 @@ video.lb-media, iframe.lb-media { width: min(92vw, 1100px); aspect-ratio: 16/9; 
   .nav-toggle.open span:nth-child(2) { opacity: 0; }
   .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   .gallery { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .bf-row { grid-template-columns: 1fr; }
 }

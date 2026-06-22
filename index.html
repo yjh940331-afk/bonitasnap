@@ -23,6 +23,7 @@
       <nav class="nav" id="nav">
         <a href="#about">About</a>
         <a href="#portfolio">Portfolio</a>
+        <a href="#reviews">Review</a>
         <a href="#price">Price</a>
         <a href="#faq">Q&amp;A</a>
         <a href="#contact">Contact</a>
@@ -79,6 +80,15 @@
     <div class="gallery" id="gallery"><!-- JS로 자동 생성 --></div>
   </section>
 
+  <!-- ============ 후기 ============ -->
+  <section class="reviews section" id="reviews">
+    <div class="section-head center reveal">
+      <p class="section-label">REVIEW</p>
+      <h2 class="section-title">신랑신부 후기</h2>
+    </div>
+    <div class="review-grid" id="reviewGrid"><!-- JS로 자동 생성 --></div>
+  </section>
+
   <!-- ============ 가격 ============ -->
   <section class="price section" id="price">
     <div class="section-head center reveal">
@@ -87,6 +97,15 @@
     </div>
     <div class="price-grid" id="priceGrid"><!-- JS로 자동 생성 --></div>
     <p class="price-note reveal">* 모든 상품의 자세한 안내와 일정은 문의를 통해 확인해 주세요.</p>
+  </section>
+
+  <!-- ============ 예약 절차 ============ -->
+  <section class="process section" id="process">
+    <div class="section-head center reveal">
+      <p class="section-label">PROCESS</p>
+      <h2 class="section-title">예약 절차</h2>
+    </div>
+    <div class="process-list" id="processList"><!-- JS로 자동 생성 --></div>
   </section>
 
   <!-- ============ Q&A ============ -->
@@ -104,7 +123,24 @@
       <p class="section-label">CONTACT</p>
       <h2 class="section-title">예약 &amp; 문의</h2>
     </div>
-    <p class="contact-lead reveal">결혼식, 돌, 행사 스냅 예약을 도와드립니다.<br />아래 채널로 편하게 연락 주세요.</p>
+    <p class="contact-lead reveal" id="bookingNote">결혼식, 돌, 행사 스냅 예약을 도와드립니다.</p>
+
+    <form class="booking-form reveal" id="bookingForm">
+      <div class="bf-row">
+        <div><label>이름 *</label><input type="text" name="name" required placeholder="성함" /></div>
+        <div><label>연락처 *</label><input type="text" name="phone" required placeholder="010-0000-0000" /></div>
+      </div>
+      <div class="bf-row">
+        <div><label>예식일</label><input type="text" name="date" placeholder="예: 2026-10-12" /></div>
+        <div><label>예식장</label><input type="text" name="venue" placeholder="예: 그랜드 웨딩홀" /></div>
+      </div>
+      <label>문의 내용</label>
+      <textarea name="message" rows="4" placeholder="원하시는 상품, 촬영 시간, 궁금한 점 등을 적어주세요."></textarea>
+      <button type="submit" class="bf-submit">예약 문의 보내기</button>
+      <p class="bf-status" id="bookingStatus"></p>
+    </form>
+
+    <p class="contact-or reveal">또는 아래 채널로 편하게 연락 주세요</p>
     <div class="contact-links reveal" id="contactLinks"><!-- JS로 자동 생성 --></div>
   </section>
 

@@ -51,14 +51,17 @@
   var DEFAULT = {
     brand: "BONITA SNAP", tagline: "", phone: "", email: "", instagram: "", kakao: "",
     hero: { image: "", title: "", subtitle: "" },
-    portfolio: [], products: [], faq: [],
+    portfolio: [], products: [], faq: [], reviews: [], process: [],
+    booking: { endpoint: "", note: "" },
     about: { image: "", title: "", body: [] },
   };
   var D = JSON.parse(JSON.stringify(Object.assign({}, DEFAULT, window.SITE_CONFIG || {})));
   // 누락 필드 보정
   D.hero = Object.assign({ image: "", title: "", subtitle: "" }, D.hero || {});
   D.about = Object.assign({ image: "", title: "", body: [] }, D.about || {});
+  D.booking = Object.assign({ endpoint: "", note: "" }, D.booking || {});
   D.portfolio = D.portfolio || []; D.products = D.products || []; D.faq = D.faq || [];
+  D.reviews = D.reviews || []; D.process = D.process || [];
 
   var CATS = [
     { v: "wedding", t: "본식" }, { v: "family", t: "돌·가족" },
@@ -278,6 +281,72 @@
     D.faq.push({ q: "새 질문", a: "" }); renderFaq();
   });
 
+  /* ---------- 후기 ---------- */
+  function renderReviews() {
+    var box = $("#reviewList"); box.innerHTML = "";
+    D.reviews.forEach(function (r, i) {
+      var row = document.createElement("div"); row.className = "listrow";
+      var photo = r.image
+        ? '<img src="' + r.image + '" style="width:80px;height:60px;object-fit:cover;border-radius:6px;border:1px solid var(--line)">'
+        : '<span class="muted">사진 없음</span>';
+      row.innerHTML =
+        '<button class="btn btn-danger btn-sm del-top" data-act="del">삭제</button>' +
+        '<div class="row"><div><label>작성자</label><input data-k="name" type="text" value="' + esc(r.name) + '"></div>' +
+        '<div><label>예식장</label><input data-k="venue" type="text" value="' + esc(r.venue) + '"></div></div>' +
+        '<label>날짜</label><input data-k="date" type="text" value="' + esc(r.date) + '" placeholder="예: 2026.04">' +
+        '<label>후기 내용</label><textarea data-k="text" rows="3">' + esc(r.text) + "</textarea>" +
+        '<label>후기 사진 (선택)</label><div style="display:flex;gap:10px;align-items:center">' + photo +
+        '<button class="btn btn-ghost btn-sm" data-act="img">사진 추가/변경</button>' +
+        (r.image ? '<button class="btn btn-ghost btn-sm" data-act="imgdel">사진 제거</button>' : "") + "</div>";
+      row.querySelector('[data-k=name]').addEventListener("input", function (e) { r.name = e.target.value; });
+      row.querySelector('[data-k=venue]').addEventListener("input", function (e) { r.venue = e.target.value; });
+      row.querySelector('[data-k=date]').addEventListener("input", function (e) { r.date = e.target.value; });
+      row.querySelector('[data-k=text]').addEventListener("input", function (e) { r.text = e.target.value; });
+      row.querySelector('[data-act=img]').addEventListener("click", function () {
+        pickImage(function (u) { r.image = u; renderReviews(); updateSize(); });
+      });
+      var imgdel = row.querySelector('[data-act=imgdel]');
+      if (imgdel) imgdel.addEventListener("click", function () { r.image = ""; renderReviews(); updateSize(); });
+      row.querySelector('[data-act=del]').addEventListener("click", function () { D.reviews.splice(i, 1); renderReviews(); });
+      box.appendChild(row);
+    });
+  }
+  $("#btnAddReview").addEventListener("click", function () {
+    D.reviews.push({ name: "", date: "", venue: "", text: "", image: "" }); renderReviews();
+  });
+
+  /* ---------- 예약 절차 ---------- */
+  function renderProcess() {
+    var box = $("#processList2"); box.innerHTML = "";
+    D.process.forEach(function (s, i) {
+      var row = document.createElement("div"); row.className = "listrow";
+      row.innerHTML =
+        '<span class="pill">' + (i + 1) + "단계</span>" +
+        '<button class="btn btn-danger btn-sm del-top" data-act="del">삭제</button>' +
+        '<div class="move" style="display:inline-flex;gap:5px;margin-left:8px">' +
+          '<button class="iconbtn" data-act="up">▲</button><button class="iconbtn" data-act="down">▼</button></div>' +
+        '<label>단계 제목</label><input data-k="title" type="text" value="' + esc(s.title) + '">' +
+        '<label>설명</label><input data-k="desc" type="text" value="' + esc(s.desc) + '">';
+      row.querySelector('[data-k=title]').addEventListener("input", function (e) { s.title = e.target.value; });
+      row.querySelector('[data-k=desc]').addEventListener("input", function (e) { s.desc = e.target.value; });
+      row.querySelector('[data-act=up]').addEventListener("click", function () { moveArr(D.process, i, i - 1, renderProcess); });
+      row.querySelector('[data-act=down]').addEventListener("click", function () { moveArr(D.process, i, i + 1, renderProcess); });
+      row.querySelector('[data-act=del]').addEventListener("click", function () { D.process.splice(i, 1); renderProcess(); });
+      box.appendChild(row);
+    });
+  }
+  $("#btnAddProcess").addEventListener("click", function () {
+    D.process.push({ title: "새 단계", desc: "" }); renderProcess();
+  });
+  function moveArr(arr, a, b, cb) {
+    if (b < 0 || b >= arr.length) return;
+    var t = arr[a]; arr[a] = arr[b]; arr[b] = t; cb();
+  }
+
+  /* ---------- 예약 폼 설정 바인딩 ---------- */
+  bind("#f-bookingNote", function () { return D.booking.note; }, function (v) { D.booking.note = v; });
+  bind("#f-bookingEndpoint", function () { return D.booking.endpoint; }, function (v) { D.booking.endpoint = v.trim(); });
+
   function esc(s) { return String(s == null ? "" : s).replace(/"/g, "&quot;"); }
 
   /* ---------- 설정 파일 만들기 ---------- */
@@ -404,5 +473,5 @@
   }
 
   /* ---------- 첫 렌더 ---------- */
-  renderGrid(); renderPrice(); renderFaq(); fillGh(); updateSize();
+  renderGrid(); renderPrice(); renderFaq(); renderReviews(); renderProcess(); fillGh(); updateSize();
 })();
