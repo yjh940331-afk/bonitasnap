@@ -2,9 +2,19 @@ backend:
   name: git-gateway
   branch: main
 
-# 업로드한 사진이 저장되는 폴더
+# 업로드한 사진이 저장되는 폴더 (기본 라이브러리 폴백용)
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
+
+# Cloudinary 미디어 라이브러리 — 여러 장 한 번에 업로드 + 자동 최적화/CDN
+# (cloud_name / api_key 는 공개되어도 되는 값입니다. Secret 은 넣지 않습니다.)
+media_library:
+  name: cloudinary
+  output_filename_only: false
+  config:
+    cloud_name: djuxupi6d
+    api_key: "633597221355375"
+    multiple: true
 
 # 편집 화면 언어/문구
 locale: "ko"
