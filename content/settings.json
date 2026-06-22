@@ -7,35 +7,15 @@
       "desc": "베이직 상품",
       "price": "400,000원",
       "features": [
-        "결혼식 당일 90% 이상 신부님을 팔로우 하며 촬영을 진행해 드리고 있으며,",
-        "예식 1시간 전 도착하여 촬영을 시작, 원판까지 촬영을 진행해 드리고 있습니다.",
-        "사진 원본 1,000장 이상(*당일 전송)",
-        "짧은 영상 원본 30개 이상(*당일 전송)",
-        "​",
-        "프리미엄 인물 보정 10장(*예식일 기준 3일 이내)",
-        "(*얼굴, 몸매, 헤어 라인 보정과 잡티, 주름 제거 및 피부톤 보정까지 모두 자연스럽고 예쁘게 보정해 드립니다.)",
-        "감성 사진 색감 보정 5장(*예식일 기준 3일 이내)",
-        "​",
-        "릴스 편집본(2분 내외) 1개(*추가 금액 발생)(*예식일 기준 7일 이내)"
+        "[촬영 안내]",
+        "결혼식 당일 90% 이상 신부님을 팔로우 하며 촬영을 진행해 드리고 있으며,  예식 1시간 전 도착하여 촬영을 시작, 원판까지 촬영을 진행해 드리고 있습니다.  ​  아이폰 스냅은 서브 스냅이기 때문에 메인 스냅 작가님과 영상 작가님의 동선을 방해하지 않기 위해 하객석에서 촬영이 진행이 됩니다.  또한 메인 스냅 작가님의 동의 없이는 절대 단상과 버진 로드 위에 올라가지 않습니다."
       ]
     },
     {
       "name": "Premium",
       "desc": "프리미엄",
       "price": "600,000원",
-      "features": [
-        "결혼식 당일 90% 이상 신부님을 팔로우 하며 촬영을 진행해 드리고 있으며,",
-        "예식 2시간 전 도착하여 촬영을 시작, 마지막 2부 샴페인 건배 제의까지 촬영을 진행합니다.",
-        "​",
-        "사진 원본 1,200장 이상(*당일 전송)",
-        "짧은 영상 원본 50개 이상(*당일 전송)",
-        "​",
-        "프리미엄 인물 보정 12장(*예식일 기준 3일 이내)",
-        "(*얼굴, 몸매, 헤어 라인 보정과 잡티, 주름 제거 및 피부톤 보정까지 모두 자연스럽고 예쁘게 보정해 드립니다.)",
-        "감성 사진 색감 보정 7장(*예식일 기준 3일 이내)",
-        "​",
-        "릴스 편집본(1분 내외) 1개(*예식일 기준 7일 이내)"
-      ]
+      "features": []
     }
   ],
   "brand": "Bonita Snap",
@@ -121,7 +101,7 @@
     {
       "icon": "RAW",
       "title": "원본 전체 제공",
-      "text": "상품 기준에 맞춰 촬영 원본을 빠르게 전달하고, 보정본은 별도 작업해드립니다."
+      "text": "1000장 이상의 원본 사진과 30개 이상의 영상을 당일 전송해 드립니다."
     },
     {
       "icon": "ON",
@@ -131,7 +111,7 @@
     {
       "icon": "CHK",
       "title": "촬영 전 체크",
-      "text": "예식장, 시작 시간, 요청 컷을 미리 확인해 당일 흐름을 안정적으로 준비합니다."
+      "text": "일주일 전 사전 체크로 미리 동선과 식순을 파악하여 촬영을 진행합니다."
     }
   ],
   "photographer": {
@@ -171,84 +151,7 @@
       }
     ]
   },
-  "portfolioAlbums": [
-    {
-      "title": "더링크호텔",
-      "category": "darkHall",
-      "cover": "/images/uploads/photo-2.jpg",
-      "description": "더링크호텔",
-      "images": [
-        {
-          "image": "/images/uploads/photo-1.jpg",
-          "youtube": "",
-          "caption": "본식 스냅"
-        },
-        {
-          "image": "/images/uploads/photo-2.jpg",
-          "youtube": "",
-          "caption": "본식 스냅"
-        },
-        {
-          "image": "/images/uploads/photo-3.jpg",
-          "youtube": "",
-          "caption": "본식 스냅"
-        },
-        {
-          "image": "/images/uploads/photo-4.jpg",
-          "youtube": "",
-          "caption": "본식 스냅"
-        },
-        {
-          "image": "/images/uploads/photo-5.jpg",
-          "youtube": "",
-          "caption": "본식 스냅"
-        },
-        {
-          "image": "/images/uploads/photo-6.jpg",
-          "youtube": "",
-          "caption": "본식 스냅"
-        },
-        {
-          "image": "/images/uploads/photo-7.jpg",
-          "youtube": "",
-          "caption": "본식 스냅"
-        },
-        {
-          "image": "/images/uploads/photo-8.jpg",
-          "youtube": "",
-          "caption": "본식 스냅"
-        },
-        {
-          "image": "/images/uploads/photo-9.jpg",
-          "youtube": "",
-          "caption": "본식 스냅"
-        },
-        {
-          "image": "/images/uploads/photo-10.jpg",
-          "youtube": "",
-          "caption": "본식 스냅"
-        },
-        {
-          "image": "/images/uploads/photo-11.jpg",
-          "youtube": "",
-          "caption": "본식 스냅"
-        }
-      ]
-    },
-    {
-      "description": "사랑재",
-      "title": "사랑재",
-      "category": "outdoorWedding",
-      "cover": "/images/uploads/batch_img_2028.jpeg",
-      "images": [
-        {
-          "youtube": "",
-          "caption": "본식 스냅",
-          "image": "/images/uploads/batch_img_2025.jpeg"
-        }
-      ]
-    }
-  ],
+  "portfolioAlbums": [],
   "productGuide": {
     "inclusions": [
       "예식 당일 신부님 중심 팔로우 촬영",
