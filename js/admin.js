@@ -49,7 +49,7 @@
 
   /* ---------- 데이터 준비 (현재 설정 복제) ---------- */
   var DEFAULT = {
-    brand: "BONITA SNAP", tagline: "", phone: "", email: "", instagram: "", kakao: "",
+    brand: "BONITA SNAP", tagline: "", phone: "", email: "", instagram: "", kakao: "", naverBlog: "", youtube: "",
     hero: { image: "", title: "", subtitle: "" },
     portfolio: [], products: [], faq: [], reviews: [], process: [],
     booking: { endpoint: "", note: "" },
@@ -225,6 +225,8 @@
   bind("#f-email", function () { return D.email; }, function (v) { D.email = v; });
   bind("#f-instagram", function () { return D.instagram; }, function (v) { D.instagram = v; });
   bind("#f-kakao", function () { return D.kakao; }, function (v) { D.kakao = v; });
+  bind("#f-naverBlog", function () { return D.naverBlog; }, function (v) { D.naverBlog = v.trim(); });
+  bind("#f-youtube", function () { return D.youtube; }, function (v) { D.youtube = v.trim(); });
   bind("#f-heroTitle", function () { return D.hero.title; }, function (v) { D.hero.title = v; });
   bind("#f-heroSub", function () { return D.hero.subtitle; }, function (v) { D.hero.subtitle = v; });
   bind("#f-aboutTitle", function () { return D.about.title; }, function (v) { D.about.title = v; });

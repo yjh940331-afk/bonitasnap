@@ -13,11 +13,13 @@ window.SITE_CONFIG = {
 
   /* --- 기본 정보 --- */
   brand: "BONITA SNAP",
-  tagline: "아이폰으로 담는 가장 자연스러운 순간",
-  phone: "010-0000-0000",
-  email: "bonitasnap@email.com",
-  instagram: "https://instagram.com/",   // 인스타그램 주소
-  kakao: "https://pf.kakao.com/",          // 카카오톡 채널 주소
+  tagline: "프리미엄 아이폰 웨딩 스냅 · Classic · Lovely · Radiant",
+  phone: "",                                       // 비워두면 표시 안 됨 (카카오/DM으로 문의받는 경우)
+  email: "",                                       // 비워두면 표시 안 됨
+  instagram: "https://instagram.com/bonita_snap_", // 인스타그램
+  kakao: "https://pf.kakao.com/_AxnPxdn",           // 카카오톡 채널
+  naverBlog: "https://blog.naver.com/bonita_film_", // 네이버 블로그 (없으면 "")
+  youtube: "https://www.youtube.com/channel/UC9aH1iYGKO9llZjrABAMR1A", // 유튜브 (없으면 "")
 
   /* --- 메인(히어로) 배경 사진 --- */
   hero: {

@@ -87,6 +87,8 @@
     var links = [];
     if (C.instagram) links.push('<a href="' + C.instagram + '" target="_blank" rel="noopener">Instagram</a>');
     if (C.kakao) links.push('<a href="' + C.kakao + '" target="_blank" rel="noopener">카카오톡 채널</a>');
+    if (C.naverBlog) links.push('<a href="' + C.naverBlog + '" target="_blank" rel="noopener">네이버 블로그</a>');
+    if (C.youtube) links.push('<a href="' + C.youtube + '" target="_blank" rel="noopener">YouTube</a>');
     if (C.phone) links.push('<a href="tel:' + C.phone.replace(/[^0-9+]/g, "") + '">' + C.phone + "</a>");
     if (C.email) links.push('<a href="mailto:' + C.email + '">' + C.email + "</a>");
     cl.innerHTML = links.join("");
@@ -186,17 +188,25 @@
           status.className = "bf-status err";
           status.textContent = "전송에 실패했어요. 카카오톡/인스타그램으로 연락 부탁드려요.";
         }).then(function () { btn.disabled = false; });
-      } else {
+      } else if (C.email) {
         // 설정된 이메일로 메일 앱 열기
-        var to = C.email || "";
         var subject = "[예약문의] " + d.name + "님";
         var body =
           "이름: " + d.name + "\n연락처: " + d.phone +
           "\n예식일: " + (d.date || "-") + "\n예식장: " + (d.venue || "-") +
           "\n\n문의내용:\n" + (d.message || "-");
-        window.location.href = "mailto:" + to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+        window.location.href = "mailto:" + C.email + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
         status.className = "bf-status ok";
-        status.textContent = "메일 앱이 열렸어요. 전송을 완료해 주세요. (또는 아래 채널로 연락 주세요)";
+        status.textContent = "메일 앱이 열렸어요. 전송을 완료해 주세요.";
+      } else {
+        // 이메일/폼주소가 없으면 카카오톡 채널로 안내 (입력 내용은 클립보드에 복사)
+        var txt = "[예약문의] " + d.name + " / " + d.phone +
+          " / 예식일 " + (d.date || "-") + " / " + (d.venue || "-") +
+          (d.message ? "\n" + d.message : "");
+        if (navigator.clipboard) { try { navigator.clipboard.writeText(txt); } catch (e) {} }
+        status.className = "bf-status ok";
+        status.textContent = "문의 내용이 복사되었어요. 카카오톡 채널 또는 인스타그램으로 붙여넣어 보내주세요!";
+        if (C.kakao) window.open(C.kakao, "_blank");
       }
     });
   }
