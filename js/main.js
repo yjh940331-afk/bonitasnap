@@ -37,7 +37,11 @@
   }
 
   function categoryLabel(v) {
-    return ({ wedding: "본식", family: "돌·가족", event: "행사", film: "영상" })[v] || "Portfolio";
+    return ({ brightHall: "밝은홀", darkHall: "어두운홀", outdoorWedding: "야외예식", wedding: "밝은홀" })[v] || "Portfolio";
+  }
+
+  function normalizeCategory(v) {
+    return ({ wedding: "brightHall", family: "brightHall", event: "brightHall", film: "brightHall" })[v] || v || "brightHall";
   }
 
   function listHtml(items) {
@@ -52,7 +56,7 @@
     var title = album.title || album.name || album.venue || album.caption || categoryLabel(album.category || first.category) || ("앨범 " + (i + 1));
     return {
       title: title,
-      category: album.category || first.category || "wedding",
+      category: normalizeCategory(album.category || first.category),
       description: album.description || album.desc || "",
       cover: album.cover || album.image || thumbOf(first),
       items: items,
@@ -73,7 +77,7 @@
       if (!byKey[key]) {
         byKey[key] = {
           title: title,
-          category: normalized.category || "wedding",
+          category: normalizeCategory(normalized.category),
           description: "",
           cover: thumbOf(normalized),
           items: [],
@@ -484,6 +488,6 @@
   }
 
   /* ---------- 초기 실행 ---------- */
-  renderGallery("all");
+  renderGallery("brightHall");
   observeReveal();
 })();

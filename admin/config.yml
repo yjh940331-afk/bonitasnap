@@ -86,15 +86,14 @@ collections:
             fields:
               - { label: "앨범 제목(예: 남산뜰, 엘리에나호텔)", name: "title", widget: "string" }
               - { label: "대표 사진(목록에 보이는 사진)", name: "cover", widget: "image", required: false, hint: "비워두면 앨범 안 첫 번째 사진이 대표 사진으로 보입니다." }
-              - { label: "짧은 설명", name: "description", widget: "string", required: false, default: "본식 스냅" }
+              - { label: "짧은 설명", name: "description", widget: "string", required: false, default: "밝은홀" }
               - label: "분류"
                 name: "category"
                 widget: "select"
                 options:
-                  - { label: "본식", value: "wedding" }
-                  - { label: "돌·가족", value: "family" }
-                  - { label: "행사", value: "event" }
-                  - { label: "영상", value: "film" }
+                  - { label: "밝은홀", value: "brightHall" }
+                  - { label: "어두운홀", value: "darkHall" }
+                  - { label: "야외예식", value: "outdoorWedding" }
               - label: "앨범 안 사진·영상"
                 name: "images"
                 widget: "list"
