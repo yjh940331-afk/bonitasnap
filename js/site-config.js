@@ -15,5 +15,18 @@ window.SITE_CONFIG = {
   hero: { image: "", title: "BONITA SNAP", subtitle: "결혼식, 그 하루를 가장 당신답게" },
   about: { image: "", title: "Natural & Timeless", body: "" },
   portfolio: [], portfolioAlbums: [], products: [], reviews: [], process: [], faq: [],
+  photographer: {
+    title: "대표 작가 박아름",
+    name: "박아름",
+    role: "Bonita Snap 대표 작가",
+    image: "",
+    shootCount: "100건+",
+    body: "",
+    promise: "모든 촬영은 대표 작가가 직접 진행합니다. 알바·외주 촬영 없이 책임 있게 함께합니다.",
+  },
+  trustBadges: [],
+  productGuide: { inclusions: [], options: [], flow: [] },
+  availability: { title: "예약 가능 일정", status: "", note: "", items: [] },
+  partners: { title: "함께 만드는 웨딩", lead: "", ctaText: "", ctaUrl: "", items: [] },
   booking: { endpoint: "", note: "" },
 };

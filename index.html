@@ -22,9 +22,11 @@
 
       <nav class="nav" id="nav">
         <a href="#about">About</a>
+        <a href="#photographer">Artist</a>
+        <a href="#why">Why</a>
         <a href="#portfolio">Portfolio</a>
+        <a href="#price">Product</a>
         <a href="#reviews">Review</a>
-        <a href="#price">Price</a>
         <a href="#faq">Q&amp;A</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -62,6 +64,35 @@
     </div>
   </section>
 
+  <!-- ============ 대표 작가 ============ -->
+  <section class="photographer section" id="photographer">
+    <div class="photographer-grid">
+      <div class="photographer-copy reveal reveal-left">
+        <p class="section-label">PHOTOGRAPHER</p>
+        <h2 class="section-title" data-photographer-title>대표 작가 박아름</h2>
+        <p class="photographer-role" data-photographer-role>Bonita Snap 대표 작가</p>
+        <div class="photographer-body" data-photographer-body></div>
+        <p class="photographer-promise" data-photographer-promise></p>
+      </div>
+      <div class="photographer-profile reveal reveal-right">
+        <img data-photographer-img alt="보니타스냅 대표 작가" />
+        <div class="profile-stats">
+          <span>누적 촬영</span>
+          <strong data-photographer-count>100건+</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 신뢰 포인트 ============ -->
+  <section class="why section" id="why">
+    <div class="section-head center reveal">
+      <p class="section-label">WHY BONITA</p>
+      <h2 class="section-title">믿고 맡길 수 있도록</h2>
+    </div>
+    <div class="trust-grid" id="trustGrid"><!-- JS로 자동 생성 --></div>
+  </section>
+
   <!-- ============ 포트폴리오 ============ -->
   <section class="portfolio section" id="portfolio">
     <div class="section-head center reveal">
@@ -96,7 +127,23 @@
       <h2 class="section-title">촬영 상품</h2>
     </div>
     <div class="price-grid" id="priceGrid"><!-- JS로 자동 생성 --></div>
+    <div class="product-guide reveal" id="productGuide"><!-- JS로 자동 생성 --></div>
     <p class="price-note reveal">* 모든 상품의 자세한 안내와 일정은 문의를 통해 확인해 주세요.</p>
+  </section>
+
+  <!-- ============ 예약 가능 일정 ============ -->
+  <section class="availability section" id="availability">
+    <div class="availability-inner reveal">
+      <div>
+        <p class="section-label">BOOKING STATUS</p>
+        <h2 class="section-title" data-availability-title>예약 가능 일정</h2>
+        <p class="availability-note" data-availability-note></p>
+      </div>
+      <div class="availability-panel">
+        <p data-availability-status>2026년 전체, 2027년 상반기 예약 상담 중</p>
+        <ul id="availabilityList"><!-- JS로 자동 생성 --></ul>
+      </div>
+    </div>
   </section>
 
   <!-- ============ 예약 절차 ============ -->
@@ -106,6 +153,17 @@
       <h2 class="section-title">예약 절차</h2>
     </div>
     <div class="process-list" id="processList"><!-- JS로 자동 생성 --></div>
+  </section>
+
+  <!-- ============ 제휴 ============ -->
+  <section class="partners section" id="partners">
+    <div class="section-head center reveal">
+      <p class="section-label">PARTNERS</p>
+      <h2 class="section-title" data-partners-title>함께 만드는 웨딩</h2>
+      <p class="partners-lead" data-partners-lead></p>
+    </div>
+    <div class="partner-grid reveal" id="partnerGrid"><!-- JS로 자동 생성 --></div>
+    <div class="partner-action reveal" id="partnerAction"><!-- JS로 자동 생성 --></div>
   </section>
 
   <!-- ============ Q&A ============ -->

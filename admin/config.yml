@@ -52,6 +52,30 @@ collections:
               - { label: "제목", name: "title", widget: "string" }
               - { label: "소개 글", name: "body", widget: "text", hint: "줄바꿈으로 문장을 나눠 주세요." }
 
+          # ---------- 대표 작가 ----------
+          - label: "대표 작가 소개"
+            name: "photographer"
+            widget: "object"
+            fields:
+              - { label: "섹션 제목", name: "title", widget: "string", default: "대표 작가 박아름" }
+              - { label: "작가 이름", name: "name", widget: "string", default: "박아름" }
+              - { label: "역할/직함", name: "role", widget: "string", default: "Bonita Snap 대표 작가" }
+              - { label: "프로필 사진", name: "image", widget: "image", required: false, hint: "대표 작가님 얼굴이 나온 프로필 사진을 올려주세요." }
+              - { label: "누적 촬영 수", name: "shootCount", widget: "string", default: "100건+" }
+              - { label: "촬영 철학", name: "body", widget: "text", hint: "줄바꿈으로 문장을 나눠 주세요." }
+              - { label: "직접 촬영 안내 문구", name: "promise", widget: "string", default: "모든 촬영은 대표 작가가 직접 진행합니다. 알바·외주 촬영 없이 책임 있게 함께합니다." }
+
+          # ---------- 신뢰 배지 ----------
+          - label: "신뢰 포인트(Why Bonita)"
+            name: "trustBadges"
+            widget: "list"
+            label_singular: "신뢰 포인트"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "아이콘 짧은 글자", name: "icon", widget: "string", hint: "예: ID, PRO, RAW, DOC" }
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "설명", name: "text", widget: "string" }
+
           # ---------- 포트폴리오 ----------
           - label: "포트폴리오 앨범"
             name: "portfolioAlbums"
@@ -96,6 +120,24 @@ collections:
                 widget: "list"
                 field: { label: "특징", name: "feature", widget: "string" }
 
+          # ---------- 상품 상세 안내 ----------
+          - label: "상품 상세 안내"
+            name: "productGuide"
+            widget: "object"
+            fields:
+              - label: "포함사항"
+                name: "inclusions"
+                widget: "list"
+                field: { label: "포함사항", name: "item", widget: "string" }
+              - label: "추가 옵션"
+                name: "options"
+                widget: "list"
+                field: { label: "추가 옵션", name: "item", widget: "string" }
+              - label: "진행 방식"
+                name: "flow"
+                widget: "list"
+                field: { label: "진행 방식", name: "item", widget: "string" }
+
           # ---------- 후기 ----------
           - label: "신랑신부 후기"
             name: "reviews"
@@ -118,6 +160,39 @@ collections:
             fields:
               - { label: "단계 제목", name: "title", widget: "string" }
               - { label: "설명", name: "desc", widget: "string", required: false }
+
+          # ---------- 예약 가능 일정 ----------
+          - label: "예약 가능 일정"
+            name: "availability"
+            widget: "object"
+            fields:
+              - { label: "제목", name: "title", widget: "string", default: "예약 가능 일정" }
+              - { label: "현재 예약 현황", name: "status", widget: "string", default: "2026년 전체, 2027년 상반기 예약 상담 중" }
+              - { label: "안내 문구", name: "note", widget: "string", required: false }
+              - label: "상세 안내"
+                name: "items"
+                widget: "list"
+                field: { label: "안내", name: "item", widget: "string" }
+
+          # ---------- 제휴 ----------
+          - label: "제휴(Partners)"
+            name: "partners"
+            widget: "object"
+            fields:
+              - { label: "제목", name: "title", widget: "string", default: "함께 만드는 웨딩" }
+              - { label: "소개 문구", name: "lead", widget: "string", required: false }
+              - { label: "버튼 문구", name: "ctaText", widget: "string", default: "제휴 문의하기" }
+              - { label: "버튼 링크", name: "ctaUrl", widget: "string", required: false }
+              - label: "제휴처/제휴 분야"
+                name: "items"
+                widget: "list"
+                label_singular: "제휴 항목"
+                summary: "{{fields.name}}"
+                fields:
+                  - { label: "로고 이미지", name: "logo", widget: "image", required: false }
+                  - { label: "로고 없을 때 표시할 글자", name: "initial", widget: "string", required: false, hint: "예: H, P, D" }
+                  - { label: "이름", name: "name", widget: "string" }
+                  - { label: "분류/설명", name: "category", widget: "string", required: false }
 
           # ---------- Q&A ----------
           - label: "자주 묻는 질문(Q&A)"

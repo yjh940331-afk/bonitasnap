@@ -40,6 +40,10 @@
     return ({ wedding: "본식", family: "돌·가족", event: "행사", film: "영상" })[v] || "Portfolio";
   }
 
+  function listHtml(items) {
+    return lines(items).map(function (item) { return "<li>" + esc(item) + "</li>"; }).join("");
+  }
+
   function normalizeAlbum(album, i) {
     var rawItems = album.images || album.items || album.photos || [];
     if (!rawItems.length && (album.image || album.src || album.youtube || album.id)) rawItems = [album];
@@ -100,6 +104,22 @@
     if (C.about.title) $("[data-about-title]").textContent = C.about.title;
     var ab = $("[data-about-body]");
     if (ab && C.about.body) ab.innerHTML = lines(C.about.body).map(function (p) { return "<p>" + p + "</p>"; }).join("");
+  }
+
+  if (C.photographer) {
+    var ph = C.photographer;
+    var phTitle = $("[data-photographer-title]");
+    var phRole = $("[data-photographer-role]");
+    var phImg = $("[data-photographer-img]");
+    var phBody = $("[data-photographer-body]");
+    var phPromise = $("[data-photographer-promise]");
+    var phCount = $("[data-photographer-count]");
+    if (phTitle) phTitle.textContent = ph.title || ("대표 작가 " + (ph.name || ""));
+    if (phRole) phRole.textContent = ph.role || "Bonita Snap 대표 작가";
+    if (phImg) phImg.src = ph.image || (C.about && C.about.image) || "";
+    if (phBody) phBody.innerHTML = lines(ph.body || ph.philosophy).map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("");
+    if (phPromise) phPromise.textContent = ph.promise || "";
+    if (phCount) phCount.textContent = ph.shootCount || ph.count || "100건+";
   }
 
   var yr = $("#year"); if (yr) yr.textContent = new Date().getFullYear();
@@ -163,6 +183,24 @@
     }).join("");
   }
 
+  var productGuide = $("#productGuide");
+  if (productGuide && C.productGuide) {
+    var pg = C.productGuide;
+    var cards = pg.cards || [
+      { title: "포함사항", items: pg.inclusions },
+      { title: "추가 옵션", items: pg.options },
+      { title: "진행 방식", items: pg.flow },
+    ];
+    productGuide.innerHTML = cards.filter(function (card) {
+      return card && card.title && lines(card.items).length;
+    }).map(function (card) {
+      return '<article class="product-detail">' +
+        "<h3>" + esc(card.title) + "</h3>" +
+        "<ul>" + listHtml(card.items) + "</ul>" +
+      "</article>";
+    }).join("");
+  }
+
   /* ---------- 문의 링크 ---------- */
   var cl = $("#contactLinks");
   if (cl) {
@@ -174,6 +212,53 @@
     if (C.phone) links.push('<a href="tel:' + C.phone.replace(/[^0-9+]/g, "") + '">' + C.phone + "</a>");
     if (C.email) links.push('<a href="mailto:' + C.email + '">' + C.email + "</a>");
     cl.innerHTML = links.join("");
+  }
+
+  var trustGrid = $("#trustGrid");
+  if (trustGrid && C.trustBadges) {
+    trustGrid.innerHTML = C.trustBadges.map(function (b, i) {
+      return '<article class="trust-card reveal" style="transition-delay:' + (Math.min(i, 5) * 0.06) + 's">' +
+        '<div class="trust-icon">' + esc(b.icon || String(i + 1).padStart(2, "0")) + "</div>" +
+        "<h3>" + esc(b.title || "") + "</h3>" +
+        "<p>" + esc(b.text || b.desc || "") + "</p>" +
+      "</article>";
+    }).join("");
+  }
+
+  if (C.availability) {
+    var av = C.availability;
+    var avTitle = $("[data-availability-title]");
+    var avStatus = $("[data-availability-status]");
+    var avNote = $("[data-availability-note]");
+    var avList = $("#availabilityList");
+    if (avTitle && av.title) avTitle.textContent = av.title;
+    if (avStatus && av.status) avStatus.textContent = av.status;
+    if (avNote) avNote.textContent = av.note || "";
+    if (avList) avList.innerHTML = listHtml(av.items);
+  }
+
+  if (C.partners) {
+    var partners = C.partners;
+    var pt = $("[data-partners-title]");
+    var pl = $("[data-partners-lead]");
+    var pgd = $("#partnerGrid");
+    var pa = $("#partnerAction");
+    if (pt && partners.title) pt.textContent = partners.title;
+    if (pl) pl.textContent = partners.lead || "";
+    if (pgd && partners.items) {
+      pgd.innerHTML = partners.items.map(function (p, i) {
+        var logo = p.logo ? '<img src="' + esc(p.logo) + '" alt="' + esc(p.name || "partner") + '" />' : '<span>' + esc(p.initial || (p.name || "?").slice(0, 2)) + "</span>";
+        return '<article class="partner-card" style="transition-delay:' + (Math.min(i, 5) * 0.05) + 's">' +
+          '<div class="partner-logo">' + logo + "</div>" +
+          "<h3>" + esc(p.name || "") + "</h3>" +
+          "<p>" + esc(p.category || p.desc || "") + "</p>" +
+        "</article>";
+      }).join("");
+    }
+    if (pa && partners.ctaText) {
+      var href = partners.ctaUrl || C.kakao || "#contact";
+      pa.innerHTML = '<a href="' + esc(href) + '" target="_blank" rel="noopener">' + esc(partners.ctaText) + "</a>";
+    }
   }
 
   /* ---------- Q&A 아코디언 ---------- */

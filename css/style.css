@@ -60,7 +60,7 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: 3px; color: #fff; transition: color .4s;
 }
 .scrolled .logo { color: var(--ink); }
-.nav { display: flex; gap: 38px; }
+.nav { display: flex; gap: 22px; }
 .nav a {
   font-size: 13px; letter-spacing: 1.5px; color: #fff;
   font-weight: 400; position: relative; transition: color .4s;
@@ -105,6 +105,51 @@ a { color: inherit; text-decoration: none; }
 .about-img img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
 .about-text .section-title { margin-bottom: 26px; }
 .about-body p { color: var(--muted); margin-bottom: 12px; font-size: 16px; }
+
+/* ============ 대표 작가 ============ */
+.photographer { background: var(--bg); }
+.photographer-grid {
+  max-width: var(--max); margin: 0 auto; display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(280px, .95fr); gap: 58px; align-items: center;
+}
+.photographer-role { color: var(--accent); font-size: 15px; font-weight: 500; margin: 4px 0 26px; }
+.photographer-body p { color: var(--muted); font-size: 16px; margin-bottom: 12px; }
+.photographer-promise {
+  margin-top: 26px; padding: 18px 20px; border-left: 3px solid var(--accent);
+  background: rgba(168,146,122,.1); color: var(--ink); font-size: 15px; font-weight: 500;
+}
+.photographer-profile { position: relative; }
+.photographer-profile img {
+  width: 100%; aspect-ratio: 4/5; object-fit: cover; background: var(--bg-alt);
+}
+.profile-stats {
+  position: absolute; right: 20px; bottom: 20px; min-width: 148px;
+  padding: 18px 20px; border: 1px solid rgba(255,255,255,.52); border-radius: 8px;
+  color: #fff; background: rgba(46,42,38,.52); backdrop-filter: blur(12px);
+}
+.profile-stats span,
+.profile-stats strong { display: block; }
+.profile-stats span { font-size: 12px; opacity: .76; }
+.profile-stats strong { margin-top: 2px; font-family: var(--serif); font-size: 30px; font-weight: 600; line-height: 1.1; }
+
+/* ============ 신뢰 포인트 ============ */
+.why { background: #f7f3ed; }
+.trust-grid {
+  max-width: var(--max); margin: 0 auto; display: grid;
+  grid-template-columns: repeat(3, 1fr); gap: 14px;
+}
+.trust-card {
+  min-height: 194px; padding: 28px 26px; border: 1px solid var(--line); border-radius: 8px;
+  background: var(--bg); transition: transform .35s, box-shadow .35s;
+}
+.trust-card:hover { transform: translateY(-4px); box-shadow: 0 14px 34px rgba(80,68,55,.08); }
+.trust-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 44px; height: 34px; padding: 0 10px; border-radius: 8px;
+  color: #fff; background: var(--ink); font-size: 12px; font-weight: 700;
+}
+.trust-card h3 { margin: 18px 0 8px; font-size: 18px; font-weight: 500; }
+.trust-card p { color: var(--muted); font-size: 14px; line-height: 1.7; }
 
 /* ============ 포트폴리오 ============ */
 .portfolio { max-width: var(--max); margin: 0 auto; }
@@ -194,6 +239,39 @@ a { color: inherit; text-decoration: none; }
 .price-card ul { list-style: none; border-top: 1px solid var(--line); padding-top: 22px; }
 .price-card li { font-size: 14px; color: var(--muted); padding: 7px 0; }
 .price-note { text-align: center; color: var(--muted); font-size: 13px; margin-top: 34px; }
+.product-guide {
+  max-width: var(--max); margin: 34px auto 0; display: grid;
+  grid-template-columns: repeat(3, 1fr); gap: 16px; text-align: left;
+}
+.product-detail {
+  padding: 30px 28px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg);
+}
+.product-detail h3 { font-family: var(--serif); font-size: 24px; font-weight: 600; margin-bottom: 16px; }
+.product-detail ul { list-style: none; }
+.product-detail li { position: relative; padding: 8px 0 8px 18px; color: var(--muted); font-size: 14px; line-height: 1.65; }
+.product-detail li::before {
+  content: ""; position: absolute; left: 0; top: 19px; width: 6px; height: 6px;
+  border-radius: 50%; background: var(--accent);
+}
+
+/* ============ 예약 가능 일정 ============ */
+.availability { background: var(--bg); }
+.availability-inner {
+  max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: minmax(0, .9fr) minmax(320px, 1.1fr);
+  gap: 42px; align-items: center;
+}
+.availability-note { margin-top: 18px; color: var(--muted); font-size: 16px; }
+.availability-panel {
+  padding: 34px; border: 1px solid var(--line); border-radius: 8px;
+  background: linear-gradient(135deg, #fff, #f5eee7);
+}
+.availability-panel p {
+  color: var(--ink); font-size: 22px; font-weight: 500; line-height: 1.5;
+}
+.availability-panel ul { list-style: none; margin-top: 22px; }
+.availability-panel li {
+  padding: 11px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px;
+}
 
 /* ============ 문의 ============ */
 .contact { text-align: center; }
@@ -205,6 +283,32 @@ a { color: inherit; text-decoration: none; }
   font-size: 14px; letter-spacing: .5px; transition: .3s;
 }
 .contact-links a:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ============ 제휴 ============ */
+.partners { background: var(--bg-alt); }
+.partners-lead { max-width: 620px; margin: 16px auto 0; color: var(--muted); font-size: 16px; }
+.partner-grid {
+  max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+}
+.partner-card {
+  min-height: 150px; padding: 24px 18px; border: 1px solid var(--line); border-radius: 8px;
+  background: var(--bg); text-align: center;
+}
+.partner-logo {
+  width: 58px; height: 58px; margin: 0 auto 14px; border: 1px solid var(--line); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center; overflow: hidden; color: var(--accent);
+  background: rgba(255,255,255,.56); font-family: var(--serif); font-size: 22px; font-weight: 600;
+}
+.partner-logo img { width: 100%; height: 100%; object-fit: contain; padding: 8px; }
+.partner-card h3 { font-size: 16px; font-weight: 500; }
+.partner-card p { margin-top: 4px; color: var(--muted); font-size: 13px; }
+.partner-action { text-align: center; margin-top: 28px; }
+.partner-action a {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 46px;
+  padding: 0 26px; border-radius: 40px; color: #fff; background: var(--accent);
+  font-size: 14px; font-weight: 500; transition: background .3s;
+}
+.partner-action a:hover { background: #8c765e; }
 
 /* ============ 푸터 ============ */
 .site-footer { text-align: center; padding: 56px 24px; border-top: 1px solid var(--line); }
@@ -341,6 +445,9 @@ video.lb-media, iframe.lb-media { width: min(92vw, 1100px); aspect-ratio: 16/9; 
 /* ============ 반응형 ============ */
 @media (max-width: 860px) {
   .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .photographer-grid, .availability-inner { grid-template-columns: 1fr; gap: 34px; }
+  .trust-grid, .product-guide { grid-template-columns: 1fr; }
+  .partner-grid { grid-template-columns: repeat(2, 1fr); }
   .gallery { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
   .price-grid { grid-template-columns: 1fr; max-width: 440px; }
   .review-grid { grid-template-columns: 1fr; max-width: 460px; }
@@ -364,5 +471,9 @@ video.lb-media, iframe.lb-media { width: min(92vw, 1100px); aspect-ratio: 16/9; 
   .nav-toggle.open span:nth-child(2) { opacity: 0; }
   .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   .gallery { grid-template-columns: 1fr; gap: 10px; }
+  .partner-grid { grid-template-columns: 1fr; }
+  .profile-stats { right: 14px; bottom: 14px; }
+  .availability-panel { padding: 26px 22px; }
+  .availability-panel p { font-size: 19px; }
   .bf-row { grid-template-columns: 1fr; }
 }
