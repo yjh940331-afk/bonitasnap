@@ -1,0 +1,130 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# 업로드한 사진이 저장되는 폴더
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+# 편집 화면 언어/문구
+locale: "ko"
+publish_mode: simple
+site_url: https://bonitasnap.com
+display_url: https://bonitasnap.com
+logo_url: https://bonitasnap.com/images/hero/hero-1.svg
+
+collections:
+  - name: "settings"
+    label: "사이트 내용"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: "site"
+        label: "전체 내용 편집"
+        file: "content/settings.json"
+        description: "사진·문구·가격·후기·Q&A를 여기서 모두 수정합니다. 다 고친 뒤 우측 상단 'Publish'(게시)를 누르면 사이트에 반영돼요."
+        fields:
+          # ---------- 기본 정보 ----------
+          - { label: "브랜드명", name: "brand", widget: "string", hint: "사이트 곳곳에 표시되는 이름" }
+          - { label: "한 줄 문구(태그라인)", name: "tagline", widget: "string" }
+          - { label: "인스타그램 주소", name: "instagram", widget: "string", required: false }
+          - { label: "카카오톡 채널 주소", name: "kakao", widget: "string", required: false }
+          - { label: "네이버 블로그 주소", name: "naverBlog", widget: "string", required: false }
+          - { label: "유튜브 주소", name: "youtube", widget: "string", required: false }
+          - { label: "전화번호(비우면 표시 안 됨)", name: "phone", widget: "string", required: false, default: "" }
+          - { label: "이메일(비우면 표시 안 됨)", name: "email", widget: "string", required: false, default: "" }
+
+          # ---------- 메인(첫 화면) ----------
+          - label: "메인 첫 화면"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "배경 사진", name: "image", widget: "image", required: false }
+              - { label: "큰 제목", name: "title", widget: "string" }
+              - { label: "작은 문구", name: "subtitle", widget: "string" }
+
+          # ---------- 소개 ----------
+          - label: "소개(About)"
+            name: "about"
+            widget: "object"
+            fields:
+              - { label: "소개 사진", name: "image", widget: "image", required: false }
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "소개 글", name: "body", widget: "text", hint: "줄바꿈으로 문장을 나눠 주세요." }
+
+          # ---------- 포트폴리오 ----------
+          - label: "포트폴리오 (사진·영상)"
+            name: "portfolio"
+            widget: "list"
+            label_singular: "항목"
+            summary: "{{fields.caption}} · {{fields.category}}"
+            hint: "사진은 '사진'에 올리고, 유튜브 영상은 '유튜브 영상 ID'만 넣으세요(둘 중 하나)."
+            fields:
+              - { label: "사진", name: "image", widget: "image", required: false }
+              - { label: "유튜브 영상 ID(영상일 때만)", name: "youtube", widget: "string", required: false, default: "" }
+              - label: "분류"
+                name: "category"
+                widget: "select"
+                options:
+                  - { label: "본식", value: "wedding" }
+                  - { label: "돌·가족", value: "family" }
+                  - { label: "행사", value: "event" }
+                  - { label: "영상", value: "film" }
+              - { label: "설명(캡션)", name: "caption", widget: "string", required: false }
+
+          # ---------- 가격 ----------
+          - label: "촬영 상품(가격)"
+            name: "products"
+            widget: "list"
+            label_singular: "상품"
+            summary: "{{fields.name}} · {{fields.price}}"
+            fields:
+              - { label: "상품명", name: "name", widget: "string" }
+              - { label: "설명", name: "desc", widget: "string", required: false }
+              - { label: "가격", name: "price", widget: "string" }
+              - label: "포함 특징"
+                name: "features"
+                widget: "list"
+                field: { label: "특징", name: "feature", widget: "string" }
+
+          # ---------- 후기 ----------
+          - label: "신랑신부 후기"
+            name: "reviews"
+            widget: "list"
+            label_singular: "후기"
+            summary: "{{fields.name}} · {{fields.venue}}"
+            fields:
+              - { label: "작성자", name: "name", widget: "string" }
+              - { label: "예식장", name: "venue", widget: "string", required: false }
+              - { label: "날짜", name: "date", widget: "string", required: false }
+              - { label: "후기 내용", name: "text", widget: "text" }
+              - { label: "후기 사진(선택)", name: "image", widget: "image", required: false }
+
+          # ---------- 예약 절차 ----------
+          - label: "예약 절차"
+            name: "process"
+            widget: "list"
+            label_singular: "단계"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "단계 제목", name: "title", widget: "string" }
+              - { label: "설명", name: "desc", widget: "string", required: false }
+
+          # ---------- Q&A ----------
+          - label: "자주 묻는 질문(Q&A)"
+            name: "faq"
+            widget: "list"
+            label_singular: "질문"
+            summary: "{{fields.q}}"
+            fields:
+              - { label: "질문", name: "q", widget: "string" }
+              - { label: "답변", name: "a", widget: "text" }
+
+          # ---------- 예약 문의 폼 ----------
+          - label: "예약 문의 폼 설정"
+            name: "booking"
+            widget: "object"
+            fields:
+              - { label: "폼 위 안내 문구", name: "note", widget: "string", required: false }
+              - { label: "Formspree 주소(선택)", name: "endpoint", widget: "string", required: false, default: "", hint: "비우면 메일앱/카카오로 연결됩니다." }

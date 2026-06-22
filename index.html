@@ -158,7 +158,29 @@
     <button class="lb-nav lb-next" id="lbNext" aria-label="다음">&#8250;</button>
   </div>
 
+  <!-- 기본값(폴백) → CMS가 관리하는 settings.json 으로 덮어쓴 뒤 앱 실행 -->
   <script src="js/site-config.js"></script>
-  <script src="js/main.js"></script>
+  <script>
+    (function () {
+      function run() { var s = document.createElement("script"); s.src = "js/main.js"; document.body.appendChild(s); }
+      fetch("content/settings.json", { cache: "no-store" })
+        .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+        .then(function (j) { window.SITE_CONFIG = j; })
+        .catch(function () { /* settings.json 없으면 site-config.js 기본값 사용 */ })
+        .then(run);
+    })();
+  </script>
+
+  <!-- Netlify Identity: 관리자 초대 링크 처리 후 /admin/ 으로 이동 -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", function (user) {
+        if (!user) {
+          window.netlifyIdentity.on("login", function () { document.location.href = "/admin/"; });
+        }
+      });
+    }
+  </script>
 </body>
 </html>

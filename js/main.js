@@ -9,6 +9,24 @@
   var $ = function (s, el) { return (el || document).querySelector(s); };
   var $$ = function (s, el) { return Array.prototype.slice.call((el || document).querySelectorAll(s)); };
 
+  /* 여러 줄 텍스트(배열/문자열/객체배열) → 문자열 배열로 정규화 (CMS 출력 호환) */
+  function lines(v) {
+    if (Array.isArray(v)) return v.map(function (x) {
+      return typeof x === "string" ? x : (x && (x.line || x.item || x.feature || x.text)) || "";
+    }).filter(function (s) { return s !== ""; });
+    if (typeof v === "string") return v.split("\n").filter(function (s) { return s.trim() !== ""; });
+    return [];
+  }
+  /* 포트폴리오 항목 정규화 — 사진/영상/CMS 형식 모두 처리 */
+  function normItem(it) {
+    if (!it) return { type: "photo", src: "" };
+    if (it.youtube) return { type: "youtube", id: it.youtube, category: it.category, caption: it.caption, poster: it.poster };
+    if (it.type === "youtube" || it.type === "video") return it;
+    var src = it.src || it.image || "";
+    return { type: "photo", src: src, category: it.category, caption: it.caption, poster: it.poster || src };
+  }
+  var PF = (C.portfolio || []).map(normItem);   // 정규화된 포트폴리오
+
   /* ---------- 기본 텍스트/이미지 채우기 ---------- */
   $$("[data-brand]").forEach(function (el) { if (C.brand) el.textContent = C.brand; });
   if (C.tagline) { var tg = $("[data-tagline]"); if (tg) tg.textContent = C.tagline; }
@@ -25,7 +43,7 @@
     if (ai && C.about.image) ai.src = C.about.image;
     if (C.about.title) $("[data-about-title]").textContent = C.about.title;
     var ab = $("[data-about-body]");
-    if (ab && C.about.body) ab.innerHTML = C.about.body.map(function (p) { return "<p>" + p + "</p>"; }).join("");
+    if (ab && C.about.body) ab.innerHTML = lines(C.about.body).map(function (p) { return "<p>" + p + "</p>"; }).join("");
   }
 
   var yr = $("#year"); if (yr) yr.textContent = new Date().getFullYear();
@@ -45,6 +63,7 @@
     gallery.innerHTML = "";
     C.portfolio.forEach(function (item, i) {
       if (filter && filter !== "all" && item.category !== filter) return;
+      item = normItem(item);
       var fig = document.createElement("div");
       fig.className = "gallery-item reveal" + (isVideo(item) ? " is-video" : "");
       fig.dataset.index = i;
@@ -72,7 +91,7 @@
   var priceGrid = $("#priceGrid");
   if (priceGrid && C.products) {
     priceGrid.innerHTML = C.products.map(function (p) {
-      var feats = (p.features || []).map(function (f) { return "<li>" + f + "</li>"; }).join("");
+      var feats = lines(p.features).map(function (f) { return "<li>" + f + "</li>"; }).join("");
       return '<div class="price-card reveal">' +
         "<h3>" + p.name + "</h3>" +
         '<p class="pc-desc">' + (p.desc || "") + "</p>" +
@@ -226,7 +245,7 @@
     document.body.style.overflow = "hidden";
   }
   function showLb() {
-    var item = C.portfolio[visible[pos]];
+    var item = normItem(C.portfolio[visible[pos]]);
     if (!item) return;
     lbStage.innerHTML = "";   // 이전 내용(특히 영상) 정리 → 소리/재생 중단
     var el;
