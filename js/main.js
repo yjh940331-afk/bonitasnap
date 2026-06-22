@@ -9,6 +9,12 @@
   var $ = function (s, el) { return (el || document).querySelector(s); };
   var $$ = function (s, el) { return Array.prototype.slice.call((el || document).querySelectorAll(s)); };
 
+  function esc(v) {
+    return String(v == null ? "" : v).replace(/[&<>"']/g, function (ch) {
+      return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[ch];
+    });
+  }
+
   /* 여러 줄 텍스트(배열/문자열/객체배열) → 문자열 배열로 정규화 (CMS 출력 호환) */
   function lines(v) {
     if (Array.isArray(v)) return v.map(function (x) {
@@ -20,12 +26,62 @@
   /* 포트폴리오 항목 정규화 — 사진/영상/CMS 형식 모두 처리 */
   function normItem(it) {
     if (!it) return { type: "photo", src: "" };
-    if (it.youtube) return { type: "youtube", id: it.youtube, category: it.category, caption: it.caption, poster: it.poster };
+    if (it.youtube || it.id) return { type: "youtube", id: it.youtube || it.id, category: it.category, caption: it.caption, poster: it.poster || it.cover };
     if (it.type === "youtube" || it.type === "video") return it;
     var src = it.src || it.image || "";
     return { type: "photo", src: src, category: it.category, caption: it.caption, poster: it.poster || src };
   }
-  var PF = (C.portfolio || []).map(normItem);   // 정규화된 포트폴리오
+
+  function hasMedia(item) {
+    return !!(item && ((item.type === "youtube" && item.id) || item.src));
+  }
+
+  function categoryLabel(v) {
+    return ({ wedding: "본식", family: "돌·가족", event: "행사", film: "영상" })[v] || "Portfolio";
+  }
+
+  function normalizeAlbum(album, i) {
+    var rawItems = album.images || album.items || album.photos || [];
+    if (!rawItems.length && (album.image || album.src || album.youtube || album.id)) rawItems = [album];
+    var items = rawItems.map(normItem).filter(hasMedia);
+    var first = items[0] || {};
+    var title = album.title || album.name || album.venue || album.caption || categoryLabel(album.category || first.category) || ("앨범 " + (i + 1));
+    return {
+      title: title,
+      category: album.category || first.category || "wedding",
+      description: album.description || album.desc || "",
+      cover: album.cover || album.image || thumbOf(first),
+      items: items,
+    };
+  }
+
+  function buildAlbums() {
+    var rawAlbums = C.portfolioAlbums || C.albums || [];
+    if (rawAlbums.length) return rawAlbums.map(normalizeAlbum).filter(function (album) { return album.items.length; });
+
+    var groups = [];
+    var byKey = {};
+    (C.portfolio || []).forEach(function (item) {
+      var normalized = normItem(item);
+      if (!hasMedia(normalized)) return;
+      var title = item.album || item.venue || item.caption || categoryLabel(normalized.category);
+      var key = (normalized.category || "all") + "|" + title;
+      if (!byKey[key]) {
+        byKey[key] = {
+          title: title,
+          category: normalized.category || "wedding",
+          description: "",
+          cover: thumbOf(normalized),
+          items: [],
+        };
+        groups.push(byKey[key]);
+      }
+      byKey[key].items.push(normalized);
+    });
+    return groups;
+  }
+
+  var ALBUMS = buildAlbums();
 
   /* ---------- 기본 텍스트/이미지 채우기 ---------- */
   $$("[data-brand]").forEach(function (el) { if (C.brand) el.textContent = C.brand; });
@@ -52,27 +108,34 @@
   function isVideo(item) { return item && (item.type === "video" || item.type === "youtube"); }
   // 타일(썸네일)에 보여줄 이미지 경로
   function thumbOf(item) {
+    if (!item) return "";
     if (item.type === "youtube") return item.poster || ("https://img.youtube.com/vi/" + item.id + "/hqdefault.jpg");
     return item.poster || item.src;
   }
 
   /* ---------- 포트폴리오 갤러리 ---------- */
   var gallery = $("#gallery");
+  var galleryAlbums = [];
   function renderGallery(filter) {
-    if (!gallery || !C.portfolio) return;
+    if (!gallery || !ALBUMS.length) return;
     gallery.innerHTML = "";
-    C.portfolio.forEach(function (item, i) {
-      if (filter && filter !== "all" && item.category !== filter) return;
-      item = normItem(item);
+    galleryAlbums = [];
+    ALBUMS.forEach(function (album) {
+      if (filter && filter !== "all" && album.category !== filter) return;
+      var index = galleryAlbums.length;
+      galleryAlbums.push(album);
       var fig = document.createElement("div");
-      fig.className = "gallery-item reveal" + (isVideo(item) ? " is-video" : "");
-      fig.dataset.index = i;
+      fig.className = "gallery-item album-card reveal";
+      fig.dataset.index = index;
       fig.style.transitionDelay = ((gallery.children.length % 3) * 0.08) + "s";
       fig.innerHTML =
-        '<img src="' + thumbOf(item) + '" alt="' + (item.caption || "portfolio") + '" loading="lazy" />' +
-        (isVideo(item) ? '<span class="play"></span>' : "") +
-        '<span class="cap">' + (item.caption || "") + "</span>";
-      fig.addEventListener("click", function () { openLightbox(i); });
+        '<img src="' + esc(album.cover) + '" alt="' + esc(album.title) + '" loading="lazy" />' +
+        '<span class="album-count">' + album.items.length + "장</span>" +
+        '<span class="cap"><span class="album-meta">' +
+          "<strong>" + esc(album.title) + "</strong>" +
+          '<em>' + esc(album.description || categoryLabel(album.category)) + " · 클릭해서 보기</em>" +
+        "</span></span>";
+      fig.addEventListener("click", function () { openAlbum(index); });
       gallery.appendChild(fig);
     });
     observeReveal();
@@ -232,20 +295,21 @@
 
   /* ---------- 라이트박스 (사진 + 영상) ---------- */
   var lb = $("#lightbox"), lbStage = $("#lbStage");
-  var visible = [];          // 현재 보이는 항목 인덱스 목록
+  var activeItems = [];
+  var activeAlbumTitle = "";
   var pos = 0;
-  function currentList() {
-    return $$(".gallery-item").map(function (el) { return parseInt(el.dataset.index, 10); });
-  }
-  function openLightbox(realIndex) {
-    visible = currentList();
-    pos = visible.indexOf(realIndex);
+  function openAlbum(albumIndex) {
+    var album = galleryAlbums[albumIndex];
+    if (!album || !album.items.length) return;
+    activeItems = album.items;
+    activeAlbumTitle = album.title;
+    pos = 0;
     showLb();
     lb.classList.add("open");
     document.body.style.overflow = "hidden";
   }
   function showLb() {
-    var item = normItem(C.portfolio[visible[pos]]);
+    var item = activeItems[pos];
     if (!item) return;
     lbStage.innerHTML = "";   // 이전 내용(특히 영상) 정리 → 소리/재생 중단
     var el;
@@ -268,9 +332,19 @@
       el.alt = item.caption || "";
     }
     lbStage.appendChild(el);
+    var info = document.createElement("div");
+    info.className = "lb-info";
+    info.innerHTML =
+      "<strong>" + esc(activeAlbumTitle) + "</strong>" +
+      '<span>' + esc(item.caption || categoryLabel(item.category)) + " · " + (pos + 1) + " / " + activeItems.length + "</span>";
+    lbStage.appendChild(info);
   }
-  function move(d) { pos = (pos + d + visible.length) % visible.length; showLb(); }
-  function closeLb() { lb.classList.remove("open"); lbStage.innerHTML = ""; document.body.style.overflow = ""; }
+  function move(d) {
+    if (!activeItems.length) return;
+    pos = (pos + d + activeItems.length) % activeItems.length;
+    showLb();
+  }
+  function closeLb() { lb.classList.remove("open"); lbStage.innerHTML = ""; activeItems = []; document.body.style.overflow = ""; }
 
   $("#lbClose").addEventListener("click", closeLb);
   $("#lbPrev").addEventListener("click", function () { move(-1); });

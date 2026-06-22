@@ -14,6 +14,6 @@ window.SITE_CONFIG = {
   youtube: "https://www.youtube.com/channel/UC9aH1iYGKO9llZjrABAMR1A",
   hero: { image: "", title: "BONITA SNAP", subtitle: "결혼식, 그 하루를 가장 당신답게" },
   about: { image: "", title: "Natural & Timeless", body: "" },
-  portfolio: [], products: [], reviews: [], process: [], faq: [],
+  portfolio: [], portfolioAlbums: [], products: [], reviews: [], process: [], faq: [],
   booking: { endpoint: "", note: "" },
 };

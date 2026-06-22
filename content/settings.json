@@ -212,5 +212,70 @@
       "image": ""
     }
   ],
-  "email": ""
+  "email": "",
+  "portfolioAlbums": [
+    {
+      "title": "본식 스냅",
+      "category": "wedding",
+      "cover": "/images/uploads/photo-2.jpg",
+      "description": "대표 웨딩 스냅 모음",
+      "images": [
+        {
+          "image": "/images/uploads/photo-1.jpg",
+          "youtube": "",
+          "caption": "본식 스냅"
+        },
+        {
+          "image": "/images/uploads/photo-2.jpg",
+          "youtube": "",
+          "caption": "본식 스냅"
+        },
+        {
+          "image": "/images/uploads/photo-3.jpg",
+          "youtube": "",
+          "caption": "본식 스냅"
+        },
+        {
+          "image": "/images/uploads/photo-4.jpg",
+          "youtube": "",
+          "caption": "본식 스냅"
+        },
+        {
+          "image": "/images/uploads/photo-5.jpg",
+          "youtube": "",
+          "caption": "본식 스냅"
+        },
+        {
+          "image": "/images/uploads/photo-6.jpg",
+          "youtube": "",
+          "caption": "본식 스냅"
+        },
+        {
+          "image": "/images/uploads/photo-7.jpg",
+          "youtube": "",
+          "caption": "본식 스냅"
+        },
+        {
+          "image": "/images/uploads/photo-8.jpg",
+          "youtube": "",
+          "caption": "본식 스냅"
+        },
+        {
+          "image": "/images/uploads/photo-9.jpg",
+          "youtube": "",
+          "caption": "본식 스냅"
+        },
+        {
+          "image": "/images/uploads/photo-10.jpg",
+          "youtube": "",
+          "caption": "본식 스냅"
+        },
+        {
+          "image": "/images/uploads/photo-11.jpg",
+          "youtube": "",
+          "caption": "본식 스냅"
+        }
+      ]
+    }
+  ]
 }
