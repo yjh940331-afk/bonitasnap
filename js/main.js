@@ -30,6 +30,14 @@
 
   var yr = $("#year"); if (yr) yr.textContent = new Date().getFullYear();
 
+  /* ---------- 항목 종류 판별 ---------- */
+  function isVideo(item) { return item && (item.type === "video" || item.type === "youtube"); }
+  // 타일(썸네일)에 보여줄 이미지 경로
+  function thumbOf(item) {
+    if (item.type === "youtube") return item.poster || ("https://img.youtube.com/vi/" + item.id + "/hqdefault.jpg");
+    return item.poster || item.src;
+  }
+
   /* ---------- 포트폴리오 갤러리 ---------- */
   var gallery = $("#gallery");
   function renderGallery(filter) {
@@ -38,10 +46,12 @@
     C.portfolio.forEach(function (item, i) {
       if (filter && filter !== "all" && item.category !== filter) return;
       var fig = document.createElement("div");
-      fig.className = "gallery-item reveal";
+      fig.className = "gallery-item reveal" + (isVideo(item) ? " is-video" : "");
       fig.dataset.index = i;
+      fig.style.transitionDelay = ((gallery.children.length % 3) * 0.08) + "s";
       fig.innerHTML =
-        '<img src="' + item.src + '" alt="' + (item.caption || "portfolio") + '" loading="lazy" />' +
+        '<img src="' + thumbOf(item) + '" alt="' + (item.caption || "portfolio") + '" loading="lazy" />' +
+        (isVideo(item) ? '<span class="play"></span>' : "") +
         '<span class="cap">' + (item.caption || "") + "</span>";
       fig.addEventListener("click", function () { openLightbox(i); });
       gallery.appendChild(fig);
@@ -82,8 +92,40 @@
     cl.innerHTML = links.join("");
   }
 
-  /* ---------- 라이트박스 ---------- */
-  var lb = $("#lightbox"), lbImg = $("#lbImg");
+  /* ---------- Q&A 아코디언 ---------- */
+  var faqList = $("#faqList");
+  if (faqList && C.faq) {
+    C.faq.forEach(function (item, i) {
+      var row = document.createElement("div");
+      row.className = "faq-item reveal";
+      row.style.transitionDelay = (Math.min(i, 6) * 0.05) + "s";
+      var ans = (item.a || "").replace(/\n/g, "<br />");
+      row.innerHTML =
+        '<button class="faq-q" type="button">' +
+          '<span class="faq-qmark">Q</span><span class="faq-qtext">' + item.q + "</span>" +
+          '<span class="faq-icon"></span>' +
+        "</button>" +
+        '<div class="faq-a"><div class="faq-a-inner">' + ans + "</div></div>";
+      var btn = row.querySelector(".faq-q");
+      var panel = row.querySelector(".faq-a");
+      btn.addEventListener("click", function () {
+        var open = row.classList.contains("open");
+        // 하나만 열리도록(아코디언) — 여러 개 동시에 열고 싶으면 아래 forEach 줄을 지우세요.
+        $$(".faq-item.open").forEach(function (r) {
+          r.classList.remove("open");
+          r.querySelector(".faq-a").style.maxHeight = null;
+        });
+        if (!open) {
+          row.classList.add("open");
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        }
+      });
+      faqList.appendChild(row);
+    });
+  }
+
+  /* ---------- 라이트박스 (사진 + 영상) ---------- */
+  var lb = $("#lightbox"), lbStage = $("#lbStage");
   var visible = [];          // 현재 보이는 항목 인덱스 목록
   var pos = 0;
   function currentList() {
@@ -98,10 +140,31 @@
   }
   function showLb() {
     var item = C.portfolio[visible[pos]];
-    if (item) lbImg.src = item.src;
+    if (!item) return;
+    lbStage.innerHTML = "";   // 이전 내용(특히 영상) 정리 → 소리/재생 중단
+    var el;
+    if (item.type === "youtube") {
+      el = document.createElement("iframe");
+      el.className = "lb-media";
+      el.src = "https://www.youtube.com/embed/" + item.id + "?autoplay=1&rel=0";
+      el.allow = "autoplay; encrypted-media; fullscreen";
+      el.setAttribute("allowfullscreen", "");
+    } else if (item.type === "video") {
+      el = document.createElement("video");
+      el.className = "lb-media";
+      el.src = item.src;
+      if (item.poster) el.poster = item.poster;
+      el.controls = true; el.autoplay = true; el.playsInline = true;
+    } else {
+      el = document.createElement("img");
+      el.className = "lb-media";
+      el.src = item.src;
+      el.alt = item.caption || "";
+    }
+    lbStage.appendChild(el);
   }
   function move(d) { pos = (pos + d + visible.length) % visible.length; showLb(); }
-  function closeLb() { lb.classList.remove("open"); document.body.style.overflow = ""; }
+  function closeLb() { lb.classList.remove("open"); lbStage.innerHTML = ""; document.body.style.overflow = ""; }
 
   $("#lbClose").addEventListener("click", closeLb);
   $("#lbPrev").addEventListener("click", function () { move(-1); });
@@ -114,10 +177,25 @@
     if (e.key === "ArrowRight") move(1);
   });
 
-  /* ---------- 헤더 스크롤 효과 ---------- */
+  /* ---------- 헤더 스크롤 효과 + 히어로 패럴랙스 ---------- */
   var header = $("#header");
-  function onScroll() { header.classList.toggle("scrolled", window.scrollY > 60); }
-  window.addEventListener("scroll", onScroll); onScroll();
+  var heroBg = $("[data-hero-bg]");
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      var y = window.scrollY;
+      header.classList.toggle("scrolled", y > 60);
+      // y>0 일 때만 적용 → 처음 로드 시 CSS 줌인 인트로는 그대로 살림
+      if (heroBg && !reduceMotion && y > 0 && y < window.innerHeight) {
+        heroBg.style.transform = "scale(1.06) translateY(" + (y * 0.18) + "px)";
+      }
+      ticking = false;
+    });
+  }
+  window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
 
   /* ---------- 모바일 메뉴 ---------- */
   var toggle = $("#navToggle"), nav = $("#nav");

@@ -122,11 +122,23 @@ a { color: inherit; text-decoration: none; }
 .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s ease; }
 .gallery-item:hover img { transform: scale(1.06); }
 .gallery-item .cap {
-  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-  color: #fff; font-size: 14px; letter-spacing: 2px;
-  background: rgba(46,42,38,.35); opacity: 0; transition: opacity .35s;
+  position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center;
+  padding-bottom: 22px; color: #fff; font-size: 14px; letter-spacing: 2px;
+  background: linear-gradient(180deg, rgba(46,42,38,0) 45%, rgba(46,42,38,.55)); opacity: 0; transition: opacity .35s;
 }
 .gallery-item:hover .cap { opacity: 1; }
+/* 영상 타일의 재생 버튼 */
+.gallery-item .play {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 64px; height: 64px; border-radius: 50%;
+  background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.85);
+  backdrop-filter: blur(2px); transition: background .3s, transform .3s;
+}
+.gallery-item .play::after {
+  content: ""; position: absolute; top: 50%; left: 54%; transform: translate(-50%, -50%);
+  border-style: solid; border-width: 9px 0 9px 15px; border-color: transparent transparent transparent #fff;
+}
+.gallery-item.is-video:hover .play { background: rgba(255,255,255,.32); transform: translate(-50%, -50%) scale(1.08); }
 
 /* ============ 가격 ============ */
 .price { background: var(--bg-alt); }
@@ -162,15 +174,58 @@ a { color: inherit; text-decoration: none; }
 /* ============ 라이트박스 ============ */
 .lightbox { position: fixed; inset: 0; z-index: 200; background: rgba(28,24,21,.94); display: none; align-items: center; justify-content: center; }
 .lightbox.open { display: flex; }
-.lb-img { max-width: 88vw; max-height: 86vh; object-fit: contain; box-shadow: 0 10px 60px rgba(0,0,0,.5); }
+.lb-stage { max-width: 92vw; max-height: 86vh; display: flex; align-items: center; justify-content: center; }
+.lb-media { max-width: 92vw; max-height: 86vh; object-fit: contain; box-shadow: 0 10px 60px rgba(0,0,0,.5); animation: lbIn .4s ease; }
+video.lb-media, iframe.lb-media { width: min(92vw, 1100px); aspect-ratio: 16/9; height: auto; background: #000; }
+@keyframes lbIn { from { opacity: 0; transform: scale(.97); } to { opacity: 1; transform: none; } }
 .lb-close { position: absolute; top: 24px; right: 30px; background: none; border: none; color: #fff; font-size: 40px; cursor: pointer; line-height: 1; }
 .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); background: none; border: none; color: #fff; font-size: 60px; cursor: pointer; padding: 0 20px; opacity: .7; transition: opacity .2s; }
 .lb-nav:hover { opacity: 1; }
 .lb-prev { left: 10px; } .lb-next { right: 10px; }
 
+/* ============ Q&A ============ */
+.faq-list { max-width: 800px; margin: 0 auto; border-top: 1px solid var(--line); }
+.faq-item { border-bottom: 1px solid var(--line); }
+.faq-q {
+  width: 100%; background: none; border: none; cursor: pointer; font-family: var(--sans);
+  display: flex; align-items: center; gap: 16px; text-align: left;
+  padding: 26px 8px; color: var(--ink); font-size: 17px; font-weight: 400; transition: color .25s;
+}
+.faq-q:hover { color: var(--accent); }
+.faq-qmark { font-family: var(--serif); font-size: 22px; font-weight: 600; color: var(--accent); flex: none; width: 22px; }
+.faq-qtext { flex: 1; line-height: 1.5; }
+.faq-icon { position: relative; width: 16px; height: 16px; flex: none; }
+.faq-icon::before, .faq-icon::after {
+  content: ""; position: absolute; background: var(--accent); transition: transform .35s ease;
+  top: 50%; left: 50%;
+}
+.faq-icon::before { width: 16px; height: 1.5px; transform: translate(-50%, -50%); }
+.faq-icon::after  { width: 1.5px; height: 16px; transform: translate(-50%, -50%); }
+.faq-item.open .faq-icon::after { transform: translate(-50%, -50%) scaleY(0); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
+.faq-a-inner { padding: 0 8px 28px 54px; color: var(--muted); font-size: 15px; line-height: 1.8; }
+
 /* ============ 스크롤 등장 애니메이션 ============ */
-.reveal { opacity: 0; transform: translateY(30px); transition: opacity .8s ease, transform .8s ease; }
+.reveal { opacity: 0; transform: translateY(34px); transition: opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1); will-change: opacity, transform; }
+.reveal.reveal-left  { transform: translateX(-40px); }
+.reveal.reveal-right { transform: translateX(40px); }
 .reveal.in { opacity: 1; transform: none; }
+
+/* 키면(처음 로드 시) 히어로가 부드럽게 나타나는 효과 */
+.hero-content > * { opacity: 0; transform: translateY(24px); animation: heroUp 1s cubic-bezier(.2,.7,.2,1) forwards; }
+.hero-eyebrow { animation-delay: .25s; }
+.hero-title   { animation-delay: .45s; }
+.hero-sub     { animation-delay: .7s; }
+.hero-btn     { animation-delay: .95s; }
+@keyframes heroUp { to { opacity: 1; transform: none; } }
+
+/* 모션 최소화 설정을 켠 사용자는 애니메이션 제거 */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .hero-content > * { opacity: 1 !important; transform: none !important; }
+  html { scroll-behavior: auto; }
+}
 
 /* ============ 반응형 ============ */
 @media (max-width: 860px) {
