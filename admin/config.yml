@@ -14,15 +14,15 @@ display_url: https://bonitasnap.com
 
 collections:
   - name: "settings"
-    label: "사이트 내용"
+    label: "보니타스냅 관리"
     delete: false
     editor:
       preview: false
     files:
       - name: "site"
-        label: "전체 내용 편집"
+        label: "홈페이지 전체 편집"
         file: "content/settings.json"
-        description: "사진·문구·가격·후기·Q&A를 여기서 모두 수정합니다. 다 고친 뒤 우측 상단 'Publish'(게시)를 누르면 사이트에 반영돼요."
+        description: "사진·문구·가격·후기·Q&A를 관리합니다. 저장 후 우측 상단 Publish를 누르면 사이트에 반영됩니다."
         fields:
           # ---------- 기본 정보 ----------
           - { label: "브랜드명", name: "brand", widget: "string", hint: "사이트 곳곳에 표시되는 이름" }
