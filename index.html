@@ -12,6 +12,27 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/style.css?v=20260624-3" />
+
+  <!-- 옛 서비스워커/캐시 정리 (예전 버전이 기기에 붙어있는 문제 방지) -->
+  <script>
+    (function () {
+      if (!("serviceWorker" in navigator)) return;
+      navigator.serviceWorker.getRegistrations().then(function (regs) {
+        if (!regs.length) return;
+        regs.forEach(function (reg) { reg.unregister(); });
+        if (window.caches && caches.keys) {
+          caches.keys().then(function (keys) {
+            return Promise.all(keys.map(function (k) { return caches.delete(k); }));
+          }).then(function () {
+            if (!sessionStorage.getItem("sw-purged")) {
+              sessionStorage.setItem("sw-purged", "1");
+              location.reload();
+            }
+          });
+        }
+      }).catch(function () {});
+    })();
+  </script>
 </head>
 <body>
 
