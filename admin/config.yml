@@ -1,6 +1,9 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: yjh940331-afk/bonitasnap
   branch: main
+  # ↓ sveltia-cms-auth 워커 주소로 교체하세요 (STEP 2에서 만듭니다)
+  base_url: https://REPLACE-WITH-AUTH-WORKER-URL.workers.dev
 
 # 업로드한 사진이 저장되는 폴더 (Git 기본 미디어 라이브러리)
 media_folder: "images/uploads"
