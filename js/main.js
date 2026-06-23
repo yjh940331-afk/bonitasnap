@@ -143,9 +143,7 @@
     galleryItems = [];
     ALBUMS.forEach(function (album) {
       if (filter && filter !== "all" && album.category !== filter) return;
-      album.items.forEach(function (item) {
-        galleryItems.push({ album: album, item: item });
-      });
+      galleryItems.push({ album: album, item: album.items[0] });
     });
     if (!galleryItems.length) {
       gallery.innerHTML = '<p class="gallery-empty">등록된 사진이 없습니다.</p>';
@@ -154,16 +152,17 @@
     galleryItems.forEach(function (entry, index) {
       var item = entry.item;
       var album = entry.album;
+      var coverSrc = album.cover || thumbOf(item);
       var fig = document.createElement("div");
       fig.className = "gallery-item reveal" + (isVideo(item) ? " is-video" : "");
       fig.dataset.index = index;
       fig.style.transitionDelay = ((index % 6) * 0.04) + "s";
       fig.innerHTML =
-        '<img src="' + esc(thumbOf(item) || album.cover) + '" alt="' + esc(item.caption || album.title) + '" loading="lazy" />' +
-        (isVideo(item) ? '<span class="play"></span>' : "") +
+        '<img src="' + esc(coverSrc) + '" alt="' + esc(album.title) + '" loading="lazy" />' +
+        (album.items.length > 1 ? '<span class="album-count">' + album.items.length + '</span>' : "") +
         '<span class="cap"><span class="album-meta">' +
           "<strong>" + esc(album.title) + "</strong>" +
-          '<em>' + esc(item.caption || album.description || categoryLabel(album.category)) + "</em>" +
+          '<em>' + esc(album.description || categoryLabel(album.category)) + "</em>" +
         "</span></span>";
       fig.addEventListener("click", function () { openGalleryItem(index); });
       gallery.appendChild(fig);
