@@ -6,11 +6,20 @@
   <meta name="robots" content="noindex" />
   <title>보니따스냅 관리자</title>
   <style>
-    html,
-    body {
-      min-height: 100%;
+    html, body {
+      min-height: 100% !important;
+      height: auto !important;
       overflow-y: auto !important;
+      overflow-x: hidden !important;
+      position: static !important;
       -webkit-overflow-scrolling: touch;
+    }
+    /* Sveltia CMS 루트 요소 */
+    sveltia-cms, #sveltia-cms, [data-sveltia-cms] {
+      display: block;
+      height: auto !important;
+      min-height: 100vh;
+      overflow: visible !important;
     }
   </style>
 </head>
