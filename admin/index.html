@@ -5,9 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
   <title>보니따스냅 관리자</title>
+  <style>
+    html,
+    body {
+      min-height: 100%;
+      overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch;
+    }
+  </style>
 </head>
 <body>
   <!-- Sveltia CMS — Decap 호환, 여러 장 업로드 지원, GitHub 로그인 -->
   <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js" type="module"></script>
+  <script>
+    const unlockScroll = () => {
+      document.documentElement.style.overflowY = 'auto';
+      document.body.style.overflowY = 'auto';
+      document.body.style.position = 'static';
+      document.body.style.height = 'auto';
+      document.body.style.touchAction = 'pan-y';
+    };
+
+    unlockScroll();
+    new MutationObserver(unlockScroll).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class', 'style'],
+    });
+    new MutationObserver(unlockScroll).observe(document.body, {
+      attributes: true,
+      attributeFilter: ['class', 'style'],
+    });
+  </script>
 </body>
 </html>
