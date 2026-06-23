@@ -41,17 +41,11 @@
   <section class="hero" id="hero">
     <div class="hero-bg" data-hero-bg></div>
     <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <p class="hero-eyebrow" data-tagline>아이폰으로 담는 가장 자연스러운 순간</p>
-      <h1 class="hero-title" data-hero-title>BONITA SNAP</h1>
-      <p class="hero-sub" data-hero-sub>결혼식, 그 하루를 가장 당신답게</p>
-      <a href="#portfolio" class="hero-btn">VIEW PORTFOLIO</a>
-    </div>
     <div class="scroll-hint"><span></span></div>
   </section>
 
   <!-- ============ 소개 ============ -->
-  <section class="about section" id="about">
+  <section class="about section content-panel" id="about" data-panel>
     <div class="about-grid">
       <div class="about-img reveal reveal-left">
         <img data-about-img alt="보니타스냅 소개" />
@@ -65,7 +59,7 @@
   </section>
 
   <!-- ============ 대표 작가 ============ -->
-  <section class="photographer section" id="photographer">
+  <section class="photographer section content-panel" id="photographer" data-panel>
     <div class="photographer-grid">
       <div class="photographer-copy reveal reveal-left">
         <p class="section-label">PHOTOGRAPHER</p>
@@ -85,7 +79,7 @@
   </section>
 
   <!-- ============ 신뢰 포인트 ============ -->
-  <section class="why section" id="why">
+  <section class="why section content-panel" id="why" data-panel>
     <div class="section-head center reveal">
       <p class="section-label">WHY BONITA</p>
       <h2 class="section-title">믿고 맡길 수 있도록</h2>
@@ -94,7 +88,7 @@
   </section>
 
   <!-- ============ 포트폴리오 ============ -->
-  <section class="portfolio section" id="portfolio">
+  <section class="portfolio section content-panel" id="portfolio" data-panel>
     <div class="section-head center reveal">
       <p class="section-label">PORTFOLIO</p>
       <h2 class="section-title">담아낸 순간들</h2>
@@ -110,7 +104,7 @@
   </section>
 
   <!-- ============ 후기 ============ -->
-  <section class="reviews section" id="reviews">
+  <section class="reviews section content-panel" id="reviews" data-panel>
     <div class="section-head center reveal">
       <p class="section-label">REVIEW</p>
       <h2 class="section-title">신랑신부 후기</h2>
@@ -119,18 +113,18 @@
   </section>
 
   <!-- ============ 가격 ============ -->
-  <section class="price section" id="price">
+  <section class="price section content-panel" id="price" data-panel>
     <div class="section-head center reveal">
       <p class="section-label">PRICE</p>
       <h2 class="section-title">촬영 상품</h2>
     </div>
-    <div class="price-grid" id="priceGrid"><!-- JS로 자동 생성 --></div>
-    <div class="product-guide reveal" id="productGuide"><!-- JS로 자동 생성 --></div>
+    <div class="price-grid" id="priceGrid"><!-- JS로 상품 카테고리 자동 생성 --></div>
+    <div class="product-guide reveal" id="productGuide"><!-- JS로 선택 상품 안내 자동 생성 --></div>
     <p class="price-note reveal">* 모든 상품의 자세한 안내와 일정은 문의를 통해 확인해 주세요.</p>
   </section>
 
   <!-- ============ 예약 가능 일정 ============ -->
-  <section class="availability section" id="availability">
+  <section class="availability section content-panel" id="availability" data-panel>
     <div class="availability-inner reveal">
       <div>
         <p class="section-label">BOOKING STATUS</p>
@@ -145,7 +139,7 @@
   </section>
 
   <!-- ============ 예약 절차 ============ -->
-  <section class="process section" id="process">
+  <section class="process section content-panel" id="process" data-panel>
     <div class="section-head center reveal">
       <p class="section-label">PROCESS</p>
       <h2 class="section-title">예약 절차</h2>
@@ -154,7 +148,7 @@
   </section>
 
   <!-- ============ 제휴 ============ -->
-  <section class="partners section" id="partners">
+  <section class="partners section content-panel" id="partners" data-panel>
     <div class="section-head center reveal">
       <p class="section-label">PARTNERS</p>
       <h2 class="section-title" data-partners-title>함께 만드는 웨딩</h2>
@@ -165,7 +159,7 @@
   </section>
 
   <!-- ============ Q&A ============ -->
-  <section class="faq section" id="faq">
+  <section class="faq section content-panel" id="faq" data-panel>
     <div class="section-head center reveal">
       <p class="section-label">Q&amp;A</p>
       <h2 class="section-title">자주 묻는 질문</h2>
@@ -174,30 +168,13 @@
   </section>
 
   <!-- ============ 문의 ============ -->
-  <section class="contact section" id="contact">
+  <section class="contact section content-panel" id="contact" data-panel>
     <div class="section-head center reveal">
       <p class="section-label">CONTACT</p>
       <h2 class="section-title">예약 &amp; 문의</h2>
     </div>
-    <p class="contact-lead reveal" id="bookingNote">결혼식, 돌, 행사 스냅 예약을 도와드립니다.</p>
-
-    <form class="booking-form reveal" id="bookingForm">
-      <div class="bf-row">
-        <div><label>이름 *</label><input type="text" name="name" required placeholder="성함" /></div>
-        <div><label>연락처 *</label><input type="text" name="phone" required placeholder="010-0000-0000" /></div>
-      </div>
-      <div class="bf-row">
-        <div><label>예식일</label><input type="text" name="date" placeholder="예: 2026-10-12" /></div>
-        <div><label>예식장</label><input type="text" name="venue" placeholder="예: 그랜드 웨딩홀" /></div>
-      </div>
-      <label>문의 내용</label>
-      <textarea name="message" rows="4" placeholder="원하시는 상품, 촬영 시간, 궁금한 점 등을 적어주세요."></textarea>
-      <button type="submit" class="bf-submit">예약 문의 보내기</button>
-      <p class="bf-status" id="bookingStatus"></p>
-    </form>
-
-    <p class="contact-or reveal">또는 아래 채널로 편하게 연락 주세요</p>
-    <div class="contact-links reveal" id="contactLinks"><!-- JS로 자동 생성 --></div>
+    <p class="contact-lead reveal" id="bookingNote">예약 문의는 카카오톡 채널에서만 안내드립니다.</p>
+    <div class="contact-links contact-action reveal" id="contactLinks"><!-- JS로 자동 생성 --></div>
   </section>
 
   <!-- ============ 푸터 ============ -->

@@ -6,13 +6,9 @@
    ============================================================= */
 window.SITE_CONFIG = {
   brand: "BONITA SNAP",
-  tagline: "프리미엄 아이폰 웨딩 스냅 · Classic · Lovely · Radiant",
-  phone: "", email: "",
-  instagram: "https://instagram.com/bonita_snap_",
+  tagline: "",
   kakao: "https://pf.kakao.com/_AxnPxdn",
-  naverBlog: "https://blog.naver.com/bonita_film_",
-  youtube: "https://www.youtube.com/channel/UC9aH1iYGKO9llZjrABAMR1A",
-  hero: { image: "", title: "BONITA SNAP", subtitle: "결혼식, 그 하루를 가장 당신답게" },
+  hero: { image: "" },
   about: { image: "", title: "Natural & Timeless", body: "" },
   portfolio: [], portfolioAlbums: [], products: [], reviews: [], process: [], faq: [],
   photographer: {
@@ -25,8 +21,7 @@ window.SITE_CONFIG = {
     promise: "모든 촬영은 대표 작가가 직접 진행합니다. 알바·외주 촬영 없이 책임 있게 함께합니다.",
   },
   trustBadges: [],
-  productGuide: { inclusions: [], options: [], flow: [] },
   availability: { title: "예약 가능 일정", status: "", note: "", items: [] },
   partners: { title: "함께 만드는 웨딩", lead: "", ctaText: "", ctaUrl: "", items: [] },
-  booking: { endpoint: "", note: "" },
+  booking: { note: "" },
 };

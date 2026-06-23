@@ -28,13 +28,7 @@ collections:
         fields:
           # ---------- 기본 정보 ----------
           - { label: "브랜드명", name: "brand", widget: "string", hint: "사이트 곳곳에 표시되는 이름" }
-          - { label: "한 줄 문구(태그라인)", name: "tagline", widget: "string" }
-          - { label: "인스타그램 주소", name: "instagram", widget: "string", required: false }
           - { label: "카카오톡 채널 주소", name: "kakao", widget: "string", required: false }
-          - { label: "네이버 블로그 주소", name: "naverBlog", widget: "string", required: false }
-          - { label: "유튜브 주소", name: "youtube", widget: "string", required: false }
-          - { label: "전화번호(비우면 표시 안 됨)", name: "phone", widget: "string", required: false, default: "" }
-          - { label: "이메일(비우면 표시 안 됨)", name: "email", widget: "string", required: false, default: "" }
 
           # ---------- 메인(첫 화면) ----------
           - label: "메인 첫 화면"
@@ -42,8 +36,6 @@ collections:
             widget: "object"
             fields:
               - { label: "배경 사진", name: "image", widget: "image", required: false }
-              - { label: "큰 제목", name: "title", widget: "string" }
-              - { label: "작은 문구", name: "subtitle", widget: "string" }
 
           # ---------- 소개 ----------
           - label: "소개(About)"
@@ -116,28 +108,17 @@ collections:
               - { label: "상품명", name: "name", widget: "string" }
               - { label: "설명", name: "desc", widget: "string", required: false }
               - { label: "가격", name: "price", widget: "string" }
-              - label: "포함 특징"
-                name: "features"
+              - label: "상품별 상세 카테고리"
+                name: "categories"
                 widget: "list"
-                field: { label: "특징", name: "feature", widget: "string" }
-
-          # ---------- 상품 상세 안내 ----------
-          - label: "상품 상세 안내"
-            name: "productGuide"
-            widget: "object"
-            fields:
-              - label: "포함사항"
-                name: "inclusions"
-                widget: "list"
-                field: { label: "포함사항", name: "item", widget: "string" }
-              - label: "추가 옵션"
-                name: "options"
-                widget: "list"
-                field: { label: "추가 옵션", name: "item", widget: "string" }
-              - label: "진행 방식"
-                name: "flow"
-                widget: "list"
-                field: { label: "진행 방식", name: "item", widget: "string" }
+                label_singular: "카테고리"
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "카테고리 제목", name: "title", widget: "string", hint: "예: 촬영 안내, 촬영 기기, 전송 파일, 할인 옵션" }
+                  - label: "안내 내용"
+                    name: "items"
+                    widget: "list"
+                    field: { label: "내용", name: "item", widget: "text" }
 
           # ---------- 후기 ----------
           - label: "신랑신부 후기"
@@ -205,10 +186,9 @@ collections:
               - { label: "질문", name: "q", widget: "string" }
               - { label: "답변", name: "a", widget: "text" }
 
-          # ---------- 예약 문의 폼 ----------
-          - label: "예약 문의 폼 설정"
+          # ---------- 예약 문의 안내 ----------
+          - label: "예약 문의 안내"
             name: "booking"
             widget: "object"
             fields:
               - { label: "폼 위 안내 문구", name: "note", widget: "string", required: false }
-              - { label: "Formspree 주소(선택)", name: "endpoint", widget: "string", required: false, default: "", hint: "비우면 메일앱/카카오로 연결됩니다." }

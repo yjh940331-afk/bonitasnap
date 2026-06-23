@@ -93,13 +93,10 @@
 
   /* ---------- 기본 텍스트/이미지 채우기 ---------- */
   $$("[data-brand]").forEach(function (el) { if (C.brand) el.textContent = C.brand; });
-  if (C.tagline) { var tg = $("[data-tagline]"); if (tg) tg.textContent = C.tagline; }
 
   if (C.hero) {
     var hb = $("[data-hero-bg]");
     if (hb && C.hero.image) hb.style.backgroundImage = "url('" + C.hero.image + "')";
-    if (C.hero.title) $("[data-hero-title]").textContent = C.hero.title;
-    if (C.hero.subtitle) $("[data-hero-sub]").textContent = C.hero.subtitle;
   }
 
   if (C.about) {
@@ -139,27 +136,36 @@
 
   /* ---------- 포트폴리오 갤러리 ---------- */
   var gallery = $("#gallery");
-  var galleryAlbums = [];
+  var galleryItems = [];
   function renderGallery(filter) {
     if (!gallery || !ALBUMS.length) return;
     gallery.innerHTML = "";
-    galleryAlbums = [];
+    galleryItems = [];
     ALBUMS.forEach(function (album) {
       if (filter && filter !== "all" && album.category !== filter) return;
-      var index = galleryAlbums.length;
-      galleryAlbums.push(album);
+      album.items.forEach(function (item) {
+        galleryItems.push({ album: album, item: item });
+      });
+    });
+    if (!galleryItems.length) {
+      gallery.innerHTML = '<p class="gallery-empty">등록된 사진이 없습니다.</p>';
+      return;
+    }
+    galleryItems.forEach(function (entry, index) {
+      var item = entry.item;
+      var album = entry.album;
       var fig = document.createElement("div");
-      fig.className = "gallery-item album-card reveal";
+      fig.className = "gallery-item reveal" + (isVideo(item) ? " is-video" : "");
       fig.dataset.index = index;
-      fig.style.transitionDelay = ((gallery.children.length % 3) * 0.08) + "s";
+      fig.style.transitionDelay = ((index % 6) * 0.04) + "s";
       fig.innerHTML =
-        '<img src="' + esc(album.cover) + '" alt="' + esc(album.title) + '" loading="lazy" />' +
-        '<span class="album-count">' + album.items.length + "장</span>" +
+        '<img src="' + esc(thumbOf(item) || album.cover) + '" alt="' + esc(item.caption || album.title) + '" loading="lazy" />' +
+        (isVideo(item) ? '<span class="play"></span>' : "") +
         '<span class="cap"><span class="album-meta">' +
           "<strong>" + esc(album.title) + "</strong>" +
-          '<em>' + esc(album.description || categoryLabel(album.category)) + " · 클릭해서 보기</em>" +
+          '<em>' + esc(item.caption || album.description || categoryLabel(album.category)) + "</em>" +
         "</span></span>";
-      fig.addEventListener("click", function () { openAlbum(index); });
+      fig.addEventListener("click", function () { openGalleryItem(index); });
       gallery.appendChild(fig);
     });
     observeReveal();
@@ -176,45 +182,89 @@
 
   /* ---------- 가격 카드 ---------- */
   var priceGrid = $("#priceGrid");
-  if (priceGrid && C.products) {
-    priceGrid.innerHTML = C.products.map(function (p) {
-      var feats = lines(p.features).map(function (f) { return "<li>" + f + "</li>"; }).join("");
-      return '<div class="price-card reveal">' +
-        "<h3>" + p.name + "</h3>" +
-        '<p class="pc-desc">' + (p.desc || "") + "</p>" +
-        '<p class="pc-price">' + (p.price || "") + "</p>" +
-        "<ul>" + feats + "</ul></div>";
-    }).join("");
-  }
-
   var productGuide = $("#productGuide");
-  if (productGuide && C.productGuide) {
-    var pg = C.productGuide;
-    var cards = pg.cards || [
-      { title: "포함사항", items: pg.inclusions },
-      { title: "추가 옵션", items: pg.options },
-      { title: "진행 방식", items: pg.flow },
-    ];
-    productGuide.innerHTML = cards.filter(function (card) {
-      return card && card.title && lines(card.items).length;
-    }).map(function (card) {
-      return '<article class="product-detail">' +
-        "<h3>" + esc(card.title) + "</h3>" +
-        "<ul>" + listHtml(card.items) + "</ul>" +
+  if (priceGrid && C.products) {
+    function productGroups(product) {
+      var structured = product.categories || product.optionCategories || product.sections;
+      if (Array.isArray(structured) && structured.length) {
+        return structured.map(function (group) {
+          return {
+            title: group.title || group.name || "상품 안내",
+            items: lines(group.items || group.options || group.features || group.body),
+          };
+        }).filter(function (group) { return group.title || group.items.length; });
+      }
+
+      var groups = [];
+      lines(product.features).forEach(function (raw) {
+        var text = String(raw).trim();
+        var heading = text.match(/^\[(.+)\]$/);
+        if (heading) {
+          groups.push({ title: heading[1], items: [] });
+        } else if (text) {
+          if (!groups.length) groups.push({ title: "상품 안내", items: [] });
+          groups[groups.length - 1].items.push(text);
+        }
+      });
+      return groups.filter(function (group) { return group.title || group.items.length; });
+    }
+
+    function renderProductDetail(index) {
+      if (!productGuide) return;
+      var product = C.products[index] || C.products[0];
+      if (!product) return;
+      var groups = productGroups(product);
+      var rows = groups.map(function (group) {
+        return "<tr>" +
+          '<th scope="row">' + esc(group.title || "상품 안내") + "</th>" +
+          "<td>" + (group.items.length ? "<ul>" + listHtml(group.items) + "</ul>" : '<span class="product-table-empty">상담 시 안내드립니다.</span>') + "</td>" +
+        "</tr>";
+      }).join("");
+      productGuide.innerHTML = '<article class="product-detail">' +
+        '<div class="product-detail-head">' +
+          "<h3>" + esc(product.name || "") + "</h3>" +
+          '<p class="pd-price">' + esc(product.price || "") + "</p>" +
+          (product.desc ? '<p class="pd-desc">' + esc(product.desc) + "</p>" : "") +
+        "</div>" +
+        (groups.length ? '<div class="product-table-wrap">' +
+          '<table class="product-table">' +
+            "<thead><tr><th scope=\"col\">카테고리</th><th scope=\"col\">내용</th></tr></thead>" +
+            "<tbody>" + rows + "</tbody>" +
+          "</table>" +
+        "</div>" : '<p class="product-empty">상세 구성은 카카오톡 채널로 문의해 주세요.</p>') +
       "</article>";
-    }).join("");
+    }
+
+    function renderProductTabs(activeIndex) {
+      priceGrid.setAttribute("role", "tablist");
+      priceGrid.innerHTML = C.products.map(function (p, i) {
+        var count = productGroups(p).length;
+        return '<button type="button" class="price-card reveal' + (i === activeIndex ? " active" : "") + '" role="tab" aria-selected="' + (i === activeIndex ? "true" : "false") + '" data-product-index="' + i + '">' +
+          "<h3>" + esc(p.name || "") + "</h3>" +
+          '<p class="pc-desc">' + esc(p.desc || "") + "</p>" +
+          '<p class="pc-price">' + esc(p.price || "") + "</p>" +
+          '<span class="pc-count">' + (count ? count + "개 카테고리" : "카카오톡 문의") + "</span>" +
+        "</button>";
+      }).join("");
+      $$(".price-card", priceGrid).forEach(function (card) {
+        card.addEventListener("click", function () {
+          var index = Number(card.dataset.productIndex || 0);
+          renderProductTabs(index);
+          renderProductDetail(index);
+          observeReveal();
+        });
+      });
+    }
+
+    renderProductTabs(0);
+    renderProductDetail(0);
   }
 
   /* ---------- 문의 링크 ---------- */
   var cl = $("#contactLinks");
   if (cl) {
     var links = [];
-    if (C.instagram) links.push('<a href="' + C.instagram + '" target="_blank" rel="noopener">Instagram</a>');
-    if (C.kakao) links.push('<a href="' + C.kakao + '" target="_blank" rel="noopener">카카오톡 채널</a>');
-    if (C.naverBlog) links.push('<a href="' + C.naverBlog + '" target="_blank" rel="noopener">네이버 블로그</a>');
-    if (C.youtube) links.push('<a href="' + C.youtube + '" target="_blank" rel="noopener">YouTube</a>');
-    if (C.phone) links.push('<a href="tel:' + C.phone.replace(/[^0-9+]/g, "") + '">' + C.phone + "</a>");
-    if (C.email) links.push('<a href="mailto:' + C.email + '">' + C.email + "</a>");
+    if (C.kakao) links.push('<a class="primary-contact" href="' + esc(C.kakao) + '" target="_blank" rel="noopener">카카오톡 채널로 예약 문의하기</a>');
     cl.innerHTML = links.join("");
   }
 
@@ -323,63 +373,10 @@
     }).join("");
   }
 
-  /* ---------- 예약 문의 폼 ---------- */
-  var bForm = $("#bookingForm");
-  if (bForm) {
-    if (C.booking && C.booking.note) {
-      var bn = $("#bookingNote");
-      if (bn) bn.innerHTML = C.booking.note;
-    }
-    bForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-      var status = $("#bookingStatus");
-      var fd = new FormData(bForm);
-      var d = {
-        name: (fd.get("name") || "").trim(),
-        phone: (fd.get("phone") || "").trim(),
-        date: (fd.get("date") || "").trim(),
-        venue: (fd.get("venue") || "").trim(),
-        message: (fd.get("message") || "").trim(),
-      };
-      if (!d.name || !d.phone) { status.className = "bf-status err"; status.textContent = "이름과 연락처를 입력해 주세요."; return; }
-
-      var endpoint = C.booking && C.booking.endpoint;
-      if (endpoint) {
-        // Formspree 등으로 전송
-        var btn = bForm.querySelector(".bf-submit");
-        btn.disabled = true; status.className = "bf-status"; status.textContent = "보내는 중...";
-        fetch(endpoint, {
-          method: "POST", headers: { "Accept": "application/json" }, body: fd,
-        }).then(function (r) {
-          if (r.ok) {
-            bForm.reset(); status.className = "bf-status ok";
-            status.textContent = "예약 문의가 접수되었어요! 빠르게 연락드릴게요.";
-          } else { throw new Error("fail"); }
-        }).catch(function () {
-          status.className = "bf-status err";
-          status.textContent = "전송에 실패했어요. 카카오톡/인스타그램으로 연락 부탁드려요.";
-        }).then(function () { btn.disabled = false; });
-      } else if (C.email) {
-        // 설정된 이메일로 메일 앱 열기
-        var subject = "[예약문의] " + d.name + "님";
-        var body =
-          "이름: " + d.name + "\n연락처: " + d.phone +
-          "\n예식일: " + (d.date || "-") + "\n예식장: " + (d.venue || "-") +
-          "\n\n문의내용:\n" + (d.message || "-");
-        window.location.href = "mailto:" + C.email + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-        status.className = "bf-status ok";
-        status.textContent = "메일 앱이 열렸어요. 전송을 완료해 주세요.";
-      } else {
-        // 이메일/폼주소가 없으면 카카오톡 채널로 안내 (입력 내용은 클립보드에 복사)
-        var txt = "[예약문의] " + d.name + " / " + d.phone +
-          " / 예식일 " + (d.date || "-") + " / " + (d.venue || "-") +
-          (d.message ? "\n" + d.message : "");
-        if (navigator.clipboard) { try { navigator.clipboard.writeText(txt); } catch (e) {} }
-        status.className = "bf-status ok";
-        status.textContent = "문의 내용이 복사되었어요. 카카오톡 채널 또는 인스타그램으로 붙여넣어 보내주세요!";
-        if (C.kakao) window.open(C.kakao, "_blank");
-      }
-    });
+  /* ---------- 예약 문의 안내 ---------- */
+  if (C.booking && C.booking.note) {
+    var bn = $("#bookingNote");
+    if (bn) bn.textContent = C.booking.note;
   }
 
   /* ---------- 라이트박스 (사진 + 영상) ---------- */
@@ -387,63 +384,86 @@
   var activeItems = [];
   var activeAlbumTitle = "";
   var pos = 0;
-  function openAlbum(albumIndex) {
-    var album = galleryAlbums[albumIndex];
-    if (!album || !album.items.length) return;
-    activeItems = album.items;
+  function openGalleryItem(itemIndex) {
+    var entry = galleryItems[itemIndex];
+    if (!entry) return;
+    var album = entry.album;
+    activeItems = album.items.map(function (source) {
+      var item = {};
+      Object.keys(source).forEach(function (key) { item[key] = source[key]; });
+      item._albumTitle = album.title;
+      item._albumCategory = album.category;
+      return item;
+    });
     activeAlbumTitle = album.title;
-    pos = 0;
-    showLb();
-    lb.classList.add("open");
+    pos = album.items.indexOf(entry.item);
+    if (pos < 0) pos = 0;
+    showScrollLb();
+    lb.classList.add("open", "scroll-mode");
     document.body.style.overflow = "hidden";
+    window.requestAnimationFrame(function () {
+      var target = lbStage.querySelector('[data-scroll-index="' + pos + '"]');
+      if (target) target.scrollIntoView({ block: "start" });
+    });
   }
-  function showLb() {
-    var item = activeItems[pos];
-    if (!item) return;
-    lbStage.innerHTML = "";   // 이전 내용(특히 영상) 정리 → 소리/재생 중단
+
+  function makeScrollMedia(item) {
     var el;
     if (item.type === "youtube") {
       el = document.createElement("iframe");
-      el.className = "lb-media";
-      el.src = "https://www.youtube.com/embed/" + item.id + "?autoplay=1&rel=0";
-      el.allow = "autoplay; encrypted-media; fullscreen";
+      el.className = "lb-scroll-media";
+      el.src = "https://www.youtube.com/embed/" + item.id + "?rel=0";
+      el.allow = "encrypted-media; fullscreen";
       el.setAttribute("allowfullscreen", "");
     } else if (item.type === "video") {
       el = document.createElement("video");
-      el.className = "lb-media";
+      el.className = "lb-scroll-media";
       el.src = item.src;
       if (item.poster) el.poster = item.poster;
-      el.controls = true; el.autoplay = true; el.playsInline = true;
+      el.controls = true;
+      el.playsInline = true;
     } else {
       el = document.createElement("img");
-      el.className = "lb-media";
+      el.className = "lb-scroll-media";
       el.src = item.src;
-      el.alt = item.caption || "";
+      el.alt = item.caption || activeAlbumTitle || "portfolio";
+      el.loading = "lazy";
     }
-    lbStage.appendChild(el);
-    var info = document.createElement("div");
-    info.className = "lb-info";
-    info.innerHTML =
-      "<strong>" + esc(activeAlbumTitle) + "</strong>" +
-      '<span>' + esc(item.caption || categoryLabel(item.category)) + " · " + (pos + 1) + " / " + activeItems.length + "</span>";
-    lbStage.appendChild(info);
+    return el;
   }
-  function move(d) {
+
+  function showScrollLb() {
+    lbStage.innerHTML = "";   // 이전 내용(특히 영상) 정리 → 소리/재생 중단
     if (!activeItems.length) return;
-    pos = (pos + d + activeItems.length) % activeItems.length;
-    showLb();
+    var head = document.createElement("div");
+    head.className = "lb-scroll-head";
+    head.innerHTML =
+      "<strong>" + esc(activeAlbumTitle || "Portfolio") + "</strong>" +
+      "<span>" + activeItems.length + "장 · 아래로 스크롤해서 보기</span>";
+    lbStage.appendChild(head);
+
+    activeItems.forEach(function (item, index) {
+      var row = document.createElement("article");
+      var category = item.category || item._albumCategory;
+      row.className = "lb-scroll-item";
+      row.dataset.scrollIndex = index;
+      row.appendChild(makeScrollMedia(item));
+      var caption = document.createElement("p");
+      caption.className = "lb-scroll-caption";
+      caption.textContent = (item.caption || categoryLabel(category)) + " · " + (index + 1) + " / " + activeItems.length;
+      row.appendChild(caption);
+      lbStage.appendChild(row);
+    });
   }
-  function closeLb() { lb.classList.remove("open"); lbStage.innerHTML = ""; activeItems = []; document.body.style.overflow = ""; }
+  function closeLb() { lb.classList.remove("open", "scroll-mode"); lbStage.innerHTML = ""; activeItems = []; document.body.style.overflow = ""; }
 
   $("#lbClose").addEventListener("click", closeLb);
-  $("#lbPrev").addEventListener("click", function () { move(-1); });
-  $("#lbNext").addEventListener("click", function () { move(1); });
+  $("#lbPrev").addEventListener("click", function () {});
+  $("#lbNext").addEventListener("click", function () {});
   lb.addEventListener("click", function (e) { if (e.target === lb) closeLb(); });
   document.addEventListener("keydown", function (e) {
     if (!lb.classList.contains("open")) return;
     if (e.key === "Escape") closeLb();
-    if (e.key === "ArrowLeft") move(-1);
-    if (e.key === "ArrowRight") move(1);
   });
 
   /* ---------- 헤더 스크롤 효과 + 히어로 패럴랙스 ---------- */
@@ -475,6 +495,77 @@
     a.addEventListener("click", function () { nav.classList.remove("open"); toggle.classList.remove("open"); });
   });
 
+  /* ---------- 메뉴별 섹션 전환 ---------- */
+  var panels = $$("[data-panel]");
+  var panelIds = panels.map(function (panel) { return panel.id; });
+  function showHome(shouldScroll) {
+    panels.forEach(function (panel) {
+      panel.classList.remove("active");
+      panel.hidden = true;
+    });
+    document.body.classList.remove("panel-open");
+    $$(".nav a").forEach(function (link) { link.classList.remove("active"); });
+    if (shouldScroll) {
+      window.setTimeout(function () {
+        var hero = document.getElementById("hero");
+        if (hero) hero.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      }, 20);
+    }
+  }
+
+  function activatePanel(id, shouldScroll) {
+    if (panelIds.indexOf(id) === -1) {
+      showHome(shouldScroll);
+      return;
+    }
+    panels.forEach(function (panel) {
+      var active = panel.id === id;
+      panel.classList.toggle("active", active);
+      panel.hidden = !active;
+    });
+    document.body.classList.add("panel-open");
+    $$(".nav a").forEach(function (link) {
+      link.classList.toggle("active", link.getAttribute("href") === "#" + id);
+    });
+    observeReveal();
+    if (shouldScroll) {
+      window.setTimeout(function () {
+        var target = document.getElementById(id);
+        if (target) target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      }, 20);
+    }
+  }
+
+  $$(".nav a[href^='#']").forEach(function (link) {
+    link.addEventListener("click", function (e) {
+      var id = link.getAttribute("href").slice(1);
+      if (panelIds.indexOf(id) === -1) return;
+      e.preventDefault();
+      activatePanel(id, true);
+      if (window.history && window.history.pushState) {
+        window.history.pushState(null, "", "#" + id);
+      } else {
+        window.location.hash = id;
+      }
+    });
+  });
+
+  $$("a[href='#hero']").forEach(function (link) {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      showHome(true);
+      if (window.history && window.history.pushState) {
+        window.history.pushState(null, "", "#hero");
+      } else {
+        window.location.hash = "hero";
+      }
+    });
+  });
+
+  window.addEventListener("hashchange", function () {
+    activatePanel(window.location.hash.replace("#", ""), true);
+  });
+
   /* ---------- 스크롤 등장 애니메이션 ---------- */
   var io;
   function observeReveal() {
@@ -489,5 +580,11 @@
 
   /* ---------- 초기 실행 ---------- */
   renderGallery("brightHall");
+  var initialPanel = window.location.hash.replace("#", "");
+  if (panelIds.indexOf(initialPanel) !== -1) {
+    activatePanel(initialPanel, false);
+  } else {
+    showHome(false);
+  }
   observeReveal();
 })();
