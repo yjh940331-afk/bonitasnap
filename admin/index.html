@@ -130,12 +130,51 @@
     (function(){
       // 영어 → 한글 (정확히 일치하는 글자만 바꿈)
       var DICT = {
+        // 저장/게시/삭제 등 주요 동작
+        "Save": "저장",
+        "Saving…": "저장 중…", "Saving...": "저장 중…",
+        "Saved": "저장됨",
+        "Publish": "게시(사이트 반영)",
+        "Publishing…": "게시 중…", "Publishing...": "게시 중…",
+        "Published": "게시됨",
+        "Publish now": "지금 게시",
+        "Publish and create new": "게시하고 새로 만들기",
+        "Publish and duplicate": "게시하고 복제",
+        "Delete": "삭제", "Delete entry": "삭제",
+        "Duplicate": "복제",
+        "Cancel": "취소", "Close": "닫기",
+        "OK": "확인", "Yes": "예", "No": "아니요",
+        "Add": "추가", "New": "새로 만들기", "Create new": "새로 만들기",
+        "Edit": "편집", "Editing": "편집 중", "Preview": "미리보기",
+        "Replace": "사진 교체", "Remove": "사진 제거",
+        "Reset": "초기화", "Back": "뒤로", "Apply": "적용", "Done": "완료",
+        // 복구(드래프트)
         "Restore": "이전 작업 복구",
         "Discard": "복구 안 함(새로 시작)",
         "Restore?": "이전 작업을 복구할까요?",
         "An unsaved version of this entry was found.": "저장하지 않은 작업 내용이 남아 있어요.",
         "Recovered an unsaved entry.": "저장하지 않은 작업 내용을 찾았어요.",
-        "This content has unsaved changes. Are you sure you want to leave?": "저장하지 않은 변경 사항이 있어요. 정말 나가시겠어요?"
+        "This content has unsaved changes. Are you sure you want to leave?": "저장하지 않은 변경 사항이 있어요. 정말 나가시겠어요?",
+        // 에러/필수
+        "One field has an error. Please correct it to save the entry.": "한 항목에 오류가 있어요. 저장하려면 그 항목을 고쳐 주세요.",
+        "Error": "오류", "Required": "필수",
+        "This field is required.": "꼭 입력해야 하는 항목이에요.",
+        // 로그인/계정
+        "Sign in with GitHub": "GitHub으로 로그인",
+        "Login with GitHub": "GitHub으로 로그인",
+        "Sign In": "로그인", "Sign in": "로그인", "Login": "로그인",
+        "Sign Out": "로그아웃", "Sign out": "로그아웃", "Log out": "로그아웃",
+        // 미디어 라이브러리
+        "Media": "미디어", "Media Library": "사진 보관함",
+        "Upload": "업로드", "Upload new": "새로 업로드",
+        "Insert": "넣기", "Choose": "선택", "Choose an image": "이미지 선택",
+        "Choose selected": "선택한 사진 넣기",
+        "Browse": "찾아보기", "Search": "검색", "Search…": "검색…", "Search...": "검색…",
+        "Download": "다운로드", "Copy": "복사", "Copy URL": "주소 복사",
+        // 메뉴/상태
+        "Contents": "콘텐츠", "Settings": "설정", "Workflow": "워크플로",
+        "Loading…": "불러오는 중…", "Loading...": "불러오는 중…",
+        "No results": "결과 없음", "No results.": "결과가 없어요."
       };
 
       function deepCollect(root, out){
