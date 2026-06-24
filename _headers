@@ -12,3 +12,6 @@
 
 /service-worker.js
   Cache-Control: no-cache
+
+/serviceworker.js
+  Cache-Control: no-cache
