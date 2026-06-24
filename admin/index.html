@@ -6,6 +6,7 @@
   <meta name="robots" content="noindex" />
   <title>보니따스냅 관리자</title>
   <style>
+    /* 모바일에서 '당겨서 새로고침'이 자꾸 뜨는 것을 막고, 스크롤은 정상 동작 */
     html, body {
       min-height: 100% !important;
       height: auto !important;
@@ -13,6 +14,8 @@
       overflow-x: hidden !important;
       position: static !important;
       -webkit-overflow-scrolling: touch;
+      overscroll-behavior: none;
+      overscroll-behavior-y: none;
     }
     /* Sveltia CMS 루트 요소 */
     sveltia-cms, #sveltia-cms, [data-sveltia-cms] {
@@ -20,6 +23,7 @@
       height: auto !important;
       min-height: 100vh;
       overflow: visible !important;
+      overscroll-behavior: none;
     }
   </style>
 </head>
@@ -27,23 +31,25 @@
   <!-- Sveltia CMS — Decap 호환, 여러 장 업로드 지원, GitHub 로그인 -->
   <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js" type="module"></script>
   <script>
+    // 스크롤 잠금 해제 + 당겨서 새로고침 방지 (과도한 반복 실행은 피함)
     const unlockScroll = () => {
-      document.documentElement.style.overflowY = 'auto';
-      document.body.style.overflowY = 'auto';
-      document.body.style.position = 'static';
-      document.body.style.height = 'auto';
-      document.body.style.touchAction = 'pan-y';
+      const de = document.documentElement, b = document.body;
+      de.style.overflowY = 'auto';
+      de.style.overscrollBehavior = 'none';
+      b.style.overflowY = 'auto';
+      b.style.position = 'static';
+      b.style.height = 'auto';
+      b.style.touchAction = 'pan-y';
+      b.style.overscrollBehavior = 'none';
     };
 
     unlockScroll();
-    new MutationObserver(unlockScroll).observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class', 'style'],
-    });
-    new MutationObserver(unlockScroll).observe(document.body, {
-      attributes: true,
-      attributeFilter: ['class', 'style'],
-    });
+    // 초기 렌더 동안에만 몇 차례 보정 (무한 옵저버 대신 가벼운 타이머)
+    let ticks = 0;
+    const iv = setInterval(() => {
+      unlockScroll();
+      if (++ticks > 20) clearInterval(iv); // 약 10초 후 정지
+    }, 500);
   </script>
 </body>
 </html>

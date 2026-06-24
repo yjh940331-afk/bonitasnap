@@ -78,7 +78,7 @@ collections:
             summary: "{{fields.title}} · {{fields.category}}"
             hint: "예식장이나 촬영 건별로 앨범을 만들고, 그 안에 사진을 여러 장 넣어주세요. 사이트에는 앨범 대표 사진만 먼저 보이고, 클릭하면 앨범 안 사진을 넘겨볼 수 있습니다."
             fields:
-              - { label: "예식장 이름(사진 위에 표시)", name: "title", widget: "string", hint: "예: 남산뜰, 엘리에나호텔. 비워두면 분류명(밝은홀 등)이 표시됩니다." }
+              - { label: "예식장 이름(사진 위에 표시)", name: "title", widget: "string", required: false, hint: "예: 남산뜰, 엘리에나호텔. 비워두면 분류명(밝은홀 등)이 표시됩니다." }
               - { label: "대표 사진(목록에 보이는 사진)", name: "cover", widget: "image", required: false, hint: "비워두면 앨범 안 첫 번째 사진이 대표 사진으로 보입니다." }
               - { label: "짧은 설명", name: "description", widget: "string", required: false, default: "" }
               - label: "분류"
