@@ -77,6 +77,7 @@
       if (!byKey[key]) {
         byKey[key] = {
           title: title,
+          venue: item.venue || item.hall || "",
           category: normalizeCategory(normalized.category),
           description: "",
           cover: thumbOf(normalized),
@@ -158,11 +159,9 @@
       fig.dataset.index = index;
       fig.style.transitionDelay = ((index % 6) * 0.04) + "s";
       fig.innerHTML =
-        '<img src="' + esc(coverSrc) + '" alt="' + esc(album.title) + '" loading="lazy" />' +
-        (album.items.length > 1 ? '<span class="album-count">' + album.items.length + '</span>' : "") +
+        '<img src="' + esc(coverSrc) + '" alt="' + esc(album.venue || categoryLabel(album.category)) + '" loading="lazy" />' +
         '<span class="cap"><span class="album-meta">' +
-          "<strong>" + esc(album.title) + "</strong>" +
-          '<em>' + esc(album.description || categoryLabel(album.category)) + "</em>" +
+          "<strong>" + esc(album.venue || categoryLabel(album.category)) + "</strong>" +
         "</span></span>";
       fig.addEventListener("click", function () { openGalleryItem(index); });
       gallery.appendChild(fig);
@@ -441,7 +440,7 @@
     head.className = "lb-scroll-head";
     head.innerHTML =
       "<strong>" + esc(activeAlbumTitle || "Portfolio") + "</strong>" +
-      "<span>" + activeItems.length + "장 · 아래로 스크롤해서 보기</span>";
+      "<span>아래로 스크롤해서 보기</span>";
     lbStage.appendChild(head);
 
     activeItems.forEach(function (item, index) {
@@ -452,7 +451,7 @@
       row.appendChild(makeScrollMedia(item));
       var caption = document.createElement("p");
       caption.className = "lb-scroll-caption";
-      caption.textContent = (item.caption || categoryLabel(category)) + " · " + (index + 1) + " / " + activeItems.length;
+      caption.textContent = item.caption || categoryLabel(category);
       row.appendChild(caption);
       lbStage.appendChild(row);
     });
