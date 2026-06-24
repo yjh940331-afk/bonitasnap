@@ -42,7 +42,6 @@ collections:
             name: "about"
             widget: "object"
             fields:
-              - { label: "소개 사진", name: "image", widget: "image", required: false }
               - { label: "제목", name: "title", widget: "string" }
               - { label: "소개 글", name: "body", widget: "text", hint: "줄바꿈으로 문장을 나눠 주세요." }
 

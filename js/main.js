@@ -103,8 +103,6 @@
   }
 
   if (C.about) {
-    var ai = $("[data-about-img]");
-    if (ai && C.about.image) ai.src = C.about.image;
     if (C.about.title) $("[data-about-title]").textContent = C.about.title;
     var ab = $("[data-about-body]");
     if (ab && C.about.body) ab.innerHTML = lines(C.about.body).map(function (p) { return "<p>" + p + "</p>"; }).join("");
