@@ -148,9 +148,16 @@
         "Edit": "편집", "Editing": "편집 중", "Preview": "미리보기",
         "Replace": "사진 교체", "Remove": "사진 제거",
         "Reset": "초기화", "Back": "뒤로", "Apply": "적용", "Done": "완료",
-        // 복구(드래프트)
+        // 복구(임시 저장본/드래프트)
         "Restore": "이전 작업 복구",
         "Discard": "복구 안 함(새로 시작)",
+        "Restore draft": "임시 저장본 복구",
+        "Discard draft": "임시 저장본 버리기",
+        "Restore Backup": "임시 저장본 복구",
+        "Restore backup": "임시 저장본 복구",
+        "Delete backup": "임시 저장본 삭제",
+        "Draft": "임시 저장본", "Drafts": "임시 저장본",
+        "Backup": "임시 저장본",
         "Restore?": "이전 작업을 복구할까요?",
         "An unsaved version of this entry was found.": "저장하지 않은 작업 내용이 남아 있어요.",
         "Recovered an unsaved entry.": "저장하지 않은 작업 내용을 찾았어요.",
@@ -184,15 +191,39 @@
           if (nodes[i].shadowRoot) deepCollect(nodes[i].shadowRoot, out);
         }
       }
+      // 정확히 일치하지 않는 긴 영어 안내문은 '포함' 규칙으로 통째 치환
+      var PHRASES = [
+        [/restore\s+draft/i, "임시 저장본 복구"],
+        [/discard\s+draft/i, "임시 저장본 버리기"],
+        [/this entry has a backup/i, "이 글은 이 브라우저에 임시 저장본이 남아 있어요. 복구할까요?"],
+        [/a backup .*was found|backup .*saved|saved .*backup/i, "임시 저장본이 저장되어 있어요. 복구할까요?"],
+        [/an (earlier|unsaved) version .*was (found|saved)/i, "저장하지 않은 이전 작업 내용이 남아 있어요. 복구할까요?"],
+        [/would you like to restore/i, "이어서 작업할까요?"],
+        [/unsaved changes/i, "저장하지 않은 변경 사항이 있어요."],
+        [/are you sure you want to (delete|remove)/i, "정말 삭제할까요?"],
+        [/this action cannot be undone/i, "이 작업은 되돌릴 수 없어요."],
+        [/no (items|entries|results)/i, "내용이 없어요."]
+      ];
+
+      function looksEnglish(t){ return /[A-Za-z]/.test(t) && !/[가-힣]/.test(t); }
+
       function relabel(){
         var all = [];
         try { deepCollect(document, all); } catch(e){ return; }
         for (var i=0;i<all.length;i++){
           var el = all[i];
-          if (el.children && el.children.length === 0){
-            var t = el.textContent && el.textContent.trim();
-            if (t && DICT[t] && el.textContent.trim() !== DICT[t]){
-              el.textContent = DICT[t];
+          if (!(el.children && el.children.length === 0)) continue;
+          var t = el.textContent && el.textContent.trim();
+          if (!t) continue;
+          // 1) 정확히 일치
+          if (DICT[t]){
+            if (t !== DICT[t]) el.textContent = DICT[t];
+            continue;
+          }
+          // 2) 긴 영어 안내문은 포함 규칙으로
+          if (looksEnglish(t)){
+            for (var p=0; p<PHRASES.length; p++){
+              if (PHRASES[p][0].test(t)){ el.textContent = PHRASES[p][1]; break; }
             }
           }
         }
