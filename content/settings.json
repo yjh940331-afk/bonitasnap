@@ -94,74 +94,7 @@
     }
   ],
   "brand": "Bonita Snap",
-  "portfolio": [
-    {
-      "image": "/images/uploads/photo-1.jpg",
-      "youtube": "",
-      "category": "brightHall",
-      "caption": "본식 스냅"
-    },
-    {
-      "image": "/images/uploads/photo-2.jpg",
-      "youtube": "",
-      "category": "brightHall",
-      "caption": "본식 스냅"
-    },
-    {
-      "image": "/images/uploads/photo-3.jpg",
-      "youtube": "",
-      "category": "brightHall",
-      "caption": "본식 스냅"
-    },
-    {
-      "image": "/images/uploads/photo-4.jpg",
-      "youtube": "",
-      "category": "brightHall",
-      "caption": "본식 스냅"
-    },
-    {
-      "image": "/images/uploads/photo-5.jpg",
-      "youtube": "",
-      "category": "brightHall",
-      "caption": "본식 스냅"
-    },
-    {
-      "image": "/images/uploads/photo-6.jpg",
-      "youtube": "",
-      "category": "brightHall",
-      "caption": "본식 스냅"
-    },
-    {
-      "image": "/images/uploads/photo-7.jpg",
-      "youtube": "",
-      "category": "brightHall",
-      "caption": "본식 스냅"
-    },
-    {
-      "image": "/images/uploads/photo-8.jpg",
-      "youtube": "",
-      "category": "brightHall",
-      "caption": "본식 스냅"
-    },
-    {
-      "image": "/images/uploads/photo-9.jpg",
-      "youtube": "",
-      "category": "brightHall",
-      "caption": "본식 스냅"
-    },
-    {
-      "image": "/images/uploads/photo-10.jpg",
-      "youtube": "",
-      "category": "brightHall",
-      "caption": "본식 스냅"
-    },
-    {
-      "image": "/images/uploads/photo-11.jpg",
-      "youtube": "",
-      "category": "brightHall",
-      "caption": "본식 스냅"
-    }
-  ],
+  "portfolio": [],
   "trustBadges": [
     {
       "icon": "ID",
@@ -226,7 +159,72 @@
       }
     ]
   },
-  "portfolioAlbums": [],
+  "portfolioAlbums": [
+    {
+      "title": "",
+      "venue": "",
+      "cover": "",
+      "description": "밝은홀",
+      "category": "brightHall",
+      "images": [
+        {
+          "image": "/images/uploads/photo-1.jpg",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "/images/uploads/photo-2.jpg",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "/images/uploads/photo-3.jpg",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "/images/uploads/photo-4.jpg",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "/images/uploads/photo-5.jpg",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "/images/uploads/photo-6.jpg",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "/images/uploads/photo-7.jpg",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "/images/uploads/photo-8.jpg",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "/images/uploads/photo-9.jpg",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "/images/uploads/photo-10.jpg",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "/images/uploads/photo-11.jpg",
+          "youtube": "",
+          "caption": ""
+        }
+      ]
+    }
+  ],
   "about": {
     "image": "/images/uploads/보니따뜻.jpg",
     "title": "Bonita Snap",

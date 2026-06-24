@@ -53,9 +53,11 @@
     if (!rawItems.length && (album.image || album.src || album.youtube || album.id)) rawItems = [album];
     var items = rawItems.map(normItem).filter(hasMedia);
     var first = items[0] || {};
-    var title = album.title || album.name || album.venue || album.caption || categoryLabel(album.category || first.category) || ("앨범 " + (i + 1));
+    var venue = album.venue || album.title || album.name || "";
+    var title = venue || album.caption || categoryLabel(album.category || first.category) || ("앨범 " + (i + 1));
     return {
       title: title,
+      venue: venue,
       category: normalizeCategory(album.category || first.category),
       description: album.description || album.desc || "",
       cover: album.cover || album.image || thumbOf(first),
@@ -158,11 +160,13 @@
       fig.className = "gallery-item reveal" + (isVideo(item) ? " is-video" : "");
       fig.dataset.index = index;
       fig.style.transitionDelay = ((index % 6) * 0.04) + "s";
+      var venueLabel = album.venue || categoryLabel(album.category);
       fig.innerHTML =
-        '<img src="' + esc(coverSrc) + '" alt="' + esc(album.venue || categoryLabel(album.category)) + '" loading="lazy" />' +
-        '<span class="cap"><span class="album-meta">' +
-          "<strong>" + esc(album.venue || categoryLabel(album.category)) + "</strong>" +
-        "</span></span>";
+        '<p class="gallery-venue">' + esc(venueLabel) + "</p>" +
+        '<div class="gallery-photo">' +
+          '<img src="' + esc(coverSrc) + '" alt="' + esc(venueLabel) + '" loading="lazy" />' +
+          (isVideo(item) ? '<span class="play"></span>' : "") +
+        "</div>";
       fig.addEventListener("click", function () { openGalleryItem(index); });
       gallery.appendChild(fig);
     });
@@ -396,7 +400,7 @@
       item._albumCategory = album.category;
       return item;
     });
-    activeAlbumTitle = album.title;
+    activeAlbumTitle = album.venue || album.title;
     pos = album.items.indexOf(entry.item);
     if (pos < 0) pos = 0;
     showScrollLb();
@@ -449,10 +453,13 @@
       row.className = "lb-scroll-item";
       row.dataset.scrollIndex = index;
       row.appendChild(makeScrollMedia(item));
-      var caption = document.createElement("p");
-      caption.className = "lb-scroll-caption";
-      caption.textContent = item.caption || categoryLabel(category);
-      row.appendChild(caption);
+      var capText = item.caption || "";
+      if (capText) {
+        var caption = document.createElement("p");
+        caption.className = "lb-scroll-caption";
+        caption.textContent = capText;
+        row.appendChild(caption);
+      }
       lbStage.appendChild(row);
     });
   }
