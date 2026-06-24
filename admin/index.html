@@ -124,5 +124,43 @@
       });
     })();
   </script>
+
+  <!-- 영어 버튼/문구를 한글로 자동 치환 (Restore/Discard 등) -->
+  <script>
+    (function(){
+      // 영어 → 한글 (정확히 일치하는 글자만 바꿈)
+      var DICT = {
+        "Restore": "이전 작업 복구",
+        "Discard": "복구 안 함(새로 시작)",
+        "Restore?": "이전 작업을 복구할까요?",
+        "An unsaved version of this entry was found.": "저장하지 않은 작업 내용이 남아 있어요.",
+        "Recovered an unsaved entry.": "저장하지 않은 작업 내용을 찾았어요.",
+        "This content has unsaved changes. Are you sure you want to leave?": "저장하지 않은 변경 사항이 있어요. 정말 나가시겠어요?"
+      };
+
+      function deepCollect(root, out){
+        var nodes = root.querySelectorAll('*');
+        for (var i=0;i<nodes.length;i++){
+          out.push(nodes[i]);
+          if (nodes[i].shadowRoot) deepCollect(nodes[i].shadowRoot, out);
+        }
+      }
+      function relabel(){
+        var all = [];
+        try { deepCollect(document, all); } catch(e){ return; }
+        for (var i=0;i<all.length;i++){
+          var el = all[i];
+          if (el.children && el.children.length === 0){
+            var t = el.textContent && el.textContent.trim();
+            if (t && DICT[t] && el.textContent.trim() !== DICT[t]){
+              el.textContent = DICT[t];
+            }
+          }
+        }
+      }
+      // CMS가 다시 그릴 때마다 덮어쓰므로 주기적으로 재적용
+      setInterval(relabel, 600);
+    })();
+  </script>
 </body>
 </html>
