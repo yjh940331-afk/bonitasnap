@@ -234,29 +234,32 @@
       "</article>";
     }
 
-    // 모든 상품을 세로로 펼쳐서 한눈에
-    if (productGuide) {
-      productGuide.innerHTML = C.products.map(function (p, i) {
-        return productBlockHtml(p, i);
-      }).join("");
+    // 선택한 상품 1개만 표로 표시 (한눈에)
+    function showProduct(index) {
+      if (productGuide) {
+        var product = C.products[index] || C.products[0];
+        productGuide.innerHTML = product ? productBlockHtml(product, index) : "";
+      }
+      $$(".product-filter", priceGrid).forEach(function (b) {
+        b.classList.toggle("active", Number(b.dataset.productIndex) === index);
+      });
+      observeReveal();
     }
 
-    // 상단 가격 카드: 클릭 시 해당 상품 표로 스크롤
+    // 포트폴리오 필터처럼 심플한 [베이직] [프리미엄] 선택 버튼
+    priceGrid.className = "filters product-filters reveal";
     priceGrid.innerHTML = C.products.map(function (p, i) {
-      var count = productGroups(p).length;
-      return '<button type="button" class="price-card reveal" data-product-index="' + i + '">' +
-        "<h3>" + esc(p.name || "") + "</h3>" +
-        '<p class="pc-desc">' + esc(p.desc || "") + "</p>" +
-        '<p class="pc-price">' + esc(p.price || "") + "</p>" +
-        '<span class="pc-count">' + (count ? count + "개 안내" : "카카오톡 문의") + "</span>" +
+      return '<button type="button" class="filter product-filter' + (i === 0 ? " active" : "") + '" data-product-index="' + i + '">' +
+        esc(p.label || p.name || ("상품 " + (i + 1))) +
       "</button>";
     }).join("");
-    $$(".price-card", priceGrid).forEach(function (card) {
-      card.addEventListener("click", function () {
-        var target = document.getElementById("product-" + (card.dataset.productIndex || 0));
-        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    $$(".product-filter", priceGrid).forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        showProduct(Number(btn.dataset.productIndex || 0));
       });
     });
+
+    showProduct(0);
   }
 
   /* ---------- 문의 링크 ---------- */

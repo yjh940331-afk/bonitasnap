@@ -3,6 +3,7 @@
   "products": [
     {
       "name": "Basic",
+      "label": "베이직",
       "desc": "베이직 상품",
       "price": "400,000원",
       "intro": "Bonita Snap의 모든 촬영과 보정은 대표 작가 1인이 진행하고 있습니다.",
@@ -57,6 +58,7 @@
     },
     {
       "name": "Premium",
+      "label": "프리미엄",
       "desc": "프리미엄",
       "price": "600,000원",
       "intro": "Bonita Snap의 모든 촬영과 보정은 대표 작가 1인이 진행하고 있습니다.",
