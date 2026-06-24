@@ -10,7 +10,7 @@ window.SITE_CONFIG = {
   kakao: "https://pf.kakao.com/_AxnPxdn",
   hero: { image: "" },
   about: { image: "", title: "Natural & Timeless", body: "" },
-  portfolio: [], portfolioAlbums: [], products: [], reviews: [], process: [], faq: [],
+  portfolio: [], portfolioAlbums: [], products: [], process: [], faq: [],
   photographer: {
     title: "대표 작가 박아름",
     name: "박아름",

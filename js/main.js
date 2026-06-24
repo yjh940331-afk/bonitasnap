@@ -353,20 +353,6 @@
   }
 
   /* ---------- 후기 ---------- */
-  var reviewGrid = $("#reviewGrid");
-  if (reviewGrid && C.reviews) {
-    reviewGrid.innerHTML = C.reviews.map(function (r, i) {
-      var photo = r.image ? '<img class="r-photo" src="' + r.image + '" alt="후기 사진" loading="lazy" />' : "";
-      var sub = [r.venue, r.date].filter(Boolean).join(" · ");
-      return '<div class="review-card reveal" style="transition-delay:' + (Math.min(i, 5) * 0.07) + 's">' +
-        photo +
-        '<div class="stars">★★★★★</div>' +
-        '<p class="r-text">' + (r.text || "") + "</p>" +
-        '<div class="r-meta"><div class="r-name">' + (r.name || "") + "</div>" +
-        (sub ? '<div class="r-sub">' + sub + "</div>" : "") + "</div></div>";
-    }).join("");
-  }
-
   /* ---------- 예약 절차 ---------- */
   var processList = $("#processList");
   if (processList && C.process) {

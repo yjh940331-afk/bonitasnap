@@ -120,19 +120,6 @@ collections:
                     widget: "list"
                     field: { label: "내용", name: "item", widget: "text" }
 
-          # ---------- 후기 ----------
-          - label: "신랑신부 후기"
-            name: "reviews"
-            widget: "list"
-            label_singular: "후기"
-            summary: "{{fields.name}} · {{fields.venue}}"
-            fields:
-              - { label: "작성자", name: "name", widget: "string" }
-              - { label: "예식장", name: "venue", widget: "string", required: false }
-              - { label: "날짜", name: "date", widget: "string", required: false }
-              - { label: "후기 내용", name: "text", widget: "text" }
-              - { label: "후기 사진(선택)", name: "image", widget: "image", required: false }
-
           # ---------- 예약 절차 ----------
           - label: "예약 절차"
             name: "process"
