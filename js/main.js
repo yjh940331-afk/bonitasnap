@@ -208,55 +208,55 @@
       return groups.filter(function (group) { return group.title || group.items.length; });
     }
 
-    function renderProductDetail(index) {
-      if (!productGuide) return;
-      var product = C.products[index] || C.products[0];
-      if (!product) return;
+    // 상품 1개를 PDF 스타일 표 1장으로 (전체폭 안내 배너 + 카테고리|내용 행)
+    function productBlockHtml(product, index) {
       var groups = productGroups(product);
+      var introRow = product.intro
+        ? '<tr><td class="product-intro" colspan="2">' + esc(product.intro) + "</td></tr>"
+        : "";
       var rows = groups.map(function (group) {
         return "<tr>" +
           '<th scope="row">' + esc(group.title || "상품 안내") + "</th>" +
           "<td>" + (group.items.length ? "<ul>" + listHtml(group.items) + "</ul>" : '<span class="product-table-empty">상담 시 안내드립니다.</span>') + "</td>" +
         "</tr>";
       }).join("");
-      productGuide.innerHTML = '<article class="product-detail">' +
-        '<div class="product-detail-head">' +
-          "<h3>" + esc(product.name || "") + "</h3>" +
-          '<p class="pd-price">' + esc(product.price || "") + "</p>" +
-          (product.desc ? '<p class="pd-desc">' + esc(product.desc) + "</p>" : "") +
+      return '<article class="product-block reveal" id="product-' + index + '">' +
+        '<div class="product-block-head">' +
+          "<h3>[" + esc(product.name || "") + "]</h3>" +
+          '<p class="pb-price">' + esc(product.price || "") + "</p>" +
         "</div>" +
-        (groups.length ? '<div class="product-table-wrap">' +
+        (groups.length || introRow ? '<div class="product-table-wrap">' +
           '<table class="product-table">' +
-            "<thead><tr><th scope=\"col\">카테고리</th><th scope=\"col\">내용</th></tr></thead>" +
-            "<tbody>" + rows + "</tbody>" +
+            '<colgroup><col class="pt-col-cat" /><col /></colgroup>' +
+            "<tbody>" + introRow + rows + "</tbody>" +
           "</table>" +
         "</div>" : '<p class="product-empty">상세 구성은 카카오톡 채널로 문의해 주세요.</p>') +
       "</article>";
     }
 
-    function renderProductTabs(activeIndex) {
-      priceGrid.setAttribute("role", "tablist");
-      priceGrid.innerHTML = C.products.map(function (p, i) {
-        var count = productGroups(p).length;
-        return '<button type="button" class="price-card reveal' + (i === activeIndex ? " active" : "") + '" role="tab" aria-selected="' + (i === activeIndex ? "true" : "false") + '" data-product-index="' + i + '">' +
-          "<h3>" + esc(p.name || "") + "</h3>" +
-          '<p class="pc-desc">' + esc(p.desc || "") + "</p>" +
-          '<p class="pc-price">' + esc(p.price || "") + "</p>" +
-          '<span class="pc-count">' + (count ? count + "개 카테고리" : "카카오톡 문의") + "</span>" +
-        "</button>";
+    // 모든 상품을 세로로 펼쳐서 한눈에
+    if (productGuide) {
+      productGuide.innerHTML = C.products.map(function (p, i) {
+        return productBlockHtml(p, i);
       }).join("");
-      $$(".price-card", priceGrid).forEach(function (card) {
-        card.addEventListener("click", function () {
-          var index = Number(card.dataset.productIndex || 0);
-          renderProductTabs(index);
-          renderProductDetail(index);
-          observeReveal();
-        });
-      });
     }
 
-    renderProductTabs(0);
-    renderProductDetail(0);
+    // 상단 가격 카드: 클릭 시 해당 상품 표로 스크롤
+    priceGrid.innerHTML = C.products.map(function (p, i) {
+      var count = productGroups(p).length;
+      return '<button type="button" class="price-card reveal" data-product-index="' + i + '">' +
+        "<h3>" + esc(p.name || "") + "</h3>" +
+        '<p class="pc-desc">' + esc(p.desc || "") + "</p>" +
+        '<p class="pc-price">' + esc(p.price || "") + "</p>" +
+        '<span class="pc-count">' + (count ? count + "개 안내" : "카카오톡 문의") + "</span>" +
+      "</button>";
+    }).join("");
+    $$(".price-card", priceGrid).forEach(function (card) {
+      card.addEventListener("click", function () {
+        var target = document.getElementById("product-" + (card.dataset.productIndex || 0));
+        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
   }
 
   /* ---------- 문의 링크 ---------- */
