@@ -5,9 +5,9 @@
     "image": "/images/uploads/img_9744.jpg"
   },
   "about": {
-    "image": "",
     "title": "Bonita Snap",
-    "body": "'Bonita' (보니따) 는\n스페인어로 '아름답다', '예쁘다'라는 뜻을 가지고 있는 단어입니다.\n\n가장 아름답게 기억되고 싶은,\n가장 예쁘게 기록하고 싶은 나의 웨딩 데이\n\n그날을 오래도록 아름답게 추억하실 수 있도록\n저희 'Bonita Snap'이 함께하겠습니다"
+    "body": "'Bonita' (보니따) 는\n스페인어로 '아름답다', '예쁘다'라는 뜻을 가지고 있는 단어입니다.\n\n가장 아름답게 기억되고 싶은,\n가장 예쁘게 기록하고 싶은 나의 웨딩 데이\n\n그날을 오래도록 아름답게 추억하실 수 있도록\n저희 'Bonita Snap'이 함께하겠습니다",
+    "image": ""
   },
   "photographer": {
     "title": "대표 작가 박아름",
@@ -47,7 +47,7 @@
   ],
   "portfolioAlbums": [
     {
-      "title": "",
+      "title": "예식장",
       "cover": "",
       "description": "밝은홀",
       "category": "brightHall",
@@ -164,8 +164,8 @@
           ]
         }
       ],
-      "intro": "Bonita Snap의 모든 촬영과 보정은 대표 작가 1인이 진행하고 있습니다.",
-      "label": "베이직"
+      "label": "베이직",
+      "intro": "Bonita Snap의 모든 촬영과 보정은 대표 작가 1인이 진행하고 있습니다."
     },
     {
       "name": "Premium",
@@ -200,8 +200,8 @@
           ]
         }
       ],
-      "intro": "Bonita Snap의 모든 촬영과 보정은 대표 작가 1인이 진행하고 있습니다.",
-      "label": "프리미엄"
+      "label": "프리미엄",
+      "intro": "Bonita Snap의 모든 촬영과 보정은 대표 작가 1인이 진행하고 있습니다."
     }
   ],
   "process": [
