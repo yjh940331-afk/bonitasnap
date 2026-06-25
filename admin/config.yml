@@ -4,9 +4,19 @@ backend:
   branch: main
   base_url: https://sveltia-cms-auth.yjh940331.workers.dev
 
-# 업로드한 사진이 저장되는 폴더 (Git 기본 미디어 라이브러리)
+# 업로드한 사진이 저장되는 폴더 (Git 기본 미디어 라이브러리 - 기존 사진 호환용)
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
+
+# 사진 저장소: Cloudflare R2 (대용량 원본 업로드용)
+# - 비밀키(Secret Access Key)는 여기 넣지 않음. 관리자에서 사진 처음 올릴 때 1회 입력 → 브라우저에 안전 저장.
+media_libraries:
+  cloudflare_r2:
+    account_id: b8c01aa804c1c42982b17864b74e975b
+    bucket: bonitasnap-images
+    access_key_id: 5db68e1d66ee478e2da9b33d8e162f6b
+    public_url: https://media.bonitasnap.com
+    prefix: uploads/
 
 # 편집 화면 언어/문구
 locale: "ko"
