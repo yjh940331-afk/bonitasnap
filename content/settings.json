@@ -2,7 +2,7 @@
   "brand": "Bonita Snap",
   "kakao": "https://pf.kakao.com/_AxnPxdn",
   "hero": {
-    "image": "/images/uploads/img_9744.jpg"
+    "image": "/images/uploads/IMG_9744.JPG"
   },
   "about": {
     "title": "Bonita Snap",
@@ -651,8 +651,8 @@
           ]
         }
       ],
-      "intro": "Bonita Snap의 모든 촬영과 보정은 대표 작가 1인이 진행하고 있습니다.",
-      "label": "베이직"
+      "label": "베이직",
+      "intro": "Bonita Snap의 모든 촬영과 보정은 대표 작가 1인이 진행하고 있습니다."
     },
     {
       "name": "Premium",
@@ -687,8 +687,8 @@
           ]
         }
       ],
-      "intro": "Bonita Snap의 모든 촬영과 보정은 대표 작가 1인이 진행하고 있습니다.",
-      "label": "프리미엄"
+      "label": "프리미엄",
+      "intro": "Bonita Snap의 모든 촬영과 보정은 대표 작가 1인이 진행하고 있습니다."
     }
   ],
   "process": [
