@@ -11,6 +11,7 @@
   --accent:    #a8927a;   /* 포인트 색 (모카/베이지) */
   --logo:      "Playfair Display", "Cormorant Garamond", serif;
   --serif:     "Cormorant Garamond", "Noto Sans KR", serif;
+  --myeongjo:  "Nanum Myeongjo", "AppleMyungjo", "Batang", serif;
   --sans:      "Noto Sans KR", -apple-system, BlinkMacSystemFont, sans-serif;
   --max:       1180px;
 }
@@ -114,10 +115,11 @@ a { color: inherit; text-decoration: none; }
   max-width: var(--max); margin: 0 auto; display: grid;
   grid-template-columns: minmax(0, 760px); gap: 32px; justify-content: center; align-items: center; text-align: center;
 }
-.about-text { text-align: center; }
-.about-text .section-title { margin-bottom: 18px; font-family: var(--logo); font-size: clamp(22px, 3vw, 30px); text-align: center; }
+.about-text { text-align: center; font-family: var(--myeongjo); }
+.about-text .section-label { font-family: var(--myeongjo); font-size: 11px; font-weight: 400; letter-spacing: 3px; }
+.about-text .section-title { margin-bottom: 16px; font-family: var(--myeongjo); font-size: clamp(19px, 2.5vw, 25px); font-weight: 700; text-align: center; }
 .about-body { max-width: 620px; margin: 0 auto; }
-.about-body p { color: var(--muted); margin-bottom: 10px; font-size: 14.5px; line-height: 1.85; }
+.about-body p { color: var(--muted); margin-bottom: 8px; font-size: 13px; line-height: 1.78; font-weight: 400; }
 
 /* ============ 대표 작가 ============ */
 .photographer { background: var(--bg); }
@@ -126,12 +128,15 @@ a { color: inherit; text-decoration: none; }
   grid-template-columns: minmax(0, 1fr); gap: 34px; align-items: center;
   text-align: center; justify-content: center;
 }
-.photographer-copy { max-width: 560px; margin: 0 auto; }
-.photographer-role { color: var(--accent); font-size: 13.5px; font-weight: 500; margin: 4px 0 22px; }
-.photographer-body p { color: var(--muted); font-size: 14px; line-height: 1.8; margin-bottom: 9px; }
+.photographer-copy { max-width: 560px; margin: 0 auto; font-family: var(--myeongjo); }
+.photographer-copy .section-label { font-family: var(--myeongjo); font-size: 11px; font-weight: 400; letter-spacing: 3px; }
+.photographer-copy .section-title { font-family: var(--myeongjo); }
+.photographer-role { color: var(--accent); font-size: 12.5px; font-weight: 400; margin: 4px 0 20px; }
+.photographer-body p { color: var(--muted); font-size: 13px; line-height: 1.76; margin-bottom: 8px; font-weight: 400; }
+.photographer-body p.photographer-signature { font-size: 14px; font-weight: 700; }
 .photographer-promise {
-  max-width: 520px; margin: 22px auto 0; padding: 16px 18px; border: 1px solid rgba(168,146,122,.32);
-  border-radius: 8px; background: rgba(168,146,122,.1); color: var(--ink); font-size: 13.5px; line-height: 1.75; font-weight: 500;
+  max-width: 500px; margin: 18px auto 0; padding: 13px 15px; border: 1px solid rgba(168,146,122,.32);
+  border-radius: 8px; background: rgba(168,146,122,.1); color: var(--ink); font-family: var(--sans); font-size: 12.5px; line-height: 1.65; font-weight: 500;
 }
 .photographer-profile { position: relative; width: min(100%, 340px); margin: 0 auto; }
 .photographer-profile img {
@@ -156,17 +161,17 @@ a { color: inherit; text-decoration: none; }
   grid-template-columns: repeat(3, 1fr); gap: 14px;
 }
 .trust-card {
-  min-height: 194px; padding: 28px 26px; border: 1px solid var(--line); border-radius: 8px;
+  min-height: 164px; padding: 22px 21px; border: 1px solid var(--line); border-radius: 8px;
   background: var(--bg); transition: transform .35s, box-shadow .35s;
 }
 .trust-card:hover { transform: translateY(-4px); box-shadow: 0 14px 34px rgba(80,68,55,.08); }
 .trust-icon {
   display: inline-flex; align-items: center; justify-content: center;
-  min-width: 44px; height: 34px; padding: 0 10px; border-radius: 8px;
-  color: #fff; background: var(--ink); font-size: 12px; font-weight: 700;
+  min-width: 40px; height: 30px; padding: 0 9px; border-radius: 8px;
+  color: #fff; background: var(--ink); font-size: 11px; font-weight: 700;
 }
-.trust-card h3 { margin: 18px 0 8px; font-size: 18px; font-weight: 500; }
-.trust-card p { color: var(--muted); font-size: 14px; line-height: 1.7; }
+.trust-card h3 { margin: 14px 0 7px; font-size: 15.5px; font-weight: 500; }
+.trust-card p { color: var(--muted); font-size: 13px; line-height: 1.6; }
 
 /* ============ 포트폴리오 ============ */
 .portfolio { max-width: var(--max); margin: 0 auto; }
@@ -190,7 +195,7 @@ a { color: inherit; text-decoration: none; }
 .gallery::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 999px; }
 .gallery-item { cursor: pointer; scroll-snap-align: start; }
 .gallery-venue {
-  text-align: center; font-family: var(--serif); font-size: 16px; font-weight: 600;
+  text-align: center; font-family: var(--serif); font-size: 16px; font-weight: 400;
   color: var(--ink); letter-spacing: .5px; padding: 4px 6px 12px;
 }
 .gallery-photo { position: relative; overflow: hidden; aspect-ratio: 3/4; background: var(--bg-alt); }
@@ -326,12 +331,12 @@ a { color: inherit; text-decoration: none; }
 
 /* ============ 문의 ============ */
 .contact { text-align: center; }
-.contact-lead { color: var(--muted); font-size: 16px; margin-bottom: 38px; }
+.contact-lead { color: var(--muted); font-size: 14px; margin-bottom: 34px; }
 .contact-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
 .contact-links a {
   display: inline-flex; align-items: center; gap: 9px;
-  border: 1px solid var(--line); padding: 14px 30px; border-radius: 40px;
-  font-size: 14px; letter-spacing: .5px; transition: .3s;
+  border: 1px solid var(--line); padding: 13px 26px; border-radius: 40px;
+  font-size: 13px; letter-spacing: .5px; transition: .3s;
 }
 .contact-links a:hover { border-color: var(--accent); color: var(--accent); }
 .contact-links .primary-contact {
@@ -369,7 +374,7 @@ a { color: inherit; text-decoration: none; }
 /* ============ 푸터 ============ */
 .site-footer { display: none; text-align: center; padding: 56px 24px; border-top: 1px solid var(--line); }
 body.panel-open .site-footer { display: block; }
-.footer-brand { font-family: var(--logo); font-size: 20px; letter-spacing: 3px; font-weight: 600; }
+.footer-brand { font-family: var(--logo); font-size: 16px; letter-spacing: 2.4px; font-weight: 600; }
 .footer-copy { color: var(--muted); font-size: 12px; margin-top: 10px; }
 
 /* ============ 라이트박스 ============ */
@@ -431,10 +436,10 @@ iframe.lb-scroll-media { aspect-ratio: 16/9; border: 0; }
 .faq-q {
   width: 100%; background: none; border: none; cursor: pointer; font-family: var(--sans);
   display: flex; align-items: center; gap: 16px; text-align: left;
-  padding: 26px 8px; color: var(--ink); font-size: 17px; font-weight: 400; transition: color .25s;
+  padding: 22px 8px; color: var(--ink); font-size: 15px; font-weight: 400; transition: color .25s;
 }
 .faq-q:hover { color: var(--accent); }
-.faq-qmark { font-family: var(--serif); font-size: 22px; font-weight: 600; color: var(--accent); flex: none; width: 22px; }
+.faq-qmark { font-family: var(--serif); font-size: 19px; font-weight: 600; color: var(--accent); flex: none; width: 20px; }
 .faq-qtext { flex: 1; line-height: 1.5; }
 .faq-icon { position: relative; width: 16px; height: 16px; flex: none; }
 .faq-icon::before, .faq-icon::after {
@@ -445,7 +450,7 @@ iframe.lb-scroll-media { aspect-ratio: 16/9; border: 0; }
 .faq-icon::after  { width: 1.5px; height: 16px; transform: translate(-50%, -50%); }
 .faq-item.open .faq-icon::after { transform: translate(-50%, -50%) scaleY(0); }
 .faq-a { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
-.faq-a-inner { padding: 0 8px 28px 54px; color: var(--muted); font-size: 15px; line-height: 1.8; }
+.faq-a-inner { padding: 0 8px 24px 52px; color: var(--muted); font-size: 13.5px; line-height: 1.75; }
 
 /* ============ 예약 절차 ============ */
 .process-list { max-width: 980px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; position: relative; }

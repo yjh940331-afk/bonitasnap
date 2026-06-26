@@ -119,7 +119,13 @@
     if (phTitle) phTitle.textContent = ph.title || ("대표 작가 " + (ph.name || ""));
     if (phRole) phRole.textContent = ph.role || "Bonita Snap 대표 작가";
     if (phImg) phImg.src = ph.image || (C.about && C.about.image) || "";
-    if (phBody) phBody.innerHTML = lines(ph.body || ph.philosophy).map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("");
+    if (phBody) {
+      var phLines = lines(ph.body || ph.philosophy);
+      phBody.innerHTML = phLines.map(function (p, i) {
+        var isSignature = i === phLines.length - 1 && /대표\s*작가\s*박아름/.test(String(p).trim());
+        return '<p' + (isSignature ? ' class="photographer-signature"' : "") + ">" + esc(p) + "</p>";
+      }).join("");
+    }
     if (phPromise) phPromise.textContent = ph.promise || "";
     if (phCount) phCount.textContent = ph.shootCount || ph.count || "100건+";
   }
