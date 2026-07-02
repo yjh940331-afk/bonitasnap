@@ -596,6 +596,129 @@
           "caption": ""
         }
       ]
+    },
+    {
+      "title": "L65호텔",
+      "cover": "https://media.bonitasnap.com/uploads/batch_IMG_9033_jpg.JPG",
+      "description": "L65호텔",
+      "category": "brightHall",
+      "images": [
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_9021.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_9022.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_9023.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_9024.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_9025.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_9026.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_9028.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_4212_jpg.jpg",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_4218.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_4222.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_9029.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_9030.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_9031.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_4266.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_4319_jpg.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_9032.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_9033_jpg.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_9034.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_9035.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_8642.jpg",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_9036.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_9037.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_4578.JPG",
+          "youtube": "",
+          "caption": ""
+        }
+      ]
     }
   ],
   "products": [
@@ -933,11 +1056,11 @@
     },
     {
       "title": "원본 전달",
-      "desc": "촬영 후 2~3일 내 원본 전체를 전달해 드립니다."
+      "desc": "촬영 후 당일 1000장 이상의 원본 전체를 전달해 드립니다."
     },
     {
       "title": "보정본 완성",
-      "desc": "약 2주 내 색감 보정본을 보내드립니다."
+      "desc": "예식일 기준 3일 이내 프리미엄 인물보정본과 감성보정본을 보내드립니다."
     }
   ],
   "availability": {
@@ -946,7 +1069,7 @@
     "note": "인기 예식일은 먼저 마감될 수 있어 일정이 정해졌다면 빠른 문의를 권장드립니다.",
     "items": [
       "토요일 황금 시간대는 우선 마감될 수 있습니다.",
-      "수도권 외 지역은 출장 가능 여부와 교통비를 함께 안내드립니다.",
+      "서울, 경기 남부외 지역은 출장 가능 여부와 출장를 함께 안내드립니다.",
       "예약 가능 여부는 카카오톡 채널에서 가장 빠르게 확인할 수 있습니다."
     ]
   },
@@ -985,27 +1108,27 @@
     },
     {
       "q": "촬영은 정말 아이폰으로만 진행되나요?",
-      "a": "맞습니다. 보니타스냅의 모든 결과물은 아이폰으로 촬영합니다. 무거운 장비 없이 가볍게 다가가 가장 자연스러운 순간을 담아냅니다."
+      "a": "맞습니다. 보니따 스냅의 모든 결과물은 아이폰으로 촬영합니다. 무거운 장비 없이 가볍게 다가가 가장 자연스러운 순간을 담아냅니다."
     },
     {
       "q": "원본 사진도 전부 받을 수 있나요?",
-      "a": "네, 촬영한 원본 전체를 제공해 드리며, 상품에 포함된 수량만큼 색감 보정본을 추가로 전달해 드립니다."
+      "a": "네, 촬영한 원본 전체를 제공해 드리며, 상품에 포함된 수량만큼 프리미엄 인물 보정본과 감성 보정본을 추가로 전달해 드립니다."
     },
     {
       "q": "사진은 언제쯤 받아볼 수 있나요?",
-      "a": "원본은 촬영 후 2~3일 내 전달드리며, 보정본은 약 2주 내외로 작업해 보내드립니다. (성수기에는 다소 지연될 수 있습니다)"
+      "a": "원본은 촬영 후 당일 전송해 드리며, 프리미엄 인물 보정본과 감성 보정본은 3일 이내 작업해 보내드립니다."
     },
     {
       "q": "예약은 어떻게 하나요? 예약금이 있나요?",
-      "a": "카카오톡 채널로 날짜와 장소를 알려주시면 안내해 드립니다. 예약금은 예약 확정 시 결제되며, 잔금은 촬영일에 정산합니다."
+      "a": "카카오톡 채널로 날짜와 장소를 알려주시면 예약 가능여부와 함께 예약 안내해 드립니다. 예약금은 예약 확정 시 결제되며, 60일 전 계약금의 50%, 촬영 이후 원본전송후 잔여금 결제해 주시면 됩니다."
     },
     {
       "q": "예약 취소·환불 규정이 궁금해요.",
-      "a": "촬영 30일 전 취소 시 예약금 전액 환불, 14일 전 50% 환불, 7일 이내 취소 시 환불이 어렵습니다. 자세한 일정은 문의 시 안내드립니다."
+      "a": "예약일 기준 7일 이내 전액 환불, 본식일 기준 60일 전 예약 보증금 제외 계약금 100%환불 가능, 본식일 기준 59-31일 이내 예약 보증금 제외 계약금 50% 환불 가능, 본식일 기준 30-당일 예약 보정금 및 계약금 전액 환불 불가합니다."
     },
     {
       "q": "촬영 시간은 어떻게 되나요?",
-      "a": "상품별로 다릅니다. 본식 스냅은 약 3시간, 돌·가족/행사 스냅은 약 2시간 기준이며, 추가 시간은 30분당 별도 비용으로 연장 가능합니다."
+      "a": "상품별로 다릅니다. 베이직 상품의 경우 예식 1시간 전 촬영 시작, 원판까지 촬영을 진행합니다.\n프리미엄 상품의 경우 예식 2시간 전 촬영을 시작하여 2부 샴페인 제의까지 촬영을 진행합니다.\n추가 시간은 30분당 별도 비용으로 연장 가능합니다."
     },
     {
       "q": "신부 대기실·준비 과정부터 촬영되나요?",
@@ -1013,11 +1136,11 @@
     },
     {
       "q": "영상 촬영도 함께 가능한가요?",
-      "a": "네, 아이폰 기반의 웨딩 필름 촬영도 함께 진행합니다. 스냅과 묶음 예약 시 더 합리적으로 안내해 드립니다."
+      "a": "네, 짧은 영상으로 남겨드리며 원본 파일로 당일 전송해 드립니다."
     },
     {
       "q": "촬영 가능 지역이 정해져 있나요?",
-      "a": "수도권을 기본으로 하며, 그 외 지역도 교통비 협의 후 촬영 가능합니다. 편하게 문의해 주세요."
+      "a": "서울과 경기 남부 지역을 기본으로 하며, 그 외 지역도 출장비 협의 후 촬영 가능합니다. 편하게 문의해 주세요."
     }
   ],
   "booking": {
