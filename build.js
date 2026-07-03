@@ -30,3 +30,33 @@ if (html === before) {
   fs.writeFileSync(file, html);
   console.log("[build] 정적 파일 버전 스탬프 완료 → ?v=" + version);
 }
+
+/* ---------------------------------------------------------------
+   포트폴리오 앨범: content/albums/*.json 을 하나로 합쳐
+   content/portfolio-albums.json 생성 (사이트는 이 파일 하나만 읽음).
+   앨범을 개별 파일로 관리해 업로드/저장이 가볍고 안전해집니다.
+   --------------------------------------------------------------- */
+try {
+  const dir = "content/albums";
+  let albums = [];
+  if (fs.existsSync(dir)) {
+    albums = fs.readdirSync(dir)
+      .filter(function (f) { return /\.json$/i.test(f); })
+      .map(function (f) {
+        try { return JSON.parse(fs.readFileSync(dir + "/" + f, "utf8")); }
+        catch (e) { console.warn("[build] 앨범 파싱 실패:", f, e.message); return null; }
+      })
+      .filter(Boolean);
+  }
+  // 표시 순서: order(작을수록 먼저) → title
+  albums.sort(function (a, b) {
+    var ao = typeof a.order === "number" ? a.order : 9999;
+    var bo = typeof b.order === "number" ? b.order : 9999;
+    if (ao !== bo) return ao - bo;
+    return String(a.title || "").localeCompare(String(b.title || ""));
+  });
+  fs.writeFileSync("content/portfolio-albums.json", JSON.stringify(albums, null, 2));
+  console.log("[build] 포트폴리오 앨범 합침 → " + albums.length + "개");
+} catch (e) {
+  console.warn("[build] 앨범 합치기 실패:", e.message);
+}

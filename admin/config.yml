@@ -91,32 +91,7 @@ collections:
               - { label: "설명", name: "text", widget: "string" }
 
           # ---------- 포트폴리오 ----------
-          - label: "포트폴리오 앨범"
-            name: "portfolioAlbums"
-            widget: "list"
-            label_singular: "앨범"
-            summary: "{{fields.title}} · {{fields.category}}"
-            hint: "예식장이나 촬영 건별로 앨범을 만들고, 그 안에 사진을 여러 장 넣어주세요. 사이트에는 앨범 대표 사진만 먼저 보이고, 클릭하면 앨범 안 사진을 넘겨볼 수 있습니다."
-            fields:
-              - { label: "예식장 이름(사진 위에 표시)", name: "title", widget: "string", required: false, hint: "예: 남산뜰, 엘리에나호텔. 비워두면 분류명(밝은홀 등)이 표시됩니다." }
-              - { label: "대표 사진(목록에 보이는 사진)", name: "cover", widget: "image", required: false, hint: "비워두면 앨범 안 첫 번째 사진이 대표 사진으로 보입니다." }
-              - { label: "짧은 설명", name: "description", widget: "string", required: false, default: "" }
-              - label: "분류"
-                name: "category"
-                widget: "select"
-                options:
-                  - { label: "밝은홀", value: "brightHall" }
-                  - { label: "어두운홀", value: "darkHall" }
-                  - { label: "야외예식", value: "outdoorWedding" }
-              - label: "앨범 안 사진·영상"
-                name: "images"
-                widget: "list"
-                label_singular: "사진"
-                summary: "{{fields.caption}}"
-                fields:
-                  - { label: "사진", name: "image", widget: "image", required: false }
-                  - { label: "유튜브 영상 ID(영상일 때만)", name: "youtube", widget: "string", required: false, default: "" }
-                  - { label: "사진 설명(선택)", name: "caption", widget: "string", required: false, default: "" }
+          # (포트폴리오 앨범은 아래 '포트폴리오 앨범' 컬렉션에서 앨범별 개별 파일로 관리합니다)
 
           # ---------- 가격 ----------
           - label: "촬영 상품(가격)"
@@ -214,3 +189,40 @@ collections:
             widget: "object"
             fields:
               - { label: "폼 위 안내 문구", name: "note", widget: "string", required: false }
+
+  # ============ 포트폴리오 앨범 (예식장별 개별 파일) ============
+  # 앨범 하나 = 파일 하나로 관리 → 사진을 추가해도 그 앨범만 저장되어 가볍고 안전합니다.
+  - name: "albums"
+    label: "포트폴리오 앨범"
+    label_singular: "앨범"
+    folder: "content/albums"
+    format: "json"
+    create: true
+    delete: true
+    identifier_field: "title"
+    summary: "{{fields.title}} · {{fields.category}}"
+    sortable_fields: ["order", "title"]
+    editor:
+      preview: false
+    fields:
+      - { label: "예식장 이름(사진 위에 표시)", name: "title", widget: "string", required: false, hint: "예: 남산뜰, 엘리에나호텔. 비워두면 분류명(밝은홀 등)이 표시됩니다." }
+      - label: "분류"
+        name: "category"
+        widget: "select"
+        default: "brightHall"
+        options:
+          - { label: "밝은홀", value: "brightHall" }
+          - { label: "어두운홀", value: "darkHall" }
+          - { label: "야외예식", value: "outdoorWedding" }
+      - { label: "표시 순서(작을수록 먼저)", name: "order", widget: "number", required: false, default: 0, value_type: "int" }
+      - { label: "대표 사진(목록에 보이는 사진)", name: "cover", widget: "image", required: false, hint: "비워두면 앨범 안 첫 번째 사진이 대표 사진으로 보입니다." }
+      - { label: "짧은 설명", name: "description", widget: "string", required: false, default: "" }
+      - label: "앨범 안 사진·영상"
+        name: "images"
+        widget: "list"
+        label_singular: "사진"
+        summary: "{{fields.caption}}"
+        fields:
+          - { label: "사진", name: "image", widget: "image", required: false }
+          - { label: "유튜브 영상 ID(영상일 때만)", name: "youtube", widget: "string", required: false, default: "" }
+          - { label: "사진 설명(선택)", name: "caption", widget: "string", required: false, default: "" }

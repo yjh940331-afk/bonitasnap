@@ -1,6 +1,9 @@
 /content/settings.json
   Cache-Control: no-cache
 
+/content/portfolio-albums.json
+  Cache-Control: no-cache
+
 /js/*
   Cache-Control: no-cache
 
