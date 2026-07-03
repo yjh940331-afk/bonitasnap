@@ -598,6 +598,74 @@
       ]
     },
     {
+      "title": "용산 드래곤 시티 호텔",
+      "cover": "https://media.bonitasnap.com/uploads/batch_IMG_6510.JPG",
+      "description": "용산 드래곤 시티 호텔",
+      "category": "brightHall",
+      "images": [
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_6510.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_8108.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_8107.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/C4C1D0D9-BB32-4D62-BB6C-91608DB35D8B.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/E0EAFC45-230D-4B7D-93E8-2B3414194733.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_8154 2.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_8155 2.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/11E7506B-8955-4FA5-A946-BA45837C8C42.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_8230.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_8550.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_6521.JPG",
+          "youtube": "",
+          "caption": ""
+        },
+        {
+          "image": "https://media.bonitasnap.com/uploads/batch_IMG_8718.JPG",
+          "youtube": "",
+          "caption": ""
+        }
+      ]
+    },
+    {
       "title": "L65호텔",
       "cover": "https://media.bonitasnap.com/uploads/batch_IMG_9033_jpg.JPG",
       "description": "L65호텔",
@@ -882,8 +950,8 @@
           ]
         }
       ],
-      "intro": "Bonita Snap의 모든 촬영과 보정은 대표 작가 1인이 진행하고 있습니다.",
-      "label": "베이직"
+      "label": "베이직",
+      "intro": "Bonita Snap의 모든 촬영과 보정은 대표 작가 1인이 진행하고 있습니다."
     },
     {
       "name": "Premium",
@@ -1037,8 +1105,8 @@
           ]
         }
       ],
-      "intro": "Bonita Snap의 모든 촬영과 보정은 대표 작가 1인이 진행하고 있습니다.",
-      "label": "프리미엄"
+      "label": "프리미엄",
+      "intro": "Bonita Snap의 모든 촬영과 보정은 대표 작가 1인이 진행하고 있습니다."
     }
   ],
   "process": [
