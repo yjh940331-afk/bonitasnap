@@ -6,7 +6,7 @@
   },
   "about": {
     "title": "Bonita Snap",
-    "body": "'Bonita' (보니따) 는\n스페인어로 '아름답다', '예쁘다'라는 뜻을 가지고 있는 단어입니다.\n      \n가장 아름답게 기억되고 싶은,\n가장 예쁘게 기록하고 싶은 나의 웨딩 데이\n      \n그날을 오래도록 아름답게 추억하실 수 있도록\n저희 'Bonita Snap'이 함께하겠습니다",
+    "body": "'Bonita' (보니따)는\n스페인어로 '아름답다', '예쁘다'라는 뜻을 가지고 있는 단어입니다.\n\n가장 아름답게 기억되고 싶은,\n가장 예쁘게 기록하고 싶은 나의 웨딩 데이.\n\n그날을 오래도록 아름답게 추억하실 수 있도록\nBonita Snap이 함께하겠습니다.",
     "image": ""
   },
   "photographer": {
@@ -1318,5 +1318,12 @@
     "note": "예약 문의는 카카오톡 채널을 통해서만 안내드립니다. 예식일과 예식장을 함께 남겨주시면 더 빠르게 확인해 드릴 수 있어요."
   },
   "portfolio": [],
-  "tagline": ""
+  "tagline": "",
+  "company": {
+    "name": "보니따 스냅 (Bonita Snap)",
+    "owner": "박아름",
+    "bizNumber": "707-17-02276",
+    "email": "on_o_ff_@naver.com",
+    "instagram": "https://www.instagram.com/bonita_snap_"
+  }
 }

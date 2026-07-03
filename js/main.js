@@ -48,6 +48,18 @@
     return lines(items).map(function (item) { return "<li>" + esc(item) + "</li>"; }).join("");
   }
 
+  /* 여러 줄 텍스트를 문단(빈 줄 기준)+줄바꿈(엔터) 그대로 살려서 HTML로.
+     빈 줄 = 문단 구분(<p>), 한 줄 엔터 = 줄바꿈(<br>) */
+  function paragraphsHtml(v) {
+    var text = Array.isArray(v) ? v.join("\n") : String(v || "");
+    text = text.replace(/\r\n/g, "\n");
+    return text.split(/\n[ \t]*\n/).map(function (para) {
+      var p = para.replace(/^\n+|\n+$/g, "");
+      if (!p) return "";
+      return "<p>" + esc(p).replace(/\n/g, "<br>") + "</p>";
+    }).filter(Boolean).join("");
+  }
+
   function normalizeAlbum(album, i) {
     var rawItems = album.images || album.items || album.photos || [];
     if (!rawItems.length && (album.image || album.src || album.youtube || album.id)) rawItems = [album];
@@ -105,7 +117,7 @@
   if (C.about) {
     if (C.about.title) $("[data-about-title]").textContent = C.about.title;
     var ab = $("[data-about-body]");
-    if (ab && C.about.body) ab.innerHTML = lines(C.about.body).map(function (p) { return "<p>" + p + "</p>"; }).join("");
+    if (ab && C.about.body) ab.innerHTML = paragraphsHtml(C.about.body);
   }
 
   if (C.photographer) {
@@ -131,6 +143,28 @@
   }
 
   var yr = $("#year"); if (yr) yr.textContent = new Date().getFullYear();
+
+  /* ---------- 푸터: 소셜 아이콘 + 업체 정보 ---------- */
+  var footerSocial = $("#footerSocial");
+  if (footerSocial) {
+    var IG_SVG = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>';
+    var KA_SVG = '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 3C6.9 3 2.8 6.3 2.8 10.3c0 2.6 1.8 4.9 4.4 6.2-.2.7-.7 2.5-.8 2.9 0 0-.02.13.07.18.09.05.2.01.2.01.26-.04 3-2 3.6-2.4.56.08 1.14.12 1.73.12 5.1 0 9.2-3.3 9.2-7.3S17.1 3 12 3z"/></svg>';
+    var links = "";
+    var ig = (C.company && C.company.instagram) || C.instagram;
+    if (ig) links += '<a href="' + esc(ig) + '" target="_blank" rel="noopener" aria-label="인스타그램">' + IG_SVG + "</a>";
+    if (C.kakao) links += '<a href="' + esc(C.kakao) + '" target="_blank" rel="noopener" aria-label="카카오톡 채널">' + KA_SVG + "</a>";
+    footerSocial.innerHTML = links;
+  }
+  var footerCompany = $("#footerCompany");
+  if (footerCompany) {
+    var co = C.company || {};
+    var rows = [];
+    if (co.name) rows.push("업체명 : " + esc(co.name));
+    if (co.owner) rows.push("대표 : " + esc(co.owner));
+    if (co.bizNumber) rows.push("사업자번호 : " + esc(co.bizNumber));
+    if (co.email) rows.push("E-Mail : " + esc(co.email));
+    footerCompany.innerHTML = rows.map(function (r) { return "<span>" + r + "</span>"; }).join("");
+  }
 
   /* ---------- 항목 종류 판별 ---------- */
   function isVideo(item) { return item && (item.type === "video" || item.type === "youtube"); }

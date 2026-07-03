@@ -40,6 +40,17 @@ collections:
           - { label: "브랜드명", name: "brand", widget: "string", hint: "사이트 곳곳에 표시되는 이름" }
           - { label: "카카오톡 채널 주소", name: "kakao", widget: "string", required: false }
 
+          # ---------- 하단 업체 정보 ----------
+          - label: "하단 업체 정보(푸터)"
+            name: "company"
+            widget: "object"
+            fields:
+              - { label: "업체명", name: "name", widget: "string", required: false, default: "보니따 스냅 (Bonita Snap)" }
+              - { label: "대표", name: "owner", widget: "string", required: false, default: "박아름" }
+              - { label: "사업자번호", name: "bizNumber", widget: "string", required: false, default: "707-17-02276" }
+              - { label: "이메일", name: "email", widget: "string", required: false, default: "on_o_ff_@naver.com" }
+              - { label: "인스타그램 주소", name: "instagram", widget: "string", required: false, hint: "예: https://www.instagram.com/아이디" }
+
           # ---------- 메인(첫 화면) ----------
           - label: "메인 첫 화면"
             name: "hero"
