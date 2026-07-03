@@ -228,8 +228,21 @@
           }
         }
       }
-      // CMS가 다시 그릴 때마다 덮어쓰므로 주기적으로 재적용
-      setInterval(relabel, 600);
+      // 화면이 계속 바뀌는 동안(예: 사진 대량 업로드)엔 실행하지 않고,
+      // 변화가 '멎은 뒤'에만 한 번 실행 → 부하 최소화(업로드 안정성↑)
+      var pending = null;
+      function scheduleRelabel(){
+        if (pending) return;
+        pending = setTimeout(function(){ pending = null; relabel(); }, 500);
+      }
+      relabel();
+      try {
+        new MutationObserver(scheduleRelabel).observe(document.documentElement, {
+          childList: true, subtree: true, characterData: true,
+        });
+      } catch (e) {}
+      // 초기 렌더 동안만 몇 차례 보정 후 정지
+      var n = 0, iv = setInterval(function(){ relabel(); if (++n > 5) clearInterval(iv); }, 700);
     })();
   </script>
 </body>
