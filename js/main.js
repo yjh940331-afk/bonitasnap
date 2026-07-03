@@ -60,6 +60,17 @@
     }).filter(Boolean).join("");
   }
 
+  /* 표 셀 내용 → 글머리표(-) 목록. 빈 줄 = 새 항목, 한 줄 엔터 = 항목 안 줄바꿈 */
+  function bulletsHtml(v) {
+    var text = Array.isArray(v) ? v.join("\n\n") : String(v || "");
+    text = text.replace(/\r\n/g, "\n");
+    return text.split(/\n[ \t]*\n/).map(function (block) {
+      var b = block.replace(/^\n+|\n+$/g, "");
+      if (!b) return "";
+      return "<li>" + esc(b).replace(/\n/g, "<br>") + "</li>";
+    }).filter(Boolean).join("");
+  }
+
   function normalizeAlbum(album, i) {
     var rawItems = album.images || album.items || album.photos || [];
     if (!rawItems.length && (album.image || album.src || album.youtube || album.id)) rawItems = [album];
@@ -224,54 +235,41 @@
   var priceGrid = $("#priceGrid");
   var productGuide = $("#productGuide");
   if (priceGrid && C.products) {
-    function productGroups(product) {
-      var structured = product.categories || product.optionCategories || product.sections;
-      if (Array.isArray(structured) && structured.length) {
-        return structured.map(function (group) {
-          return {
-            title: group.title || group.name || "상품 안내",
-            items: lines(group.items || group.options || group.features || group.body),
-          };
-        }).filter(function (group) { return group.title || group.items.length; });
+    // 섹션 하나 렌더 (표 또는 본문)
+    function sectionHtml(sec) {
+      if (!sec) return "";
+      var type = sec.type || (sec.rows ? "table" : (sec.body != null ? "text" : "table"));
+      if (type === "text") {
+        var body = paragraphsHtml(sec.body || "");
+        if (!body && !sec.title) return "";
+        return '<div class="product-textblock">' +
+          (sec.title ? '<h4 class="pt-title">' + esc(sec.title) + "</h4>" : "") +
+          (body ? '<div class="pt-body">' + body + "</div>" : "") +
+        "</div>";
       }
-
-      var groups = [];
-      lines(product.features).forEach(function (raw) {
-        var text = String(raw).trim();
-        var heading = text.match(/^\[(.+)\]$/);
-        if (heading) {
-          groups.push({ title: heading[1], items: [] });
-        } else if (text) {
-          if (!groups.length) groups.push({ title: "상품 안내", items: [] });
-          groups[groups.length - 1].items.push(text);
-        }
-      });
-      return groups.filter(function (group) { return group.title || group.items.length; });
-    }
-
-    // 상품 1개를 PDF 스타일 표 1장으로 (전체폭 안내 배너 + 카테고리|내용 행)
-    function productBlockHtml(product, index) {
-      var groups = productGroups(product);
-      var introRow = product.intro
-        ? '<tr><td class="product-intro" colspan="2">' + esc(product.intro) + "</td></tr>"
-        : "";
-      var rows = groups.map(function (group) {
+      var rows = (sec.rows || []).map(function (r) {
+        var content = bulletsHtml(r.content != null ? r.content : (r.items || r.body || ""));
         return "<tr>" +
-          '<th scope="row">' + esc(group.title || "상품 안내") + "</th>" +
-          "<td>" + (group.items.length ? "<ul>" + listHtml(group.items) + "</ul>" : '<span class="product-table-empty">상담 시 안내드립니다.</span>') + "</td>" +
+          '<th scope="row">' + esc(r.category || r.title || "") + "</th>" +
+          "<td>" + (content ? "<ul>" + content + "</ul>" : '<span class="product-table-empty">상담 시 안내드립니다.</span>') + "</td>" +
         "</tr>";
       }).join("");
+      if (!rows) return "";
+      var titleRow = sec.title ? '<tr><td class="product-intro" colspan="2">' + esc(sec.title) + "</td></tr>" : "";
+      return '<div class="product-table-wrap"><table class="product-table">' +
+        '<colgroup><col class="pt-col-cat" /><col /></colgroup>' +
+        "<tbody>" + titleRow + rows + "</tbody></table></div>";
+    }
+
+    function productBlockHtml(product, index) {
+      var sections = Array.isArray(product.sections) ? product.sections : [];
+      var body = sections.map(sectionHtml).filter(Boolean).join("");
       return '<article class="product-block reveal" id="product-' + index + '">' +
         '<div class="product-block-head">' +
           "<h3>[" + esc(product.name || "") + "]</h3>" +
           '<p class="pb-price">' + esc(product.price || "") + "</p>" +
         "</div>" +
-        (groups.length || introRow ? '<div class="product-table-wrap">' +
-          '<table class="product-table">' +
-            '<colgroup><col class="pt-col-cat" /><col /></colgroup>' +
-            "<tbody>" + introRow + rows + "</tbody>" +
-          "</table>" +
-        "</div>" : '<p class="product-empty">상세 구성은 카카오톡 채널로 문의해 주세요.</p>') +
+        (body || '<p class="product-empty">상세 구성은 카카오톡 채널로 문의해 주세요.</p>') +
       "</article>";
     }
 

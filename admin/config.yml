@@ -125,20 +125,35 @@ collections:
             label_singular: "상품"
             summary: "{{fields.name}} · {{fields.price}}"
             fields:
-              - { label: "상품명", name: "name", widget: "string" }
+              - { label: "상품명(영문, 예: Basic)", name: "name", widget: "string" }
+              - { label: "선택 버튼 이름(예: 베이직)", name: "label", widget: "string", required: false }
               - { label: "설명", name: "desc", widget: "string", required: false }
               - { label: "가격", name: "price", widget: "string" }
-              - label: "상품별 상세 카테고리"
-                name: "categories"
+              - label: "구성(섹션 — 표 또는 본문)"
+                name: "sections"
                 widget: "list"
-                label_singular: "카테고리"
+                label_singular: "섹션"
                 summary: "{{fields.title}}"
+                hint: "위에서부터 순서대로 화면에 표시됩니다. '표'는 왼쪽 항목·오른쪽 내용의 표, '본문'은 줄글로 나옵니다."
                 fields:
-                  - { label: "카테고리 제목", name: "title", widget: "string", hint: "예: 촬영 안내, 촬영 기기, 전송 파일, 할인 옵션" }
-                  - label: "안내 내용"
-                    name: "items"
+                  - label: "종류"
+                    name: "type"
+                    widget: "select"
+                    default: "table"
+                    options:
+                      - { label: "표", value: "table" }
+                      - { label: "본문(줄글)", value: "text" }
+                  - { label: "제목(표 상단 안내문 / 본문 소제목)", name: "title", widget: "string", required: false }
+                  - label: "표 내용 (종류가 '표'일 때만)"
+                    name: "rows"
                     widget: "list"
-                    field: { label: "내용", name: "item", widget: "text" }
+                    required: false
+                    label_singular: "행"
+                    summary: "{{fields.category}}"
+                    fields:
+                      - { label: "왼쪽 항목명", name: "category", widget: "string" }
+                      - { label: "오른쪽 내용", name: "content", widget: "text", hint: "빈 줄(엔터 2번)로 항목을 나눕니다. 한 항목 안에서 줄바꿈은 엔터 1번." }
+                  - { label: "본문 글 (종류가 '본문'일 때만)", name: "body", widget: "text", required: false, hint: "빈 줄(엔터 2번)로 문단을 나눕니다. 문단 안 줄바꿈은 엔터 1번." }
 
           # ---------- 예약 절차 ----------
           - label: "예약 절차"
