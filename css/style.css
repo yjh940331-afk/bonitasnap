@@ -307,7 +307,7 @@ a { color: inherit; text-decoration: none; }
 .product-table th,
 .product-table td {
   padding: 12px 14px; border-bottom: 1px solid var(--line); border-right: 1px solid var(--line);
-  vertical-align: top; overflow-wrap: break-word; word-break: keep-all; min-width: 0;
+  vertical-align: top; overflow-wrap: anywhere; word-break: keep-all; min-width: 0;
 }
 .product-table td:last-child { border-right: 0; max-width: 0; }
 /* 전체폭 안내 배너 행 */
@@ -325,7 +325,7 @@ a { color: inherit; text-decoration: none; }
 .product-table ul { list-style: none; min-width: 0; }
 .product-table li {
   position: relative; padding: 5px 0 5px 12px; color: var(--muted);
-  font-size: 13.5px; line-height: 1.6; overflow-wrap: break-word; word-break: keep-all;
+  font-size: 13.5px; line-height: 1.6; overflow-wrap: anywhere; word-break: keep-all;
 }
 .product-table li::before {
   content: "-"; position: absolute; left: 0; top: 5px; color: var(--muted);
