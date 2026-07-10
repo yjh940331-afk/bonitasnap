@@ -150,16 +150,17 @@
         : "";
     }
     if (phBody) {
-      // ​(제로폭 공백) 등으로 나뉜 문단을 정리 → 문단별 <p>, 줄바꿈 <br>
-      var raw = String(ph.body || ph.philosophy || "").replace(/\r\n/g, "\n");
-      raw = raw.split("\n").map(function (l) { return l.replace(/[​﻿]/g, "").replace(/ /g, " ").replace(/\s+$/, ""); }).join("\n");
-      var paras = raw.split(/\n[ \t]*\n/).map(function (p) { return p.replace(/^\n+|\n+$/g, ""); }).filter(Boolean);
-      phBody.innerHTML = paras.map(function (p, i) {
-        var t = p.trim();
-        var isSig = /대표\s*(작가\s*)?박아름/.test(t) && t.length <= 14;
-        var cls = isSig ? "photographer-signature" : (i === 0 ? "photographer-intro" : "");
-        return "<p" + (cls ? ' class="' + cls + '"' : "") + ">" + esc(p).replace(/\n/g, "<br>") + "</p>";
-      }).join("");
+      // 입력한 줄바꿈(엔터)을 그대로 반영(white-space:pre-line). 관리자에서 줄간격 직접 조절 가능.
+      var raw = String(ph.body || ph.philosophy || "").replace(/\r\n/g, "\n").replace(/[​﻿]/g, "");
+      raw = raw.replace(/^\n+/, "").replace(/\n+$/, "");
+      var e = esc(raw);
+      var cut = e.indexOf("\n\n");
+      if (cut === -1) cut = e.length;
+      var html = '<strong class="pb-bold">' + e.slice(0, cut) + "</strong>" + e.slice(cut);
+      html = html.replace(/(^|\n)(대표\s*(?:작가\s*)?박아름)(?=\n|$)/, function (m, a, b) {
+        return a + '<strong class="pb-bold">' + b + "</strong>";
+      });
+      phBody.innerHTML = html;
     }
     if (phPromise) phPromise.textContent = ph.promise || "";
     if (phCount) phCount.textContent = ph.shootCount || ph.count || "100건+";

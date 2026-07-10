@@ -133,9 +133,11 @@ a { color: inherit; text-decoration: none; }
 .photographer-copy .section-label { font-family: var(--myeongjo); font-size: 11px; font-weight: 400; letter-spacing: 3px; }
 .photographer-copy .section-title { font-family: var(--myeongjo); }
 .photographer-role { color: var(--accent); font-size: 12.5px; font-weight: 400; margin: 4px 0 20px; }
-.photographer-body p { color: var(--muted); font-size: 13px; line-height: 1.76; margin-bottom: 8px; font-weight: 400; }
-.photographer-body p.photographer-intro { font-weight: 700; color: var(--ink); }
-.photographer-body p.photographer-signature { font-size: 14px; font-weight: 700; color: var(--ink); }
+/* 입력한 줄바꿈 그대로 반영 → 관리자에서 줄간격을 엔터로 직접 조절 가능 */
+.photographer-body { white-space: pre-line; color: var(--muted); font-size: 13px; line-height: 2.0; font-weight: 400; }
+.photographer-body p { color: var(--muted); font-size: 13px; line-height: 2.0; margin-bottom: 8px; font-weight: 400; }
+/* 색은 그대로(연한 색), 굵기만 진하게 */
+.photographer-body .pb-bold { font-weight: 700; }
 .photographer-body-img { margin: 0 0 20px; }
 .photographer-body-img img { width: 100%; max-width: 460px; border-radius: 6px; display: block; }
 .photographer-body-img:empty { display: none; }
