@@ -26,7 +26,7 @@ display_url: https://bonitasnap.com
 
 collections:
   - name: "settings"
-    label: "보니타스냅 관리"
+    label: "보니따스냅 관리"
     delete: false
     editor:
       preview: false
@@ -76,7 +76,8 @@ collections:
               - { label: "역할/직함", name: "role", widget: "string", default: "Bonita Snap 대표 작가" }
               - { label: "프로필 사진", name: "image", widget: "image", required: false, hint: "대표 작가님 얼굴이 나온 프로필 사진을 올려주세요." }
               - { label: "누적 촬영 수", name: "shootCount", widget: "string", default: "100건+" }
-              - { label: "촬영 철학", name: "body", widget: "text", hint: "줄바꿈으로 문장을 나눠 주세요." }
+              - { label: "본문 위 사진(소개 글 바로 위에 표시)", name: "bodyImage", widget: "image", required: false, hint: "비워두면 표시되지 않습니다." }
+              - { label: "촬영 철학", name: "body", widget: "text", hint: "빈 줄(엔터 2번)로 문단을 나눕니다." }
               - { label: "직접 촬영 안내 문구", name: "promise", widget: "string", default: "모든 촬영은 대표 작가가 직접 진행합니다. 알바·외주 촬영 없이 책임 있게 함께합니다." }
 
           # ---------- 신뢰 배지 ----------

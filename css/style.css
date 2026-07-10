@@ -9,7 +9,7 @@
   --muted:     #8c8279;   /* 보조 글자색 */
   --line:      #e3dacd;   /* 구분선 */
   --accent:    #a8927a;   /* 포인트 색 (모카/베이지) */
-  --logo:      "Playfair Display", "Cormorant Garamond", serif;
+  --logo:      "Didot", "GFS Didot", "Playfair Display", serif;
   --serif:     "Nanum Myeongjo", "AppleMyungjo", "Batang", serif;
   --myeongjo:  "Nanum Myeongjo", "AppleMyungjo", "Batang", serif;
   --sans:      "Nanum Myeongjo", "Apple SD Gothic Neo", -apple-system, sans-serif;
@@ -119,7 +119,7 @@ a { color: inherit; text-decoration: none; }
 .about-text .section-label { font-family: var(--myeongjo); font-size: 11px; font-weight: 400; letter-spacing: 3px; }
 .about-text .section-title { margin-bottom: 16px; font-family: var(--logo); font-size: clamp(19px, 2.5vw, 25px); font-weight: 600; text-align: center; letter-spacing: 1px; }
 .about-body { max-width: 620px; margin: 0 auto; }
-.about-body p { color: var(--muted); margin-bottom: 18px; font-size: 14px; line-height: 1.9; font-weight: 400; }
+.about-body p { color: var(--muted); margin-bottom: 16px; font-size: 12.5px; line-height: 1.85; font-weight: 400; }
 .about-body p:last-child { margin-bottom: 0; }
 
 /* ============ 대표 작가 ============ */
@@ -134,7 +134,11 @@ a { color: inherit; text-decoration: none; }
 .photographer-copy .section-title { font-family: var(--myeongjo); }
 .photographer-role { color: var(--accent); font-size: 12.5px; font-weight: 400; margin: 4px 0 20px; }
 .photographer-body p { color: var(--muted); font-size: 13px; line-height: 1.76; margin-bottom: 8px; font-weight: 400; }
-.photographer-body p.photographer-signature { font-size: 14px; font-weight: 700; }
+.photographer-body p.photographer-intro { font-weight: 700; color: var(--ink); }
+.photographer-body p.photographer-signature { font-size: 14px; font-weight: 700; color: var(--ink); }
+.photographer-body-img { margin: 0 0 20px; }
+.photographer-body-img img { width: 100%; max-width: 460px; border-radius: 6px; display: block; }
+.photographer-body-img:empty { display: none; }
 .photographer-promise {
   max-width: 500px; margin: 18px auto 0; padding: 13px 15px; border: 1px solid rgba(168,146,122,.32);
   border-radius: 8px; background: rgba(168,146,122,.1); color: var(--ink); font-family: var(--sans); font-size: 12.5px; line-height: 1.65; font-weight: 500;
@@ -198,6 +202,10 @@ a { color: inherit; text-decoration: none; }
 .gallery-venue {
   text-align: center; font-family: var(--serif); font-size: 16px; font-weight: 400;
   color: var(--ink); letter-spacing: .5px; padding: 4px 6px 12px;
+  /* 긴 이름은 최대 2줄로, 높이 통일 → 앨범들이 가지런히 정렬 */
+  line-height: 1.3; min-height: calc(1.3em * 2 + 16px);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden; word-break: keep-all;
 }
 .gallery-photo { position: relative; overflow: hidden; aspect-ratio: 3/4; background: var(--bg-alt); }
 .gallery-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s ease; }
@@ -274,6 +282,7 @@ a { color: inherit; text-decoration: none; }
 .price-card .pc-price { font-size: 24px; font-weight: 500; color: var(--accent); margin-bottom: 24px; }
 .price-card .pc-count { display: block; border-top: 1px solid var(--line); padding-top: 18px; color: var(--muted); font-size: 13px; }
 .price-note { text-align: center; color: var(--muted); font-size: 13px; margin-top: 34px; }
+.price-kakao { display: flex; justify-content: center; margin-top: 18px; }
 .product-guide {
   max-width: 760px; margin: 34px auto 0; display: block; text-align: left;
   width: 100%; min-width: 0;
@@ -540,8 +549,8 @@ iframe.lb-scroll-media { aspect-ratio: 16/9; border: 0; }
   .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .nav-toggle.open span:nth-child(2) { opacity: 0; }
   .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-  .gallery { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .gallery-venue { font-size: 14px; padding: 4px 4px 10px; }
+  .gallery { grid-template-columns: repeat(2, 1fr); gap: 10px; max-height: none; overflow: visible; scroll-snap-type: none; }
+  .gallery-venue { font-size: 13px; padding: 4px 4px 9px; min-height: calc(1.3em * 2 + 13px); }
   .partner-grid { grid-template-columns: 1fr; }
   .profile-stats { right: 14px; bottom: 14px; }
   .availability-panel { padding: 26px 22px; }

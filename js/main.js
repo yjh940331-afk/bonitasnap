@@ -142,11 +142,23 @@
     if (phTitle) phTitle.textContent = ph.title || ("대표 작가 " + (ph.name || ""));
     if (phRole) phRole.textContent = ph.role || "Bonita Snap 대표 작가";
     if (phImg) phImg.src = ph.image || (C.about && C.about.image) || "";
+    // 본문 위 사진 영역
+    var phBodyImg = $("#photographerBodyImg");
+    if (phBodyImg) {
+      phBodyImg.innerHTML = ph.bodyImage
+        ? '<img src="' + esc(ph.bodyImage) + '" alt="' + esc(ph.name || "대표 작가") + '" loading="lazy" />'
+        : "";
+    }
     if (phBody) {
-      var phLines = lines(ph.body || ph.philosophy);
-      phBody.innerHTML = phLines.map(function (p, i) {
-        var isSignature = i === phLines.length - 1 && /대표\s*작가\s*박아름/.test(String(p).trim());
-        return '<p' + (isSignature ? ' class="photographer-signature"' : "") + ">" + esc(p) + "</p>";
+      // ​(제로폭 공백) 등으로 나뉜 문단을 정리 → 문단별 <p>, 줄바꿈 <br>
+      var raw = String(ph.body || ph.philosophy || "").replace(/\r\n/g, "\n");
+      raw = raw.split("\n").map(function (l) { return l.replace(/[​﻿]/g, "").replace(/ /g, " ").replace(/\s+$/, ""); }).join("\n");
+      var paras = raw.split(/\n[ \t]*\n/).map(function (p) { return p.replace(/^\n+|\n+$/g, ""); }).filter(Boolean);
+      phBody.innerHTML = paras.map(function (p, i) {
+        var t = p.trim();
+        var isSig = /대표\s*(작가\s*)?박아름/.test(t) && t.length <= 14;
+        var cls = isSig ? "photographer-signature" : (i === 0 ? "photographer-intro" : "");
+        return "<p" + (cls ? ' class="' + cls + '"' : "") + ">" + esc(p).replace(/\n/g, "<br>") + "</p>";
       }).join("");
     }
     if (phPromise) phPromise.textContent = ph.promise || "";
@@ -219,6 +231,8 @@
       fig.addEventListener("click", function () { openGalleryItem(index); });
       gallery.appendChild(fig);
     });
+    // 진입 시 갤러리 내부가 아래로 밀려 보이는 현상 방지 (맨 위 = 최근 앨범)
+    gallery.scrollTop = 0;
     observeReveal();
   }
 
@@ -307,6 +321,12 @@
     var links = [];
     if (C.kakao) links.push('<a class="primary-contact" href="' + esc(C.kakao) + '" target="_blank" rel="noopener">카카오톡 채널로 예약 문의하기</a>');
     cl.innerHTML = links.join("");
+  }
+
+  /* ---------- 상품 하단 카카오 배너 ---------- */
+  var priceKakao = $("#priceKakao");
+  if (priceKakao && C.kakao) {
+    priceKakao.innerHTML = '<a class="primary-contact" href="' + esc(C.kakao) + '" target="_blank" rel="noopener">카카오톡 채널로 예약 문의하기</a>';
   }
 
   var trustGrid = $("#trustGrid");

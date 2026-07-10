@@ -3,15 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BONITA SNAP · 결혼식 아이폰 스냅</title>
-  <meta name="description" content="보니타스냅 - 아이폰으로 담는 가장 자연스러운 결혼식 스냅. 본식, 돌, 행사 스냅 전문." />
+  <title>Bonita Snap - Premium iPhone Snap</title>
+  <meta name="description" content="가장 아름답게 기억되고 싶은 나의 웨딩 데이" />
+
+  <!-- 링크 공유(카톡·SNS) 미리보기 -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Bonita Snap" />
+  <meta property="og:title" content="Bonita Snap - Premium iPhone Snap" />
+  <meta property="og:description" content="가장 아름답게 기억되고 싶은 나의 웨딩 데이" />
+  <meta property="og:url" content="https://bonitasnap.com" />
+  <meta property="og:image" content="https://bonitasnap.com/images/uploads/IMG_9744.JPG" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Bonita Snap - Premium iPhone Snap" />
+  <meta name="twitter:description" content="가장 아름답게 기억되고 싶은 나의 웨딩 데이" />
+  <meta name="twitter:image" content="https://bonitasnap.com/images/uploads/IMG_9744.JPG" />
 
   <!-- 폰트 -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Nanum+Myeongjo:wght@400;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=GFS+Didot&family=Nanum+Myeongjo:wght@400;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="css/style.css?v=20260703-5" />
+  <link rel="stylesheet" href="css/style.css?v=20260710-1" />
 
   <!-- 옛 서비스워커/캐시 정리 (예전 버전이 기기에 붙어있는 문제 방지) -->
   <script>
@@ -82,6 +94,7 @@
         <p class="section-label">PHOTOGRAPHER</p>
         <h2 class="section-title" data-photographer-title>대표 작가 박아름</h2>
         <p class="photographer-role" data-photographer-role>Bonita Snap 대표 작가</p>
+        <div class="photographer-body-img" id="photographerBodyImg"><!-- JS: 본문 위 사진 --></div>
         <div class="photographer-body" data-photographer-body></div>
         <p class="photographer-promise" data-photographer-promise></p>
       </div>
@@ -126,7 +139,8 @@
     </div>
     <div class="price-grid" id="priceGrid"><!-- JS로 상품 카테고리 자동 생성 --></div>
     <div class="product-guide reveal" id="productGuide"><!-- JS로 선택 상품 안내 자동 생성 --></div>
-    <p class="price-note reveal">* 모든 상품의 자세한 안내와 일정은 문의를 통해 확인해 주세요.</p>
+    <p class="price-note reveal">모든 상품의 자세한 안내와 일정은 아래 카카오 채널로 문의 부탁드립니다.</p>
+    <div class="price-kakao reveal" id="priceKakao"><!-- JS: 카카오 채널 배너 --></div>
   </section>
 
   <!-- ============ 예약 가능 일정 ============ -->
@@ -200,10 +214,10 @@
   </div>
 
   <!-- 기본값(폴백) → CMS가 관리하는 settings.json 으로 덮어쓴 뒤 앱 실행 -->
-  <script src="js/site-config.js?v=20260703-1"></script>
+  <script src="js/site-config.js?v=20260710-1"></script>
   <script>
     (function () {
-      function run() { var s = document.createElement("script"); s.src = "js/main.js?v=20260703-1"; document.body.appendChild(s); }
+      function run() { var s = document.createElement("script"); s.src = "js/main.js?v=20260710-1"; document.body.appendChild(s); }
       function getJSON(url) {
         return fetch(url, { cache: "no-store" })
           .then(function (r) { return r.ok ? r.json() : null; })
