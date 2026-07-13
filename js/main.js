@@ -224,7 +224,7 @@
       fig.style.transitionDelay = ((index % 6) * 0.04) + "s";
       var venueLabel = album.venue || categoryLabel(album.category);
       fig.innerHTML =
-        '<p class="gallery-venue">' + esc(venueLabel) + "</p>" +
+        '<p class="gallery-venue"><span>' + esc(venueLabel) + "</span></p>" +
         '<div class="gallery-photo">' +
           '<img src="' + esc(coverSrc) + '" alt="' + esc(venueLabel) + '" loading="lazy" />' +
           (isVideo(item) ? '<span class="play"></span>' : "") +
@@ -324,10 +324,11 @@
     cl.innerHTML = links.join("");
   }
 
-  /* ---------- 상품 하단 카카오 배너 ---------- */
+  /* ---------- 상품 하단 카카오 아이콘 (푸터와 동일) ---------- */
   var priceKakao = $("#priceKakao");
   if (priceKakao && C.kakao) {
-    priceKakao.innerHTML = '<a class="primary-contact" href="' + esc(C.kakao) + '" target="_blank" rel="noopener">카카오톡 채널로 예약 문의하기</a>';
+    var KA_ICON = '<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M12 3C6.9 3 2.8 6.3 2.8 10.3c0 2.6 1.8 4.9 4.4 6.2-.2.7-.7 2.5-.8 2.9 0 0-.02.13.07.18.09.05.2.01.2.01.26-.04 3-2 3.6-2.4.56.08 1.14.12 1.73.12 5.1 0 9.2-3.3 9.2-7.3S17.1 3 12 3z"/></svg>';
+    priceKakao.innerHTML = '<a class="kakao-icon-link" href="' + esc(C.kakao) + '" target="_blank" rel="noopener" aria-label="카카오톡 채널로 예약 문의하기">' + KA_ICON + "</a>";
   }
 
   var trustGrid = $("#trustGrid");
