@@ -286,7 +286,7 @@ a { color: inherit; text-decoration: none; }
 .price-card .pc-desc { color: var(--muted); font-size: 14px; margin: 8px 0 22px; }
 .price-card .pc-price { font-size: 24px; font-weight: 500; color: var(--accent); margin-bottom: 24px; }
 .price-card .pc-count { display: block; border-top: 1px solid var(--line); padding-top: 18px; color: var(--muted); font-size: 13px; }
-.price-note { text-align: center; color: var(--muted); font-size: 13px; margin-top: 34px; }
+.price-note { text-align: center; color: var(--ink); font-size: 15px; font-weight: 700; margin-top: 34px; line-height: 1.6; }
 .price-kakao { display: flex; justify-content: center; margin-top: 20px; }
 .kakao-icon-link { color: var(--ink); display: inline-flex; transition: color .25s, transform .25s; }
 .kakao-icon-link:hover { color: var(--accent); transform: translateY(-2px); }
@@ -379,10 +379,10 @@ a { color: inherit; text-decoration: none; }
 }
 .contact-links a:hover { border-color: var(--accent); color: var(--accent); }
 .contact-links .primary-contact {
-  border-color: #f2d000; background: #fee500; color: #2e2a26;
-  font-weight: 500; box-shadow: 0 12px 30px rgba(80,68,55,.1);
+  border-color: var(--accent); background: var(--accent); color: #fff;
+  font-weight: 500; box-shadow: 0 12px 30px rgba(80,68,55,.14);
 }
-.contact-links .primary-contact:hover { border-color: #e0c300; color: #2e2a26; transform: translateY(-2px); }
+.contact-links .primary-contact:hover { border-color: #8f7a63; background: #8f7a63; color: #fff; transform: translateY(-2px); }
 
 /* ============ 제휴 ============ */
 .partners { background: var(--bg-alt); }
